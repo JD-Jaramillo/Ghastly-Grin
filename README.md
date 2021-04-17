@@ -3,27 +3,33 @@ A MERN stack application that lets the user create a user or login and then sele
 
 ## Table of Contents
 
+* [MySQL](#MySQL)
+* [Express](#Express)
 * [React](#React)
-* [Models](#Models)
+* [Node](#Node)
 * [Sockets](#Sockets)
-* [Server](#Server)
 * [Installation](#Installation)
 * [Contributors](#Contributors)
 
-## React
-React is used as the front-end framework to route and render the pages accordingly. 
 
-## Models
+## MySQL
+MySQL was used as the database for this project, storing all of the user information as well as the games created, games played etc. 
 
-## Sockets
-
-## Server
+## Express
 We used Express and sequeleize in the back end and then hosted the site on Heroku. The site can be seen below. 
 
 Link to deployed application: [Deployed site]()
 
+## React
+React is used as the front-end framework to route and render the pages accordingly. 
+
 ![image of home page](/public/images/.png)
 
+## Node
+Node.js was used as the back end language. 
+
+## Sockets
+We used Sockets.io to create a direct connection between the Front-end and the Back-end, this allows the application to continually communicate with the server.  
 
 ## Installation
 
