@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import io from "socket.io-client"
 import Header from "../src/components/Header/index";
-import './App.css';
 import Footer from './components/Footer';
+import LogSign from "../src/components/LogSign";
+import './App.css';
 const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <p>
           {apiFetch}
         </p>
+        <LogSign />
         <Footer />
     </div>
   );
