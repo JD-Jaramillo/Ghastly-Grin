@@ -1,11 +1,16 @@
 import React from "react";
+import "./style.css";
 
 function Nav() {
   return (
-    <nav>
-      <a href="/">Log-In/Sign-Up</a>
-      <a href="/">Create Game</a>
-    </nav>
+    <ul className="nav justify-content-end">
+      <li className="nav-item">
+        <a className="nav-link" href="/">Log-In</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">Sign-Up</a>
+      </li>
+    </ul>
   )
 }
 
