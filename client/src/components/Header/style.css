@@ -1,0 +1,15 @@
+.banner {
+  display: flex;
+  height: 120px;
+  background-color: #333;
+  width: 100%;
+  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-around;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 48px;
+  color: #fff;
+}
