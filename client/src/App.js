@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import io from "socket.io-client"
 import Header from "../src/components/Header/index";
 import './App.css';
+import Footer from './components/Footer';
 const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <p>
           {apiFetch}
         </p>
+        <Footer />
     </div>
   );
 }
