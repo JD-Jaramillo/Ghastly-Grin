@@ -38,7 +38,7 @@ Player.init(
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: "game",
+    modelName: "player",
   }
 );
 
