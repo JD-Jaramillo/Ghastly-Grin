@@ -1,0 +1,14 @@
+.banner {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  background-color: #333;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+h1 {
+  font-size: 48px;
+}

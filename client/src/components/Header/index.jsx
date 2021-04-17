@@ -1,9 +1,10 @@
 import React from "react";
 import Nav from "../Nav";
+import "./style.css"
 
 function Header() {
   return (
-    <div>
+    <div className="banner">
       <h1>Ghastly Grin</h1>
       <Nav />
     </div>
