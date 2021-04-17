@@ -1,0 +1,15 @@
+form {
+  border: .25rem black solid;
+  margin: 20px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.btn {
+  background-color: #333;
+  color: #fff;
+}
+
+.btn:hover {
+  color: red;
+}
