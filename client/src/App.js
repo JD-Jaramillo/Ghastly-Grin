@@ -8,7 +8,7 @@ function App() {
   const [apiFetch, setApiFetch] = useState();
 
   const callAPI = () => {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:3001/testAPI")
       .then(res => res.text())
       .then(res => setApiFetch(res))
   }
