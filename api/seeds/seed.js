@@ -1,9 +1,9 @@
 const sequelize = require('../config/connection');
 
-const seedUsers = require('./user-seeds');
-const seedPlayers = require('./player-seeds');
-const seedGame = require('./game-seeds');
-const seedRounds = require('./round-seeds');
+const seedUsers = require("./userData");
+const seedPlayers = require('./playerData');
+const seedGames = require('./gameData');
+const seedRounds = require('./roundData');
 
 const seedAll = async () => {
     await sequelize.sync({ force: true });
@@ -12,7 +12,7 @@ const seedAll = async () => {
     console.log('Users Seeded');
     await seedPlayers();
     console.log('Players Seeded');
-    await seedGame();
+    await seedGames();
     console.log('Games Seeded');
     await seedRounds();
     console.log('Rounds Seeded');
