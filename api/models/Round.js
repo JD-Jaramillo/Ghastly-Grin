@@ -23,6 +23,7 @@ Round.init(
         key: "id",
       },
     },
+    //Might have to make these strings, then just parse them, or use postgre
     users: {
       type: DataTypes.JSON,
       allowNull: true,
