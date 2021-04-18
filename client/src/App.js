@@ -3,6 +3,7 @@ import io from "socket.io-client"
 import Header from "../src/components/Header/index";
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
+import CreateGame from "../src/components/CreateGame";
 import './App.css';
 const socket = io.connect("127.0.0.1:3001/");
 
@@ -26,6 +27,7 @@ function App() {
           {apiFetch}
         </p>
         <LogSign />
+        <CreateGame />
         <Footer />
     </div>
   );

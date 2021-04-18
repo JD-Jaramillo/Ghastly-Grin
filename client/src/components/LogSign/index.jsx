@@ -4,7 +4,7 @@ import "./style.css";
 function LogSign() {
   return (
     <div className="container">
-      <div className="row">
+      <div className="row justify-content-center">
       <form className="col-4 offset-1">
         <div className="form-group">
           <h3>Log-In</h3>
