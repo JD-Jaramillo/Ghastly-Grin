@@ -5,7 +5,7 @@ const gameRoutes = require('./game-routes');
 const playerRoutes = require('./player-routes');
 const roundRoutes = require('./round-routes');
 
-router.use('/users', userRoutes);
+router.use('/user', userRoutes);
 router.use('/game', gameRoutes);
 router.use('/player', playerRoutes);
 router.use('/round', roundRoutes);
