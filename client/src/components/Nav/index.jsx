@@ -5,10 +5,7 @@ function Nav() {
   return (
     <ul className="nav justify-content-end">
       <li className="nav-item">
-        <a className="nav-link" href="/">Log-In</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">Sign-Up</a>
+        <a className="nav-link" href="/">Log-In/Sign-Up</a>
       </li>
     </ul>
   )
