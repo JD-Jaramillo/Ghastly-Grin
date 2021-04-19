@@ -56,17 +56,12 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    const gameDataID = await Game.findOne({
-      where: {
-        user_id: dbUserData.id,
-      },
-    });
+    
 
 
     req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.loggedIn = true;
-      req.session.game_id = gameDataID.id;
       res
         .status(200)
         .json({ user: dbUserData, message: "You are now logged in!" });
