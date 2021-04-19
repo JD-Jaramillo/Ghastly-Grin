@@ -22,9 +22,11 @@ Game.belongsTo(User, {
   foreignKey: "user_id"
 });
 Player.belongsTo(Game, {
+  as: "game",
   foreignKey: "game_id"
 });
 Player.belongsTo(User, {
+  as: "user",
   foreignKey: "user_id"
 });
 

@@ -60,7 +60,7 @@ io.on("connection", socket => {
 });
 
 sequelize.sync({ force: false }).then(() => {
-  httpServer.listen(3001);
+  httpServer.listen(PORT);
 })
 
 module.exports = app;
