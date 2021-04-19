@@ -1,4 +1,7 @@
 import React from "react";
+import Lobby from "../Lobby";
+import { Link, Route } from 'react-router-dom';
+
 import "./style.css";
 
 function JoinGame() {
@@ -9,7 +12,8 @@ function JoinGame() {
         <label for="lobbyCode">Lobby ID</label>
         <input type="password" class="form-control" id="lobbyCode" />
       </div>
-      <button type="submit" class="btn btn-primary">Join Lobby</button>
+      <Link to="/Lobby" type="submit" className="btn">Join Lobby</Link>
+      <Route path="/Lobby" component={Lobby} />
     </form>
   )
 }
