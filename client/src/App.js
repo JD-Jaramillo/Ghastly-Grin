@@ -6,6 +6,7 @@ import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
+import UserContext from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <LogSign/>
         </Route> 
         <Route exact path="/CreateGame">
+          <UserContext.Provider
           <CreateGame/>
         </Route>
         <Footer />
