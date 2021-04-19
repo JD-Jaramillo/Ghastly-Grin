@@ -6,6 +6,7 @@ import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
 import JoinGame from "../src/components/JoinGame";
 import Lobby from "../src/components/Lobby";
+import Instructions from "../src/components/Instructions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 // import UserContext from "./utils/userContext";
@@ -28,6 +29,7 @@ function App() {
     <Router>
       <div>
         <Header />
+        <Instructions />
         <p>
           {apiFetch}
         </p>
@@ -41,7 +43,7 @@ function App() {
         <Route path="/Lobby">
           <Lobby />
         </Route>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );
