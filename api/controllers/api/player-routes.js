@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize/types');
+const Sequelize = require("sequelize");
 const { Player } = require('../../models');
 const withAuth = require('../../utils/auth');
 
