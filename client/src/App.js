@@ -4,6 +4,7 @@ import Header from "../src/components/Header/index";
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
+import JoinGame from "../src/components/JoinGame";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 const socket = io.connect("127.0.0.1:3001/");
@@ -33,6 +34,7 @@ function App() {
         </Route> 
         <Route exact path="/CreateGame">
           <CreateGame/>
+          <JoinGame />
         </Route>
         <Footer />
     </div>

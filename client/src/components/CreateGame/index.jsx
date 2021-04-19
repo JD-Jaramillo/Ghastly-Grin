@@ -20,6 +20,8 @@ function CreateGame() {
   return (
     <form>
       <div className="form-group">
+        <h4>Create a Lobby</h4>
+        <p>(click create lobby to get your secure lobby id)</p>
         {/* <label for="exampleFormControlSelect1">How Many Players will your game have?</label>
         <select class="form-control" id="exampleFormControlSelect1">
           <option>1</option>
@@ -27,7 +29,7 @@ function CreateGame() {
           <option>3</option>
           <option>4</option>
         </select> */}
-        <button onClick={newGame} type="submit" className="btn">Create Game</button>
+        <button onClick={newGame} type="submit" className="btn">Create Lobby</button>
       </div>
     </form>
   )
