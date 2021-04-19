@@ -1,7 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import userContext from "../../utils/userContext";
 import "./style.css";
 
 function LogSign() {
+  const { id, name } = userContext(userContext);
   const loginEmail = useRef();
   const loginUsername = useRef();
   const loginFormHandler = async (event) => {
