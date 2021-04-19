@@ -5,7 +5,6 @@ import "./style.css";
 
 function CreateGame() {
 
-<<<<<<< HEAD
   const newGame = async (event) => {
     event.preventDefault();
     const response = await fetch('http://localhost:3001/api/game/', {
@@ -19,21 +18,6 @@ function CreateGame() {
       alert('Failed to create game.');
     }
   }
-=======
-  // const newGame = async (event) => {
-  //   event.preventDefault();
-  //   const response = await fetch('http://localhost:9000/api/game/', {
-  //     method: 'POST',
-  //     body: "test",
-  //     headers: { 'Content-Type': 'application/json' },
-  //   });
-  //   if (response.ok) {
-  //     console.log("successful game creation")
-  //   } else {
-  //     alert('Failed to create game.');
-  //   }
-  // }
->>>>>>> main
 
   return (
     <form>
