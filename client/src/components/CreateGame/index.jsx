@@ -5,19 +5,19 @@ import "./style.css";
 
 function CreateGame() {
 
-  // const newGame = async (event) => {
-  //   event.preventDefault();
-  //   const response = await fetch('http://localhost:9000/api/game/', {
-  //     method: 'POST',
-  //     body: "test",
-  //     headers: { 'Content-Type': 'application/json' },
-  //   });
-  //   if (response.ok) {
-  //     console.log("successful game creation")
-  //   } else {
-  //     alert('Failed to create game.');
-  //   }
-  // }
+  const newGame = async (event) => {
+    event.preventDefault();
+    const response = await fetch('http://localhost:3001/api/game/', {
+      method: 'GET',
+      // body: "test",
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (response.ok) {
+      console.log("successful game creation")
+    } else {
+      alert('Failed to create game.');
+    }
+  }
 
   return (
     <form>

@@ -14,11 +14,11 @@ router.post("/", withAuth, async (req, res) => {
     const playerInit = await Player.create({
       score: 0,
       game_id: req.body.game_id,
-      user_id: req.session.id
+      user_id: req.session.user_id
     });
     const playerFind = await Player.findOne({
       where: {
-        user_id: req.session.id
+        user_id: req.session.user_id
       }
     });
     req.session.save(() => {

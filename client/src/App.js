@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import io from "socket.io-client"
+// import io from "socket.io-client"
 import Header from "../src/components/Header/index";
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
@@ -8,7 +8,8 @@ import JoinGame from "../src/components/JoinGame";
 import Lobby from "../src/components/Lobby";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-const socket = io.connect("127.0.0.1:3001/");
+// import UserContext from "./utils/userContext";
+// const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
   const [apiFetch, setApiFetch] = useState();
@@ -21,8 +22,8 @@ function App() {
 
 
   callAPI();
-
-  socket.emit("welcome", "connected");
+  
+  // socket.emit("welcome", "connected");
   return (
     <Router>
       <div>
