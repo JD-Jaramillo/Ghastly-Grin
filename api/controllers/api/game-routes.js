@@ -5,29 +5,31 @@ const { Game, User, Player } = require("../../models");
 const router = require('express').Router();
 
 router.get("/", function(req, res, next) {
+  console.log(req.session.user_id);
+  console.log(req.session.loggedIn);
   res.send("API is working properly");
 });
 
 router.post("/", withAuth, async (req, res) => {
-  console.log(req.session.id)
+  console.log(req.session.user_id)
   try {
     const gameInit = await Game.create({
-      game_owner: req.session.id
+      game_owner: req.session.user_id
     });
     const gameFind = await Game.findOne({
       where: {
-        game_owner: req.session.id
+        game_owner: req.session.user_id
       }
     })
     const gameFormat = JSON.parse(JSON.stringify(gameFind))
     const playerInit = await Player.create({
       score: 0,
       game_id: gameFormat.id,
-      user_id: req.session.id
+      user_id: req.session.user_id
     })
     const playerFind = await Player.findOne({
       where: {
-        user_id: req.session.id
+        user_id: req.session.user_id
       }
     })
     const playerFormat = JSON.parse(JSON.stringify(playerFind))
@@ -48,7 +50,7 @@ router.delete("/", withAuth, async (req, res) => {
   try {
     const gameDelete = await Game.destroy({
       where: {
-        game_owner: req.session.id,
+        game_owner: req.session.user_id,
       }
     });
     if (!gameDelete) {

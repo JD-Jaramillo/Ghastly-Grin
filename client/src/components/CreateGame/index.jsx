@@ -5,9 +5,9 @@ function CreateGame() {
 
   const newGame = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:9000/api/game/', {
-      method: 'POST',
-      body: "test",
+    const response = await fetch('http://localhost:3001/api/game/', {
+      method: 'GET',
+      // body: "test",
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {

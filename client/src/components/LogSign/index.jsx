@@ -11,7 +11,7 @@ function LogSign() {
     const password = loginUsername.current.value;
 
     if (email && password) {
-      const response = await fetch('http://localhost:9000/api/user/login', {
+      const response = await fetch('http://localhost:3001/api/user/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: { 'Content-Type': 'application/json' },
@@ -36,7 +36,7 @@ function LogSign() {
     const password = signupPassword.current.value;
 
     if (email && username && password) {
-      const response = await fetch('http://localhost:9000/api/user', {
+      const response = await fetch('http://localhost:3001/api/user', {
         method: 'POST',
         body: JSON.stringify({ email, username, password}),
         headers: { 'Content-Type': 'application/json' },

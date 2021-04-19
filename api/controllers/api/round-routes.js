@@ -41,7 +41,7 @@ router.put("/", withAuth, async (req, res) => {
     });
     const usersArray = JSON.parse(findRound.users);
     const answersArray = JSON.parse(findRound.answers);
-    const usersDone = JSON.stringify(usersArray.push(req.session.id));
+    const usersDone = JSON.stringify(usersArray.push(req.session.user_id));
     const usersAnswers = JSON.stringify(answersArray.push(req.body.answer));
     const updateAnswers = await Round.update(
       {
