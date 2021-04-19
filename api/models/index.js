@@ -4,7 +4,7 @@ const Player = require("./Player");
 const Round = require("./Round");
 
 User.hasOne(Game, {
-  foreignKey: "user_id",
+  foreignKey: "game_owner",
 });
 Game.hasMany(Player, {
   foreignKey: "game_id"
@@ -19,7 +19,7 @@ Round.belongsTo(Game, {
   foreignKey: "game_id"
 });
 Game.belongsTo(User, {
-  foreignKey: "user_id"
+  foreignKey: "game_owner"
 });
 Player.belongsTo(Game, {
   as: "game",

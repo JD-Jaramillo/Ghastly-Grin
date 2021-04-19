@@ -9,6 +9,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/", withAuth, async (req, res) => {
+  console.log(req.session.id)
   try {
     const gameInit = await Game.create({
       game_owner: req.session.id
@@ -18,9 +19,10 @@ router.post("/", withAuth, async (req, res) => {
         game_owner: req.session.id
       }
     })
+    const gameFormat = JSON.parse(JSON.stringify(gameFind))
     const playerInit = await Player.create({
       score: 0,
-      game_id: gameFind.id,
+      game_id: gameFormat.id,
       user_id: req.session.id
     })
     const playerFind = await Player.findOne({
@@ -28,14 +30,17 @@ router.post("/", withAuth, async (req, res) => {
         user_id: req.session.id
       }
     })
+    const playerFormat = JSON.parse(JSON.stringify(playerFind))
     req.session.save(() => {
-      req.session.player_id = playerFind.id;
+      req.session.player_id = playerFormat.id;
+      res.status(200).json({gameInit, playerInit})
     })
+    
     //Probably wont work, maybe make an array?
-    res.status(200).json(gameInit, playerInit)
 
   } catch (err) {
-    res.status(400).json(err);
+    console.log(err);
+    // res.status(400).json(err);
   }
 })
 

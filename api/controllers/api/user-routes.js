@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
       },
     });
     req.session.save(() => {
-      req.session.user_id = dbUserId.id
+      req.session.id = dbUserId.id
       req.session.loggedIn = true;
 
       res.status(200).json(dbUserData);
@@ -54,19 +54,14 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ message: "Incorrect email or password. Please try again!" });
       return;
-    }
+    };
 
-    const gameDataID = await Game.findOne({
-      where: {
-        user_id: dbUserData.id,
-      },
-    });
+    console.log(JSON.parse(JSON.stringify(dbUserData.id)));
 
 
     req.session.save(() => {
-      req.session.user_id = dbUserData.id;
+      req.session.id = dbUserData.id;
       req.session.loggedIn = true;
-      req.session.game_id = gameDataID.id;
       res
         .status(200)
         .json({ user: dbUserData, message: "You are now logged in!" });
