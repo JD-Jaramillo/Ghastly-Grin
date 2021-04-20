@@ -49,6 +49,14 @@ function GamePlay() {
     "how"
   ]
 
+  const players = [
+    "Juan",
+    "Eric",
+    "Milton",
+    "Shawn",
+    "Sommer"
+  ];
+
   const randomCards = () => {
     for (let i = 0; i < 8; i++) {
       let hand = cardFiller.value[i];
@@ -61,14 +69,19 @@ function GamePlay() {
     return question; 
   }
 
+  const playersHand = () => {
+    const playerCards = players.forEach((player) => (randomCards()));
+    return playerCards;
+  }
   // 7 White Cards per player
   // 1 Black card per round
   // Players hand function, call randomCards for each player
+  // add a function to push players into empty players array
   return (
     <>
     {/* Pass card attributes through */}
       <BlackCard onClick={singleCard} />
-      <WhiteCard onClick={randomCards} />
+      <WhiteCard onClick={playersHand} value={cardFiller.value} />
     </>
   )
 }

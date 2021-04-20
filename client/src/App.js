@@ -9,6 +9,7 @@ import Lobby from "../src/components/Lobby";
 import Instructions from "../src/components/Instructions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
+import GamePlay from "./pages/GamePlay";
 // import UserContext from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/Lobby">
           <Lobby />
         </Route>
+        <GamePlay />
         {/* <Footer /> */}
       </div>
     </Router>
