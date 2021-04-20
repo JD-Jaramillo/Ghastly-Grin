@@ -4,8 +4,18 @@ const withAuth = require('../../utils/auth');
 
 const router = require('express').Router();
 
-router.get("/", function (req, res, next) {
-  res.send("API is working properly");
+router.get("/", withAuth, async (req, res, next) => {
+  console.log(req.session);
+  try {
+    const playerLobby = await Player.findAll({
+      where: {game_id: req.session.game_id}
+    })
+    const lobby = await JSON.parse(JSON.stringify(playerLobby));
+    res.send({session: req.session, data: lobby})
+    res.status(200).json(lobby)
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // MUST BE CALLED WITH A GAME_ID IN BODY
@@ -28,6 +38,7 @@ router.post("/", withAuth, async (req, res) => {
     const playerFormat = await JSON.parse(JSON.stringify(playerFind))
     console.log(playerFormat);
     req.session.player_id = playerFormat.id;
+    req.session.game_id = req.body.id;
     res.send(req.session)
     res.status(200).json(newPlayer)
   } catch (err) {

@@ -5,9 +5,18 @@ const { Game, User, Player } = require("../../models");
 const router = require('express').Router();
 
 router.get("/", function(req, res, next) {
-  console.log(req.session.user_id);
-  console.log(req.signedCookies.id);
-  res.send("API is working properly");
+  console.log(req.session.game_id);
+  try {
+    const gameData = Game.findOne({ include: 
+      [{ model: Player,
+      where: { id: req.session.game_id}
+    }]})
+    const formatData = JSON.parse(JSON.stringify(gameData))
+    res.send(req.session)
+    res.status(200).json(formatData)
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.post("/", async (req, res) => {
