@@ -8,11 +8,9 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/:id", withAuth, async (req, res, next) => {
-  console.log(req.params.id)
   try {
     const userData = await User.findByPk(req.params.id, {attributes: ["username"]});
     const formatUser = await JSON.parse(JSON.stringify(userData));
-    console.log(formatUser);
     res.send(formatUser)
   } catch (err) {
     console.log(err);

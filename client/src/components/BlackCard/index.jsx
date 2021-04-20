@@ -5,9 +5,9 @@ function BlackCard() {
   // Generate 7 cards for each player
     return (
       <div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Black Card</h5>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">Black Card</h5>
           </div>
         </div>
       </div>
