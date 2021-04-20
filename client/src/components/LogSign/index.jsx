@@ -3,7 +3,7 @@ import userContext from "../../utils/userContext";
 import "./style.css";
 
 function LogSign() {
-  const { id, name } = userContext(userContext);
+  // const { id, name } = userContext(userContext);
   const loginEmail = useRef();
   const loginUsername = useRef();
   const loginFormHandler = async (event) => {
@@ -15,13 +15,14 @@ function LogSign() {
     if (email && password) {
       const response = await fetch('http://localhost:3001/api/user/login', {
         method: 'POST',
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
         headers: { 'Content-Type': 'application/json' },
       });
 
       if (response.ok) {
         console.log("testpass")
-        document.location.replace('/');
+        document.location.replace('/CreateGame');
       } else {
         alert('Failed to log in.');
       }
@@ -44,7 +45,7 @@ function LogSign() {
         headers: { 'Content-Type': 'application/json' },
       });
       if (response.ok) {
-        document.location.replace('/');
+        document.location.replace('/CreateGame');
       } else {
         alert('Your password must be atleast 8 characters long and use a valid email');
       }

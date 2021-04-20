@@ -9,6 +9,7 @@ Game.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
     game_owner: {
       type: DataTypes.INTEGER,

@@ -2,14 +2,16 @@ import React from "react";
 import { Link, Route } from 'react-router-dom';
 import Lobby from '../Lobby';
 import "./style.css";
+import uuid from "react-uuid"
 
 function CreateGame() {
 
   const newGame = async (event) => {
     event.preventDefault();
     const response = await fetch('http://localhost:3001/api/game/', {
-      method: 'GET',
-      // body: "test",
+      method: 'POST',
+      credentials: 'include',
+      // body: JSON.stringify({id: uuid()}),
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
@@ -32,7 +34,7 @@ function CreateGame() {
           <option>4</option>
         </select> */}
         {/* onClick={newGame} */}
-        <Link to="/Lobby" type="submit" className="btn">Create Lobby</Link>
+        <button onClick={newGame} type="submit" className="btn">Create Lobby</button>
         <Route path="/Lobby" component={Lobby} />
       </div>
     </form>
