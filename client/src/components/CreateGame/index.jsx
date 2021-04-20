@@ -27,7 +27,7 @@ function CreateGame() {
         <h4>Create a Lobby</h4>
         <p>(click create lobby to get your secure lobby id)</p>
         {/* <label for="exampleFormControlSelect1">How Many Players will your game have?</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select className="form-control" id="exampleFormControlSelect1">
           <option>1</option>
           <option>2</option>
           <option>3</option>

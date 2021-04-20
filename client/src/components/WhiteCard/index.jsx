@@ -9,7 +9,7 @@ function WhiteCard() {
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">Generated White Card for player</h5>
-          <a href="/" class="card-link">Play card</a>
+          <a href="/" className="card-link">Play card</a>
         </div>
       </div>
     </div>

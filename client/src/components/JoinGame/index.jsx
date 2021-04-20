@@ -18,10 +18,10 @@ function JoinGame() {
   }
   return (
     <form>
-      <div class="form-group">
+      <div className="form-group">
         <h4>Join Lobby</h4>
         <label for="lobbyCode">Lobby ID</label>
-        <input ref={gameID} type="password" class="form-control" id="lobbyCode" />
+        <input ref={gameID} type="password" className="form-control" id="lobbyCode" />
       </div>
       <Link to="/Lobby" onClick={newPlayer} type="submit" className="btn">Join Lobby</Link>
       <Route path="/Lobby" component={Lobby} />
