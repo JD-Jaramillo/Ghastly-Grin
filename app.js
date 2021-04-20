@@ -4,7 +4,7 @@ const session = require("express-session");
 require("dotenv").config();
 var compression = require('compression')
 var path = require('path');
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 var cors = require("cors");
 const httpServer = require("http").createServer(app);
@@ -17,23 +17,32 @@ const sequelize = require("./config/connection");
 
 var app = express();
 
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 const PORT = process.env.PORT || 3001;
 
 const sess = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  // cookie: { secure: false }
+  cookie: { 
+    expires: 3600000 
+  }
 };
 
 app.use(session(sess));
 
-app.use(cors());
 // app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser('secret'));
+app.use(express.static(path.join(__dirname, '/client')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.use(routes);
 app.use(compression());
@@ -62,7 +71,9 @@ app.use(compression());
 // httpServer.listen(3001);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(3001);
+  app.listen(3001, () => {
+    console.log("running server");
+  });
 })
 
 // module.exports = app;
