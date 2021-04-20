@@ -1,4 +1,4 @@
-const { Player } = require("../models");
+const { Player } = require("../api/models");
 
 const playerData = [
     {

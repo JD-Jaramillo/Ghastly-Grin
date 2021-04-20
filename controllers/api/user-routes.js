@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require("../../api/models")
+const {User} = require("../../models")
 
 router.get("/", function(req, res, next) {
   res.send("API is working properly");
@@ -59,14 +59,16 @@ router.post("/login", async (req, res) => {
     const userID = (JSON.parse(JSON.stringify(dbUserData.id)));
 
 
-    req.session.save(() => {
+    // req.session.save(() => {
+      // await res.cookie("id", userID, {signed: true, httpOnly: true})
       req.session.user_id = userID;
       req.session.loggedIn = true;
       console.log(req.session.user_id)
+      res.send(req.session)
       res
         .status(200)
         .json({ user: dbUserData, message: "You are now logged in!" });
-    });
+    // });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

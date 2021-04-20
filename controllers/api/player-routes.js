@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { Player } = require('../../api/models');
+const { Player } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 const router = require('express').Router();
