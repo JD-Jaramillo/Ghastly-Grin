@@ -80,8 +80,8 @@ function GamePlay() {
   return (
     <>
     {/* Pass card attributes through */}
-      <BlackCard onClick={singleCard} />
-      <WhiteCard onClick={playersHand} value={cardFiller.value} />
+      <BlackCard singleCard={singleCard} />
+      <WhiteCard playersHand={playersHand} />
     </>
   )
 }

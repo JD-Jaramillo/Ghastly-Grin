@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BlackCard from "../components/BlackCard";
 import WhiteCard from "../components/WhiteCard";
 import answers from "../utils/answers";
+import questions from "../utils/questions";
 
 function GamePlay() {
     const [whiteCard, setWhiteCard] = useState({});
