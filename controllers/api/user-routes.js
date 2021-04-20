@@ -1,8 +1,21 @@
 const router = require('express').Router();
-const {User} = require("../../models")
+const {User} = require("../../models");
+const withAuth = require('../../utils/auth');
+
 
 router.get("/", function(req, res, next) {
   res.send("API is working properly");
+});
+
+router.get("/:id", withAuth, async (req, res, next) => {
+  try {
+    const userData = await User.findByPk(req.params.id, {attributes: ["username"]});
+    const formatUser = await JSON.parse(JSON.stringify(userData));
+    res.send(formatUser)
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // Create New User

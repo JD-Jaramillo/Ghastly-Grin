@@ -8,9 +8,9 @@ function BlackCard(props) {
         <button onClick={props.singleCard}
         type="text"
         >
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{props.questions}</h5>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">{props.questions}</h5>
           </div>
         </div>
         </button>
