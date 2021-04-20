@@ -1,3 +1,33 @@
+.lobby-start {
+    grid-area: lob-h;
+} 
+
+.chat {
+    grid-area: chat-h;
+}
+
 .startBtn {
+    grid-area: start-btn;
     padding-bottom: 10px;
 }
+
+.players {
+    grid-area: players;
+}
+
+.chat-cont {
+    grid-area: chat-cont;
+}
+
+.lobby-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25% 25% auto;
+    grid-template-areas: 
+    ". lob-h . chat-h"
+    "start-btn start-btn . . "
+    "players players chat-cont chat-cont";
+}
+
+
+
