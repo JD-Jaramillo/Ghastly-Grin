@@ -48,4 +48,6 @@ See repository here: [GitHub Repo](https://github.com/JD-Jaramillo/Ghastly-Grin)
 
 [Eric Hurley](https://github.com/HurleySquared)
 
+[Sommer Moya-Mendez ](https://github.com/smoyamendez)
+
 [Milton ](https://github.com/basedmilz)
