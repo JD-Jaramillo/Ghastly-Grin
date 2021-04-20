@@ -15,7 +15,7 @@ function CreateGame() {
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
-      console.log("successful game creation")
+      document.location.replace("/Lobby")
     } else {
       alert('Failed to create game.');
     }
@@ -34,7 +34,7 @@ function CreateGame() {
           <option>4</option>
         </select> */}
         {/* onClick={newGame} */}
-        <button onClick={newGame} type="submit" className="btn">Create Lobby</button>
+        <Link to="/Lobby" onClick={newGame} type="submit" className="btn">Create Lobby</Link>
         <Route path="/Lobby" component={Lobby} />
       </div>
     </form>
