@@ -10,7 +10,7 @@ function BlackCard(props) {
         >
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">{props.questions}</h5>
+            <h5 className="card-title">{props.blackcard}</h5>
           </div>
         </div>
         </button>

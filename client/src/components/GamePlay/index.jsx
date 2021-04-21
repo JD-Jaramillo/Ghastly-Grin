@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
 import WhiteCard from "../WhiteCard";
 import answers from "../../utils/answers";
 import questions from "../../utils/questions";
+import axios from "axios";
 
 function GamePlay() {
     const [whiteCard, setWhiteCard] = useState({});
-    const [blackCard, setBlackCard] = useState({});
+    const [blackCard, setBlackCard] = useState();
     const [player, setplayer] = useState({});
   
     const hand = [];
@@ -17,13 +18,20 @@ function GamePlay() {
         hand.push(answers[whiteCards]);
       }
     }
-  
+    
     randomCards();
-
+    useEffect(() => {
+      axios.get('/api/round', { withCredentials: true })
+      .then(res => {
+        setBlackCard(res.data.prompt)
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
+    }, [])
     return (
       <>
       {/* Pass card attributes through */}
-        <BlackCard />
+        <BlackCard blackcard={blackCard}/>
         {hand.map((card) => (
             <WhiteCard card={card} />
         ))}
