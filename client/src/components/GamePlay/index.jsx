@@ -4,6 +4,7 @@ import WhiteCard from "../WhiteCard";
 import answers from "../../utils/answers";
 // import questions from "../../utils/questions";
 import axios from "axios";
+import ScoreBar from "../ScoreBar";
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -11,11 +12,24 @@ function GamePlay() {
   const [user, setUser] = useState();
   // const [player, setplayer] = useState({});
 
+  const timer = (endTime) => {
+    setInterval(() => {
+      let currentTime = new Date();
+
+      if (currentTime > endTime) {
+        document.location.replace('/VoteCard')
+      }
+    }, 1000);
+  }
+
   useEffect(() => {
     axios.get('/api/round', { withCredentials: true })
       .then(res => {
         setBlackCard(res.data.data.prompt)
-        console.log(res.data)
+        const startTime = res.data.data.createdAt
+        let endTime = new Date(startTime)
+        endTime.setSeconds(endTime.getSeconds() + 10)
+        timer(endTime)
       })
       .catch(err => console.log(err))
     axios.get('/api/player/cards', { withCredentials: true })
@@ -28,6 +42,7 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
+      <ScoreBar />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
         <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
