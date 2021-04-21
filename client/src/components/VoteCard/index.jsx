@@ -21,13 +21,11 @@ function VoteCard() {
   useEffect(() => {
     axios.get('/api/round', { withCredentials: true })
     .then(res => {
-      console.log(res)
       setBlackCard(res.data.data.prompt)
       const arr = JSON.parse(res.data.data.answers)
-      arr.forEach(answer => {
-        setWhiteCard([...whiteCard, answer])
-      })
+        setWhiteCard(arr)
       setUser(res.data.user_id)
+      console.log(whiteCard)
     })
     .catch(err => console.log(err))
   }, [])
@@ -36,9 +34,9 @@ function VoteCard() {
     <div>
       <ScoreBar />
       <BlackCard blackcard={blackCard}/>
-      <div className="vote-container">
+      <div key={"cont"} className="vote-container">
         {whiteCard.map((e) => (
-          <div onClick={(e) => updateScore(e)} data-id={e.user} className="vote-card">
+          <div key={whiteCard.indexOf(e)} onClick={(e) => updateScore(e)} data-id={e.user} className="vote-card">
             <div className="white-card-body">
               <h5 className="card-title">{e.answer}</h5>
             </div>
