@@ -9,12 +9,6 @@
     text-align: center;
   }
 
-  /* #footer {
-    min-height: 2.5rem;
-    background-color:black;
-    position: relative;
-  } */
-
   #footer:hover {
-      color: var(--secondaryColor);
+      color: var(--logoPurple);
   }

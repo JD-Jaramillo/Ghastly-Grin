@@ -4,6 +4,7 @@ import WhiteCard from "../WhiteCard";
 import answers from "../../utils/answers";
 // import questions from "../../utils/questions";
 import axios from "axios";
+import "./style.css";
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -26,15 +27,22 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
+  // fanStyle(num) {
+
+  // }
+
   return (
     <div className="container-fluid">
-         <div className="d-flex flex-row">
+      <div className="d-flex flex-row">
         <BlackCard blackcard={blackCard} />
       </div>
-      <div className="d-flex flex-row justify-content-center">
-      {whiteCard.map((card) => (
-        <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
-      ))}    
+      <div className="d-flex flex-row">
+      <div className="offset-rotate">
+      {whiteCard.map((card, index) => {
+        // const offset = index - Math.floor(whiteCard.length / 2)
+       return <WhiteCard key={index} index={index} length={whiteCard.length} card={card} user={user} />
+})}    
+      </div>
       </div>
     </div>
   )

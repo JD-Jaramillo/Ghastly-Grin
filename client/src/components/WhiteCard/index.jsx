@@ -8,6 +8,13 @@ function WhiteCard(props) {
   const userID = props.user;
   const ans = props.card;
 
+  const rotateStyle = {
+    transform: `rotate(${props.index * (180/props.length)}deg) translate(-50%, -50%)`,
+    transformOrigin: `center 60%`
+
+  };
+
+
   const submitCard = () => {
     axios.put('/api/round', {user: userID , answer: ans}, { withCredentials: true })
     .then(res => {
@@ -18,7 +25,7 @@ function WhiteCard(props) {
 
   return (
 
-    <div onClick={submitCard}>
+    <div style={rotateStyle} onClick={submitCard} className="card-element">
       <div className="white-card-body">
         <h5 className="card-title">{props.card}</h5>
       </div>
