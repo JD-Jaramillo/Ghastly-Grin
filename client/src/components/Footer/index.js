@@ -4,11 +4,9 @@ import './Footer.css';
 
 function Footer() {
     return (
-        <>
-            <div id="footer" className='main-footer'>
+            <div id="footer" className='container-fluid'>
                 <h4>Ghastly Grin</h4>
             </div>
-        </>
     );
 }
 

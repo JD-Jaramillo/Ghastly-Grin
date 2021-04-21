@@ -28,10 +28,14 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
-      <BlackCard blackcard={blackCard} />
+         <div className="d-flex flex-row">
+        <BlackCard blackcard={blackCard} />
+      </div>
+      <div className="d-flex flex-row justify-content-center">
       {whiteCard.map((card) => (
         <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
-      ))}
+      ))}    
+      </div>
     </div>
   )
 }

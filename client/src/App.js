@@ -1,6 +1,6 @@
 import React from "react";
 // import io from "socket.io-client"
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
 import JoinGame from "../src/components/JoinGame";
@@ -42,7 +42,7 @@ function App() {
         <Route path="/VoteCard">
         <VoteCard />
         </Route>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </Router>
   );

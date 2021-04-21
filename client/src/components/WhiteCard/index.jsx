@@ -18,7 +18,7 @@ function WhiteCard(props) {
 
   return (
 
-    <div onClick={submitCard} className="d-flex justify-content-center">
+    <div onClick={submitCard}>
       <div className="white-card-body">
         <h5 className="card-title">{props.card}</h5>
       </div>
