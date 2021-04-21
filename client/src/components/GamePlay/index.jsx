@@ -10,6 +10,7 @@ function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
   const [user, setUser] = useState();
+  const [answered, setAnswered] = useState(false)
   // const [player, setplayer] = useState({});
 
   const timer = (endTime) => {
@@ -20,6 +21,15 @@ function GamePlay() {
         document.location.replace('/VoteCard')
       }
     }, 1000);
+  }
+
+  const submitCard = (e) => {
+    console.log(e.target.dataset.ans)
+    axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
+      .then(res => {
+        setAnswered(true)
+      })
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -45,7 +55,11 @@ function GamePlay() {
       <ScoreBar />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
-        <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
+        <div disabled={answered} key={whiteCard.indexOf(card)} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center">
+          <div  data-ans={card} className="white-card-body">
+            <h5  data-ans={card} className="card-title">{card}</h5>
+          </div>
+        </div>
       ))}
     </div>
   )
