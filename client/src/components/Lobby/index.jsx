@@ -1,20 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
+import axios from "axios";
+import questions from "../../utils/questions";
+
 
 function Lobby() {
+    const [players, setPlayers] = useState([]);
+    // const [user, setUser] = useState();
+    const [game, setGame] = useState();
+    const getPlayers = () => {
+        axios.get('/api/player', { withCredentials: true })
+            .then(async res => {
+                const playerData = res.data.data;
+                console.log(playerData[0].game_id);
+                setGame(playerData[0].game_id)
+                console.log(res.data.session.user_id);
+                // setUser(res.data.session.user_id)
+                for (let element of playerData) {
+                    const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                    setPlayers(players => [...players, data.username])
+                }
+            })
+            .catch(err => console.log(err))
+        setInterval(() => {
+            setPlayers([]);
+            axios.get('/api/player', { withCredentials: true })
+                .then(async res => {
+
+                    const playerData = res.data.data;
+                    for (let element of playerData) {
+                        const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                        setPlayers(players => [...players, data.username])
+                    }
+                })
+                .catch(err => console.log(err))
+
+        }, 15000);
+    }
+
+    const startGame = async () => {
+        const rng = Math.floor(Math.random() * questions.length)
+        const prompt = questions[rng];
+        axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+            .then(res => {
+                document.location.replace('/GamePlay')
+            })
+            .catch(err => console.log(err))
+        // try {
+        // } catch (err) {
+        //     console.log(err)
+        // }
+    }
+
+    useEffect(() => {
+        getPlayers()
+    }, [])
+
     return (
         <>
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <button type="submit" className="btn startBtn btn-primary">Start Game</button>
+                    <button onClick={startGame} type="submit" className="btn startBtn btn-primary">Start Game</button>
                     {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
                     <ol className="players">
-                        <li>Player 1</li>
-                        <li>Player 2</li>
-                        <li>Player 3</li>
-                        <li>Player 4</li>
-                        <li>Player 5</li>
+                        {players.map(player => {
+                            return (<li key={player}>{player}</li>)
+                        })}
+
                     </ol>
                 </div>
                 <div className="chat">

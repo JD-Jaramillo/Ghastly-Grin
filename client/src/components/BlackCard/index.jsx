@@ -1,17 +1,14 @@
 import React from "react";
 import "./style.css";
 
-function BlackCard() {
+function BlackCard(props) {
   // Generate 7 cards for each player
-  return (
-    <div>
-      <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">Black Card</h5>
-        <a href="/" class="card-link">Play card</a>
-      </div>
-    </div>
-  </div>
+    return (
+        <div className="container d-flex justify-content-center">
+          <div className="black-card-body">
+            <h5 className="card-title">{props.blackcard}</h5>
+          </div>
+        </div>
   )
 }
 

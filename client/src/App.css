@@ -6,6 +6,13 @@
   --playerCards: white;
 }
 
+.body-all {
+  background-color: #6B6E70;
+}
+
+
+/* 
+
 .App {
   text-align: center;
 }
@@ -43,4 +50,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

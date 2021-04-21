@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Route } from 'react-router-dom';
 import Lobby from '../Lobby';
 import "./style.css";
-import uuid from "react-uuid"
+// import uuid from "react-uuid"
 
 function CreateGame() {
 
@@ -15,7 +15,7 @@ function CreateGame() {
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
-      console.log("successful game creation")
+      document.location.replace("/Lobby")
     } else {
       alert('Failed to create game.');
     }
@@ -27,14 +27,14 @@ function CreateGame() {
         <h4>Create a Lobby</h4>
         <p>(click create lobby to get your secure lobby id)</p>
         {/* <label for="exampleFormControlSelect1">How Many Players will your game have?</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select className="form-control" id="exampleFormControlSelect1">
           <option>1</option>
           <option>2</option>
           <option>3</option>
           <option>4</option>
         </select> */}
         {/* onClick={newGame} */}
-        <button onClick={newGame} type="submit" className="btn">Create Lobby</button>
+        <Link to="/Lobby" onClick={newGame} type="submit" className="btn">Create Lobby</Link>
         <Route path="/Lobby" component={Lobby} />
       </div>
     </form>
