@@ -1,12 +1,13 @@
 import React from "react";
 // import io from "socket.io-client"
-import Header from "./components/Header/index";
 // import Footer from './components/Footer';
-import LogSign from "./components/LogSign";
-import CreateGame from "./components/CreateGame";
-import JoinGame from "./components/JoinGame";
-import Lobby from "./components/Lobby";
-import Instructions from "./components/Instructions";
+import LogSign from "../src/components/LogSign";
+import CreateGame from "../src/components/CreateGame";
+import JoinGame from "../src/components/JoinGame";
+import Lobby from "../src/components/Lobby";
+import Homepage from "../src/components/Homepage";
+import Instructions from "../src/components/Instructions";
+import Header from "./components/Header/index";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import GamePlay from "./components/GamePlay";
@@ -14,13 +15,16 @@ import GamePlay from "./components/GamePlay";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
-  
+
   // socket.emit("welcome", "connected");
   return (
     <Router>
       <div className='body-all'>
         <Header />
         <Instructions />
+        <Route exact path="/">
+          <Homepage />
+        </Route>
         <Route exact path="/LogSign">
           <LogSign />
         </Route>
@@ -32,7 +36,7 @@ function App() {
           <Lobby />
         </Route>
         <Route path="/GamePlay">
-        <GamePlay />
+          <GamePlay />
         </Route>
         {/* <Footer /> */}
       </div>

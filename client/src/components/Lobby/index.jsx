@@ -10,26 +10,26 @@ function Lobby() {
     const [game, setGame] = useState();
     const getPlayers = () => {
         axios.get('/api/player', { withCredentials: true })
-                .then(async res => {
-                    const playerData = res.data.data;
-                    console.log(playerData[0].game_id);
-                    setGame(playerData[0].game_id)
-                    console.log(res.data.session.user_id);
-                    // setUser(res.data.session.user_id)
-                    for (let element of playerData) {
-                        const {data} = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                        setPlayers(players => [...players, data.username])
-                    }
-                })
-                .catch(err => console.log(err))
+            .then(async res => {
+                const playerData = res.data.data;
+                console.log(playerData[0].game_id);
+                setGame(playerData[0].game_id)
+                console.log(res.data.session.user_id);
+                // setUser(res.data.session.user_id)
+                for (let element of playerData) {
+                    const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                    setPlayers(players => [...players, data.username])
+                }
+            })
+            .catch(err => console.log(err))
         setInterval(() => {
             setPlayers([]);
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
-                    
+
                     const playerData = res.data.data;
                     for (let element of playerData) {
-                        const {data} = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                        const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         setPlayers(players => [...players, data.username])
                     }
                 })
@@ -41,11 +41,11 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
-        axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
-        .then(res => {
-            document.location.replace('/GamePlay')
-        })
-        .catch(err => console.log(err))
+        axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+            .then(res => {
+                document.location.replace('/GamePlay')
+            })
+            .catch(err => console.log(err))
         // try {
         // } catch (err) {
         //     console.log(err)
@@ -67,16 +67,16 @@ function Lobby() {
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
                         })}
-                        
+
                     </ol>
                 </div>
                 <div className="chat">
-                    <h3 className="chat-h">Chat</h3>
+                    <h4 className="chat-h">Chat</h4>
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
-                        <li>Text 1</li>
-                        <li>Text 1</li>
-                        <li>Text 1</li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                     </ul>
                 </div>
             </div>
