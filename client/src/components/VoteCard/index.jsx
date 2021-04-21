@@ -1,15 +1,47 @@
-import React from "react";
+import axios from "axios";
 import BlackCard from "../BlackCard";
-import WhiteCard from "../WhiteCard";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 
 function VoteCard() {
-// for each white card played in a round, display around to black card
+  const [whiteCard, setWhiteCard] = useState([]);
+  const [blackCard, setBlackCard] = useState();
+  const [user, setUser] = useState();
+
+  const updateScore = (e) => {
+    console.log()
+    axios.put(`/api/player/score/${e.target.dataset.id}`, { withCredentials: true })
+    .then(res => {
+      console.log("test pass")
+    })
+    .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    axios.get('/api/round', { withCredentials: true })
+    .then(res => {
+      console.log(res)
+      setBlackCard(res.data.data.prompt)
+      const arr = JSON.parse(res.data.data.answers)
+      arr.forEach(answer => {
+        setWhiteCard([...whiteCard, answer])
+      })
+      setUser(res.data.user_id)
+    })
+    .catch(err => console.log(err))
+  }, [])
 
   return (
     <div>
-      <BlackCard black/>
-      <WhiteCard />
+      <p>{user}</p>
+      <BlackCard blackcard={blackCard}/>
+      {whiteCard.map((e) => (
+        <div onClick={(e) => updateScore(e)} data-id={e.user} className="d-flex justify-content-center">
+          <div className="white-card-body">
+            <h5 className="card-title">{e.answer}</h5>
+          </div>
+      </div>
+      ))}
     </div>
   )
 }

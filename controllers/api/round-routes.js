@@ -11,7 +11,7 @@ router.get("/", withAuth, async (req, res) => {
       }
     });
     const getRound = await JSON.parse(JSON.stringify(roundData))
-    res.status(200).json(getRound)
+    res.status(200).json({data: getRound, user_id: req.session.user_id})
   } catch {
     res.status(500).json(err);
   }
@@ -46,7 +46,7 @@ router.put("/", withAuth, async (req, res) => {
     const formatRound = await JSON.parse(JSON.stringify(findRound))
     if (formatRound.answers !== null) {
       var formatAnswers = JSON.parse(formatRound.answers);
-      var usersAnswers = [...formatAnswers, req.body]
+      var usersAnswers = [...formatAnswers, JSON.parse(JSON.stringify({"user": req.body.user, "answer": req.body.answer}))]
     } else {
       var usersAnswers = [req.body]
     }

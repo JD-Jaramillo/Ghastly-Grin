@@ -14,7 +14,7 @@ function GamePlay() {
   useEffect(() => {
     axios.get('/api/round', { withCredentials: true })
       .then(res => {
-        setBlackCard(res.data.prompt)
+        setBlackCard(res.data.data.prompt)
         console.log(res.data)
       })
       .catch(err => console.log(err))
@@ -28,7 +28,7 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
-      <BlackCard blackCard={blackCard} />
+      <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
         <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
       ))}
