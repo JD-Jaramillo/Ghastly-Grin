@@ -1,6 +1,5 @@
 import React from "react";
 // import io from "socket.io-client"
-import Header from "../src/components/Header/index";
 // import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
