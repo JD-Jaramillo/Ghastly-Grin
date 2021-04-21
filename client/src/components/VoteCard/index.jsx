@@ -2,6 +2,7 @@ import axios from "axios";
 import BlackCard from "../BlackCard";
 import React, { useEffect, useState } from "react";
 import "./style.css";
+import ScoreBar from "../ScoreBar";
 
 function VoteCard() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -33,6 +34,7 @@ function VoteCard() {
 
   return (
     <div>
+      <ScoreBar />
       <BlackCard blackcard={blackCard}/>
       <div className="vote-container">
         {whiteCard.map((e) => (
