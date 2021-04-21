@@ -6,6 +6,7 @@ import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
 import JoinGame from "../src/components/JoinGame";
 import Lobby from "../src/components/Lobby";
+import Homepage from "../src/components/Homepage";
 import Instructions from "../src/components/Instructions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
@@ -23,7 +24,7 @@ function App() {
 
 
   // callAPI();
-  
+
   // socket.emit("welcome", "connected");
   return (
     <Router>
@@ -33,6 +34,9 @@ function App() {
         <p>
           {apiFetch}
         </p>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
         <Route exact path="/LogSign">
           <LogSign />
         </Route>

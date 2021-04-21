@@ -18,12 +18,12 @@ function Lobby() {
                     </ol>
                 </div>
                 <div className="chat">
-                    <h3 className="chat-h">Chat</h3>
+                    <h4 className="chat-h">Chat</h4>
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
-                        <li>Text 1</li>
-                        <li>Text 1</li>
-                        <li>Text 1</li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                     </ul>
                 </div>
             </div>

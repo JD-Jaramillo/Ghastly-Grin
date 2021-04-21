@@ -1,3 +1,11 @@
+:root {
+  --appBackground: #222629;
+  --secondaryColor: #474B4F;
+  --thirdColor: #61892F;
+  --randomCard: #86C232;
+  --playerCards: white;
+}
+
 .App {
   text-align: center;
 }
