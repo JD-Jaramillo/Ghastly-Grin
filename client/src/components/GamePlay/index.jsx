@@ -33,15 +33,19 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
-      <div className="d-flex flex-row">
-        <BlackCard blackcard={blackCard} />
+      <div className="row">
+        <div className="col-12">
+          <BlackCard blackcard={blackCard} />
+        </div>
       </div>
-      <div className="d-flex flex-row">
-      <div className="offset-rotate">
-      {whiteCard.map((card, index) => {
-        // const offset = index - Math.floor(whiteCard.length / 2)
-       return <WhiteCard key={index} index={index} length={whiteCard.length} card={card} user={user} />
-})}    
+      <div className="d-flex row">
+      <div className="d-flex col-12 offset-rotate">
+        {/* <div className="offset-rotate"> */}
+        {whiteCard.map((card, index) => {
+          // const offset = index - Math.floor(whiteCard.length / 2)
+          return <WhiteCard key={index} index={index} length={whiteCard.length} card={card} user={user} />
+        })}
+        {/* </div> */}
       </div>
       </div>
     </div>
