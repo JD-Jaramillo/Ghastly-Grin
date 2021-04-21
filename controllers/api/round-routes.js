@@ -21,7 +21,7 @@ router.get("/", withAuth, async (req, res) => {
 router.post("/", withAuth, async (req, res) => {
   try {
     await Round.destroy({
-      where: {game_id: req.session.game_id}
+      where: { game_id: req.session.game_id }
     })
     const roundCreate = await Round.create({
       prompt: req.body.prompt,
@@ -36,20 +36,26 @@ router.post("/", withAuth, async (req, res) => {
 
 // Must send Answer: 
 router.put("/", withAuth, async (req, res) => {
+  console.log(req.body)
   try {
     const findRound = await Round.findOne({
       where: {
         game_id: req.session.game_id
       }
     });
-    const usersArray = JSON.parse(findRound.users);
-    const answersArray = JSON.parse(findRound.answers);
-    const usersDone = JSON.stringify(usersArray.push(req.session.user_id));
-    const usersAnswers = JSON.stringify(answersArray.push(req.body.answer));
+    const formatRound = await JSON.parse(JSON.stringify(findRound))
+    if (formatRound.answers !== null) {
+      var formatAnswers = JSON.parse(formatRound.answers);
+      var usersAnswers = [...formatAnswers, req.body]
+    } else {
+      var usersAnswers = [req.body]
+    }
+    // console.log(answersArray);
+    // const usersAnswers = await answersArray.push(req.body);
+    console.log(usersAnswers);
     const updateAnswers = await Round.update(
       {
-        users: usersDone,
-        answers: usersAnswers
+        answers: JSON.stringify(usersAnswers)
       },
       {
         where: {
@@ -57,6 +63,7 @@ router.put("/", withAuth, async (req, res) => {
         }
       }
     );
+    console.log(usersAnswers);
     if (!updateAnswers) {
       res.status(404).json({ message: 'No round found with this id!' });
       return;

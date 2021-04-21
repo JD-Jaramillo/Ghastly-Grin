@@ -6,37 +6,34 @@ import answers from "../../utils/answers";
 import axios from "axios";
 
 function GamePlay() {
-    // const [whiteCard, setWhiteCard] = useState({});
-    const [blackCard, setBlackCard] = useState();
-    // const [player, setplayer] = useState({});
-  
-    const hand = [];
+  const [whiteCard, setWhiteCard] = useState([]);
+  const [blackCard, setBlackCard] = useState();
+  const [user, setUser] = useState();
+  // const [player, setplayer] = useState({});
 
-    const randomCards = () => {
-      for (let i = 0; i < 7; i++) {
-        const whiteCards = Math.floor(Math.random() * answers.length)
-        hand.push(answers[whiteCards]);
-      }
-    }
-    
-    randomCards();
-    useEffect(() => {
-      axios.get('/api/round', { withCredentials: true })
+  useEffect(() => {
+    axios.get('/api/round', { withCredentials: true })
       .then(res => {
         setBlackCard(res.data.prompt)
         console.log(res.data)
       })
       .catch(err => console.log(err))
-    }, [])
-    return (
-      <div className="container-fluid">
-      {/* Pass card attributes through */}
-        <BlackCard blackcard={blackCard}/>
-        {hand.map((card) => (
-            <WhiteCard card={card} />
-        ))}
-      </div>
-    )
-  }
-  
-  export default GamePlay;
+    axios.get('/api/player/cards', { withCredentials: true })
+      .then(res => {
+        setWhiteCard(res.data.cards)
+        setUser(res.data.user_id)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  return (
+    <div className="container-fluid">
+      <BlackCard blackcard={blackCard} />
+      {whiteCard.map((card) => (
+        <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
+      ))}
+    </div>
+  )
+}
+
+export default GamePlay;

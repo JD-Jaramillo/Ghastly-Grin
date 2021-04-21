@@ -10,6 +10,7 @@ import Instructions from "./components/Instructions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import GamePlay from "./components/GamePlay";
+import VoteCard from "./components/VoteCard";
 // import UserContext from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
 
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route path="/GamePlay">
         <GamePlay />
+        </Route>
+        <Route path="/VoteCard">
+        <VoteCard />
         </Route>
         {/* <Footer /> */}
       </div>
