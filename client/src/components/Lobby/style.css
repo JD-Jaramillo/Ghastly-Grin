@@ -4,11 +4,28 @@
 
 .chat {
     grid-area: chat-h;
+    
+}
+
+.ch-ct {
+    border: 2px solid var(--randomCard);
+    border-radius: 5px;
+    padding: 10px;
+    margin:10px 0;
+}
+.ch-ct:hover {
+    background-color: var(--secondaryColor);
+    color: var(--playerCards);
+}
+
+.lob-h, .chat-h {
+   font-size: 36px;    
 }
 
 .startBtn {
     grid-area: start-btn;
-    padding-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 18px;
 }
 
 .players {
@@ -17,11 +34,17 @@
 
 .chat-cont {
     grid-area: chat-cont;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.text {
+    float: right;
 }
 
 .lobby-page {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 30% 1fr 30% 1fr;
     grid-template-rows: 25% 25% auto;
     grid-template-areas: 
     ". lob-h . chat-h"
