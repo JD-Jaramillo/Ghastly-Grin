@@ -1,0 +1,12 @@
+.score {
+  display: flex;
+  border: 4px black solid;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreList li {
+  display: inline;
+  padding: 8px;
+  font-size: 16px;
+}
