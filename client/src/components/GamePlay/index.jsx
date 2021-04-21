@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
 import WhiteCard from "../WhiteCard";
 import answers from "../../utils/answers";
-import questions from "../../utils/questions";
+// import questions from "../../utils/questions";
 import axios from "axios";
 
 function GamePlay() {
-    const [whiteCard, setWhiteCard] = useState({});
+    // const [whiteCard, setWhiteCard] = useState({});
     const [blackCard, setBlackCard] = useState();
-    const [player, setplayer] = useState({});
+    // const [player, setplayer] = useState({});
   
     const hand = [];
 
@@ -29,13 +29,13 @@ function GamePlay() {
       .catch(err => console.log(err))
     }, [])
     return (
-      <>
+      <div className="container-fluid">
       {/* Pass card attributes through */}
         <BlackCard blackcard={blackCard}/>
         {hand.map((card) => (
             <WhiteCard card={card} />
         ))}
-      </>
+      </div>
     )
   }
   

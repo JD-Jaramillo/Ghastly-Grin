@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Route } from 'react-router-dom';
 import Lobby from '../Lobby';
 import "./style.css";
-import uuid from "react-uuid"
+// import uuid from "react-uuid"
 
 function CreateGame() {
 
