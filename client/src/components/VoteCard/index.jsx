@@ -1,4 +1,5 @@
 import axios from "axios";
+import BlackCard from "../BlackCard";
 import React, { useEffect, useState } from "react";
 import "./style.css";
 
@@ -33,11 +34,14 @@ function VoteCard() {
   return (
     <div>
       <p>{user}</p>
-      <p>{blackCard}</p>
+      <BlackCard blackcard={blackCard}/>
       {whiteCard.map((e) => (
-        <p onClick={(e) => updateScore(e)} data-id={e.user} >{e.answer}</p>
+        <div onClick={(e) => updateScore(e)} data-id={e.user} className="d-flex justify-content-center">
+          <div className="white-card-body">
+            <h5 className="card-title">{e.answer}</h5>
+          </div>
+      </div>
       ))}
-      <p></p>
     </div>
   )
 }
