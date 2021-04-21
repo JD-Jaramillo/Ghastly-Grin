@@ -13,3 +13,19 @@ h1 {
   font-size: 48px;
   color: #fff;
 }
+
+.nav-group {
+  display: flex;
+}
+
+.nav-links {
+  font-size: 26px;
+  color: #fff;
+  margin: 10px;
+  margin-bottom: .5rem;
+}
+
+.nav-links:hover {
+  color: #fff;
+  text-decoration: #007bff;
+}

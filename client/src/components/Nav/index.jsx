@@ -12,9 +12,14 @@ function Nav() {
           <Link className="nav-link" to="/LogSign">Log-In/Sign-Up</Link>
         </li>
        : 
+       <>
         <li className="nav-item">
           <Link className="nav-link" to="/CreateGame">Create/Join Game</Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/">Logout</Link>
+        </li>
+        </>
        }
     </ul>
   )
