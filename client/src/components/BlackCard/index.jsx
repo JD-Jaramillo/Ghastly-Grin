@@ -4,17 +4,11 @@ import "./style.css";
 function BlackCard(props) {
   // Generate 7 cards for each player
     return (
-      <div>
-        <button onClick={props.singleCard}
-        type="text"
-        >
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">{props.questions}</h5>
+        <div className="container d-flex justify-content-center">
+          <div className="black-card-body">
+            <h5 className="card-title">Black Card</h5>
           </div>
         </div>
-        </button>
-      </div>
   )
 }
 
