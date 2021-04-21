@@ -28,7 +28,7 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
-      <BlackCard blackcard={blackCard} />
+      <BlackCard blackCard={blackCard} />
       {whiteCard.map((card) => (
         <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
       ))}
