@@ -4,6 +4,7 @@ import WhiteCard from "../WhiteCard";
 import answers from "../../utils/answers";
 // import questions from "../../utils/questions";
 import axios from "axios";
+import ScoreBar from "../ScoreBar";
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -41,6 +42,7 @@ function GamePlay() {
 
   return (
     <div className="container-fluid">
+      <ScoreBar />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
         <WhiteCard key={whiteCard.indexOf(card)} card={card} user={user} />
