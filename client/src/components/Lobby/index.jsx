@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import axios from "axios";
+import questions from "../../utils/questions";
 
 
 function Lobby() {
     const [players, setPlayers] = useState([]);
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
     const [game, setGame] = useState();
     const getPlayers = () => {
         axios.get('/api/player', { withCredentials: true })
@@ -14,7 +15,7 @@ function Lobby() {
                     console.log(playerData[0].game_id);
                     setGame(playerData[0].game_id)
                     console.log(res.data.session.user_id);
-                    setUser(res.data.session.user_id)
+                    // setUser(res.data.session.user_id)
                     for (let element of playerData) {
                         const {data} = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         setPlayers(players => [...players, data.username])
@@ -38,7 +39,9 @@ function Lobby() {
     }
 
     const startGame = async () => {
-        axios.post('/api/round', {prompt: "What's worse than Model Tech Blog HW", game_id: game, users: players}, { withCredentials: true })
+        const rng = Math.floor(Math.random() * questions.length)
+        const prompt = questions[rng];
+        axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
         .then(res => {
             document.location.replace('/GamePlay')
         })

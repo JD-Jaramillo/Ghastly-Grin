@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 // import io from "socket.io-client"
 import Header from "./components/Header/index";
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import LogSign from "./components/LogSign";
 import CreateGame from "./components/CreateGame";
 import JoinGame from "./components/JoinGame";
@@ -14,16 +14,6 @@ import GamePlay from "./components/GamePlay";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
-  const [apiFetch, setApiFetch] = useState();
-
-  // const callAPI = () => {
-  //   fetch("http://localhost:3001/testAPI")
-  //     .then(res => res.text())
-  //     .then(res => setApiFetch(res))
-  // }
-
-
-  // callAPI();
   
   // socket.emit("welcome", "connected");
   return (
@@ -31,9 +21,6 @@ function App() {
       <div className='body-all'>
         <Header />
         <Instructions />
-        <p>
-          {apiFetch}
-        </p>
         <Route exact path="/LogSign">
           <LogSign />
         </Route>

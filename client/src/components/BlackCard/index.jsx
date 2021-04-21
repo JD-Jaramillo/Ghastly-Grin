@@ -6,7 +6,7 @@ function BlackCard(props) {
     return (
         <div className="container d-flex justify-content-center">
           <div className="black-card-body">
-            <h5 className="card-title">Black Card</h5>
+            <h5 className="card-title">{props.blackcard}</h5>
           </div>
         </div>
   )

@@ -20,7 +20,7 @@ function JoinGame() {
     <form>
       <div className="form-group">
         <h4>Join Lobby</h4>
-        <label for="lobbyCode">Lobby ID</label>
+        <label htmlFor="lobbyCode">Lobby ID</label>
         <input ref={gameID} type="password" className="form-control" id="lobbyCode" />
       </div>
       <Link to="/Lobby" onClick={newPlayer} type="submit" className="btn">Join Lobby</Link>
