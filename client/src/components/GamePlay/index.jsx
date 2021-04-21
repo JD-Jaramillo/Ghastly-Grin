@@ -21,12 +21,16 @@ function GamePlay() {
     randomCards();
 
     return (
-      <div className="GamePlay">
+      <div className="container-fluid">
       {/* Pass card attributes through */}
+      <div className="row">
         <BlackCard />
+      </div>
+      <div className="row d-flex justify-content-center">
         {hand.map((card) => (
             <WhiteCard card={card} />
         ))}
+      </div>
       </div>
     )
   }

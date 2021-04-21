@@ -6,14 +6,13 @@ function WhiteCard(props) {
   // Map through data to get random generated card string
   return(
     
-      // <div className="card">
+      <div className="d-flex justify-content-center">
         <div className="white-card-body">
           <h5 className="card-title">{props.card}</h5>
-          <button href="/" className="card-link btn">Play card</button>
         </div>
-      // </div>
+     </div>
   
   )
 };
 
-export default WhiteCard;
+export default WhiteCard; 
