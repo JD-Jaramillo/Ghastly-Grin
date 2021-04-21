@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import axios from "axios";
 import questions from "../../utils/questions";
+import answers from "../../utils/answers";
 
 
 function Lobby() {
@@ -41,15 +42,11 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
-        axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
-            .then(res => {
-                document.location.replace('/GamePlay')
-            })
-            .catch(err => console.log(err))
-        // try {
-        // } catch (err) {
-        //     console.log(err)
-        // }
+        await axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
+        .then(res => {
+            document.location.replace('/GamePlay')
+        })
+        .catch(err => console.log(err))
     }
 
     useEffect(() => {

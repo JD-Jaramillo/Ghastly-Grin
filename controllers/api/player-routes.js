@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const { Player } = require('../../models');
 const withAuth = require('../../utils/auth');
+const Answers = require('../../models/answers')
 
 const router = require('express').Router();
 
@@ -8,25 +9,47 @@ router.get("/", withAuth, async (req, res, next) => {
   console.log(req.session);
   try {
     const playerLobby = await Player.findAll({
-      where: {game_id: req.session.game_id}
+      where: { game_id: req.session.game_id }
     })
     const lobby = await JSON.parse(JSON.stringify(playerLobby));
-    res.send({session: req.session, data: lobby})
+    res.send({ session: req.session, data: lobby })
     res.status(200).json(lobby)
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+router.get("/cards", withAuth, async (req, res) => {
+  try {
+    const playerData = await Player.findOne({
+      where: {user_id: req.session.user_id}
+    })
+    const formatPlayer = JSON.parse(JSON.stringify(playerData));
+    res.status(200).json({cards: formatPlayer.cards, user_id: req.session.user_id})
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+
 // MUST BE CALLED WITH A GAME_ID IN BODY
 router.post("/", withAuth, async (req, res) => {
   console.log(req.session)
   try {
+    const hand = [];
+
+    let arr = Answers
+    for (let i = 0; i < 7; i++) {
+      const whiteCards = Math.floor(Math.random() * arr.length)
+      hand.push(arr[whiteCards]);
+      arr.splice(whiteCards, 1)
+    }
+
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
     const newPlayer = await Player.create({
       score: 0,
+      cards: hand,
       game_id: req.body.id,
       user_id: req.session.user_id
     });
