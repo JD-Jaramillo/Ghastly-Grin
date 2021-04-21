@@ -25,7 +25,7 @@ function VoteCard() {
       arr.forEach(answer => {
         setWhiteCard([...whiteCard, answer])
       })
-      setUser(res.data.data.user_id)
+      setUser(res.data.user_id)
     })
     .catch(err => console.log(err))
   }, [])
