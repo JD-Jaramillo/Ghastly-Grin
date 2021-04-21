@@ -33,15 +33,16 @@ function VoteCard() {
 
   return (
     <div>
-      <p>{user}</p>
       <BlackCard blackcard={blackCard}/>
-      {whiteCard.map((e) => (
-        <div onClick={(e) => updateScore(e)} data-id={e.user} className="d-flex justify-content-center">
-          <div className="white-card-body">
-            <h5 className="card-title">{e.answer}</h5>
-          </div>
-      </div>
+      <div className="vote-container">
+        {whiteCard.map((e) => (
+          <div onClick={(e) => updateScore(e)} data-id={e.user} className="vote-card">
+            <div className="white-card-body">
+              <h5 className="card-title">{e.answer}</h5>
+            </div>
+        </div>
       ))}
+      </div>
     </div>
   )
 }
