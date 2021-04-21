@@ -42,23 +42,11 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
-<<<<<<< HEAD
         await axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
         .then(res => {
             document.location.replace('/GamePlay')
         })
         .catch(err => console.log(err))
-=======
-        axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
-            .then(res => {
-                document.location.replace('/GamePlay')
-            })
-            .catch(err => console.log(err))
-        // try {
-        // } catch (err) {
-        //     console.log(err)
-        // }
->>>>>>> main
     }
 
     useEffect(() => {
