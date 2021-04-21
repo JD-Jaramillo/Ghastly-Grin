@@ -1,3 +1,10 @@
-.card {
-  width: 18rem;
+
+.black-card-body {
+  padding: 12px;
+  background-color: #86C232;
+  width: 175px;
+  height: 247px;
+  color: #551a8b;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgb(14, 14, 14);
 }

@@ -28,7 +28,7 @@ function App() {
   // socket.emit("welcome", "connected");
   return (
     <Router>
-      <div>
+      <div className='body-all'>
         <Header />
         <Instructions />
         <p>
