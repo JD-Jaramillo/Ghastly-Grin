@@ -20,6 +20,7 @@
 }
 .bighead:hover {
   color: var(--randomCard);
+  text-decoration: var(--randomCard);
 }
 
 .nav-group {
