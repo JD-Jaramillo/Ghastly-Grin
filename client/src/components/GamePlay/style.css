@@ -1,6 +1,33 @@
-.offset-rotate {
+/* .offset-rotate {
     position: relative;
     transform: rotate(-36deg) translate(-18%, 10%);
     transform-origin: center;
     width: 100%;
+} */
+
+.white-card-el {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.white-card-body {
+  padding: 12px;
+  background-color: white;
+  width: 175px;
+  height: 247px;
+  color: #551a8b;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgb(14, 14, 14);
+  left: 50%;
+  top: 50%;
+  transform: translate (-50%, -50%);
+  box-sizing: border-box;
+  transform-origin: center 120%;
+}
+
+.card-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
