@@ -1,24 +1,18 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Nav from "../Nav";
 import "./style.css"
 import { Link } from 'react-router-dom';
 
 function Header() {
-
-  // document.onreadystatechange = () => {
-  //   if (document.readyState == "interactive") {
-  //     ('#nav-icon2').click(function () {
-  //       this.toggleClass('open');
-  //     });
-  //   }
+  const [hamburgerState, setHamburgerState] = useState(true);
 
   return (
     <div className="banner .container-fluid">
       <Link to="/">
-        <h1 className="row bighead">Ghastly Grin</h1>
+        <h1 id="title" className="row">Ghastly Grin</h1>
       </Link>
       <nav className="nav-group">
-        <div id="nav-icon2">
+        <div onClick={() => setHamburgerState(!hamburgerState)} className={hamburgerState ? null : 'open'} id="nav-icon2">
           <span></span>
           <span></span>
           <span></span>
@@ -26,6 +20,8 @@ function Header() {
           <span></span>
           <span></span>
         </div>
+        {hamburgerState ? null : <div>New-Home</div>}
+        {hamburgerState ? null : <div>New-Lobby</div>}
         <Link to="/">
           <span><a className="nav-links">Home</a></span>
         </Link>
@@ -38,6 +34,7 @@ function Header() {
       </nav>
       <Nav />
     </div>
+    
 
   )
 }

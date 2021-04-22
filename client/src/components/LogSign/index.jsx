@@ -41,7 +41,7 @@ function LogSign() {
     if (email && username && password) {
       const response = await fetch('http://localhost:3001/api/user', {
         method: 'POST',
-        body: JSON.stringify({ email, username, password}),
+        body: JSON.stringify({ email, username, password }),
         headers: { 'Content-Type': 'application/json' },
       });
       if (response.ok) {
@@ -56,19 +56,7 @@ function LogSign() {
     <div className="container">
       <div className="row justify-content-center">
         <form className="col-4 offset-1">
-          <h3>Log-In</h3>
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
-            <input ref={loginEmail} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
-            <input ref={loginUsername} type="password" className="form-control" id="exampleInputPassword1" />
-          </div>
-          <button onClick={loginFormHandler} type="submit" className="btn">Log-In</button>
-        </form>
-        <form className="col-4 offset-1">
-          <h3>Sign-Up</h3>
+          <h3>Sign Up</h3>
           <div className="form-group">
             <label htmlFor="signupUsername">Username</label>
             <input ref={signupUsername} type="text" className="form-control" id="signupUsername" aria-describedby="userHelp" />
@@ -81,7 +69,19 @@ function LogSign() {
             <label htmlFor="signupPassword">Password</label>
             <input ref={signupPassword} type="password" className="form-control" id="signupPassword" />
           </div>
-          <button onClick={signupFormHandler} type="submit" className="btn">Sign-Up</button>
+          <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
+        </form>
+        <form className="col-4 offset-1">
+          <h3>Log In</h3>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input ref={loginEmail} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputPassword1">Password</label>
+            <input ref={loginUsername} type="password" className="form-control" id="exampleInputPassword1" />
+          </div>
+          <button onClick={loginFormHandler} type="submit" className="btn">Log In</button>
         </form>
       </div>
     </div>
