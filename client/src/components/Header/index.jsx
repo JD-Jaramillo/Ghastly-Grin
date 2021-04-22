@@ -8,6 +8,7 @@ function Header() {
 
   return (
     <div className="banner .container-fluid">
+      <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo" />
       <Link to="/">
         <h1 id="title" className="row">Ghastly Grin</h1>
       </Link>
@@ -34,7 +35,7 @@ function Header() {
       </nav>
       <Nav />
     </div>
-    
+
 
   )
 }

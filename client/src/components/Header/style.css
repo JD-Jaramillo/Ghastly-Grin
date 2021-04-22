@@ -3,6 +3,13 @@
   padding: 0; 
 }
 
+.headLogo {
+  height: 160px;
+  width: 160px;
+  margin-right: -20px;
+}
+
+
 .banner {
   display: flex;
   height: 120px;
@@ -46,8 +53,8 @@
   cursor: pointer;
 }
 
-#nav-icon2 {
-}
+/* #nav-icon2 {
+} */
 
 #nav-icon2 span {
   display: block;

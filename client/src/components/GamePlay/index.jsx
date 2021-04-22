@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
-import WhiteCard from "../WhiteCard";
+// import WhiteCard from "../WhiteCard";
 // import questions from "../../utils/questions";
 import axios from "axios";
+import "./style.css";
 import ScoreBar from "../ScoreBar";
 
 function GamePlay() {
@@ -12,25 +13,26 @@ function GamePlay() {
   const [answered, setAnswered] = useState(false);
   // const [player, setplayer] = useState({});
 
-  const timer = (endTime) => {
-    setInterval(() => {
-      let currentTime = new Date();
 
-      if (currentTime > endTime) {
-        document.location.replace('/VoteCard');
-        return;
-      }
-    }, 1000);
-  }
+  // const timer = (endTime) => {
+  //   setInterval(() => {
+  //     let currentTime = new Date();
+
+  //     if (currentTime > endTime) {
+  //       document.location.replace('/VoteCard');
+  //       return;
+  //     }
+  //   }, 1000);
+  // }
 
   const submitCard = (e) => {
     console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
         setAnswered(true);
-        axios.put(`/api/player/card`, {card: e.target.dataset.ans}, { withCredentials: true })
-        .then(res => console.log("playerupdated"))
-        .catch(err => console.log(err))
+        axios.put(`/api/player/card`, { card: e.target.dataset.ans }, { withCredentials: true })
+          .then(res => console.log("playerupdated"))
+          .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
   }
@@ -42,7 +44,7 @@ function GamePlay() {
         const startTime = res.data.data.createdAt
         let endTime = new Date(startTime)
         endTime.setSeconds(endTime.getSeconds() + 10)
-        timer(endTime)
+        // timer(endTime)
       })
       .catch(err => console.log(err))
     axios.get('/api/player/cards', { withCredentials: true })
@@ -54,14 +56,24 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
+  // fanStyle(num) {
+
+  // }
+
+  const rotateStyle = {
+    transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
+    transformOrigin: `center 60%`
+
+  };
+
   return (
     <div className="container-fluid">
       <ScoreBar />
       <BlackCard blackcard={blackCard} />
-      {whiteCard.map((card) => (
-        <div disabled={answered} key={whiteCard.indexOf(card)} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center">
-          <div  data-ans={card} className="white-card-body">
-            <h5  data-ans={card} className="card-title">{card}</h5>
+      {whiteCard.map((card, index) => (
+        <div style={rotateStyle} length={whiteCard.length} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
+          <div data-ans={card} className="white-card-body">
+            <h5 data-ans={card} className="card-title">{card}</h5>
           </div>
         </div>
       ))}

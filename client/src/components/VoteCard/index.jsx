@@ -9,28 +9,60 @@ function VoteCard() {
   const [blackCard, setBlackCard] = useState();
   const [user, setUser] = useState();
   const [users, setUsers] = useState();
+  // const [owner, setOwner] = useState();
+  // const [round, setRound] = useState();
+  // const [maxRound, setMaxRound] = useState();
   const [vote, setVote] = useState(true);
-  const [owner, setOwner] = useState();
   // const [toggle, setToggle] = useState(false)
 
-
-  const timer = (endTime) => {
-    setInterval(() => {
+  function timer(endTime) {
+    var timerInterval = setInterval(action, 1000)
+    function stopTimer() {
+      clearInterval(timerInterval)
+    }
+    function action() {
       let currentTime = new Date();
-
+      let userID;
+      let usersID;
       if (currentTime > endTime) {
-        if (user === owner) {
-          axios.post('/api/round/', {user: users}, { withCredentials: true })
-          .then(res => {
-            document.location.replace('/GamePlay')
-            return;
+        axios.get('/api/game', { withCredentials: true })
+          .then(async res => {
+            await axios.get('/api/round', { withCredentials: true })
+              .then(res => {
+                userID = res.data.user_id;
+                usersID = res.data.data.users;
+              })
+            console.log(res.data.game_owner);
+            const owner = res.data.game_owner;
+            const round = res.data.round;
+            const maxRound = res.data.maxrounds;
+            console.log("owner:" + owner, "user: " + userID, "round: " + round, "maxround: " + maxRound)
+            console.log(owner)
+            if (round < maxRound) {
+              if (userID === owner) {
+                await axios.put('/api/game/', { withCredentials: true })
+                  .then(res => console.log(res))
+                  .catch(err => console.log(err))
+                await axios.post('/api/round/', { user: usersID }, { withCredentials: true })
+                  .then(res => {
+                    console.log("id and owner yes match")
+                    stopTimer();
+                    document.location.replace('/GamePlay')
+                    return;
+                  })
+                  .catch(err => console.log(err))
+              } else {
+                // document.location.replace('/GamePlay')
+                console.log("id and owner no match")
+              }
+            } else {
+              console.log("send them to end game")
+            }
           })
-          .catch(err => console.log(err))
-        } else {
-          document.location.replace('/GamePlay')
-        }
+          .catch(err => console.log(err));
+
       }
-    }, 1000);
+    };
   }
 
   const updateScore = (e) => {
@@ -48,6 +80,7 @@ function VoteCard() {
     axios.get('/api/round', { withCredentials: true })
       .then(res => {
         setBlackCard(res.data.data.prompt)
+        console.log(blackCard)
         setUsers(res.data.data.users)
         const arr = JSON.parse(res.data.data.answers)
         setWhiteCard(arr)
@@ -57,13 +90,8 @@ function VoteCard() {
         endTime.setSeconds(endTime.getSeconds() + 25)
         timer(endTime)
       })
-      .catch(err => console.log(err))
-    axios.get('/api/game', { withCredentials: true })
-      .then(res => {
-        setOwner(res.data.game_owner);
-        var gameID = res.data.id;
-      })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+
     axios.get('/api/user')
       .then(res => {
         setUser(res.data.user_id)
