@@ -9,14 +9,7 @@
   --purpleDragon: #551A8B;
 }
 
-html {
-  height: 100%;
-}
-body {
-  min-height: 100%;
-}
 
 .body-all {
   background-color: var(--secondaryColor);
-  height: 100vh;
 }
