@@ -1,19 +1,20 @@
 const withAuth = require('../../utils/auth');
 const { Game, User, Player } = require("../../models");
+const Answers = require('../../models/answers')
+
 
 
 const router = require('express').Router();
 
-router.get("/", function(req, res, next) {
+router.get("/", async (req, res, next) => {
   console.log(req.session.game_id);
   try {
-    const gameData = Game.findOne({ include: 
-      [{ model: Player,
+    const gameData = await Game.findOne({ 
       where: { id: req.session.game_id}
-    }]})
-    const formatData = JSON.parse(JSON.stringify(gameData))
-    res.send(req.session)
+    })
+    const formatData = await JSON.parse(JSON.stringify(gameData))
     res.status(200).json(formatData)
+    res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -34,8 +35,16 @@ router.post("/", async (req, res) => {
       }
     })
     const gameFormat = JSON.parse(JSON.stringify(gameFind))
+    const hand = [];
+    let arr = Answers
+    for (let i = 0; i < 7; i++) {
+      const whiteCards = Math.floor(Math.random() * arr.length)
+      hand.push(arr[whiteCards]);
+      arr.splice(whiteCards, 1)
+    }
     const playerInit = await Player.create({
       score: 0,
+      cards: hand,
       game_id: gameFormat.id,
       user_id: req.session.user_id
     })

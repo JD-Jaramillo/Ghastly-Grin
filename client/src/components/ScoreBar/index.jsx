@@ -21,7 +21,7 @@ function ScoreBar() {
   return (
     <>
     {players.map(e => (
-      <div>{e.name}: {e.score}</div>
+      <div key={e.name}>{e.name}: {e.score}</div>
     ))}
     </>
   )

@@ -40,8 +40,8 @@ router.post("/", withAuth, async (req, res) => {
     let arr = Answers
     for (let i = 0; i < 7; i++) {
       const whiteCards = Math.floor(Math.random() * arr.length)
-      hand.push(arr[whiteCards]);
-      arr.splice(whiteCards, 1)
+      await hand.push(arr[whiteCards]);
+      await arr.splice(whiteCards, 1)
     }
 
     await Player.destroy({
@@ -68,6 +68,42 @@ router.post("/", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 })
+
+router.put("/card", withAuth, async (req, res) => {
+  try {
+    const findPlayer = await Player.findOne({
+      where: {user_id: req.session.user_id}
+    })
+    const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
+    const cards = formatPlayer.cards;
+    console.log(cards);
+    const pos = cards.indexOf(req.body.card);
+    await cards.splice(pos, 1);
+    let arr = Answers
+    for (const card of cards) {
+      const cardInd = arr.indexOf(card)
+      arr.splice(cardInd, 1)
+    }
+    const whiteCards = Math.floor(Math.random() * arr.length)
+    await cards.push(arr[whiteCards])
+    const updatePlayer = await Player.update(
+      {cards: cards},
+      {
+        where: {
+          user_id: req.session.user_id
+        }
+      }
+    )
+    if (!updatePlayer) {
+      res.status(404).json({ message: "No player found with this id!" });
+      return;
+    }
+    res.status(200).json(updatePlayer);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+});
 
 // MUST HAVE USER ID IN PARAMS, AND BODY SCORE
 router.put("/score/:id", withAuth, async (req, res) => {

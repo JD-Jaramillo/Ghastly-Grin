@@ -35,7 +35,12 @@ const answers = [
     "Code nightmares.",
     "You're on mute",
     "Sommer's apples",
-    "Discord Gifs"
+    "Discord Gifs",
+    "Divide and conquer",
+    "Percy",
+    "Gemini's Pig",
+    "Share your screen",
+    "Mary Poppins"
     ]
 
 module.exports = answers;
