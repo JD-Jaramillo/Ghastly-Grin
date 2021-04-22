@@ -42,8 +42,8 @@ function App() {
         <Route path="/VoteCard">
           <VoteCard />
         </Route>
-      </div>
         <Footer />
+      </div>
     </Router>
   );
 }
