@@ -14,16 +14,16 @@ function GamePlay() {
   // const [player, setplayer] = useState({});
 
 
-  // const timer = (endTime) => {
-  //   setInterval(() => {
-  //     let currentTime = new Date();
+ const timer = (endTime) => {
+    setInterval(() => {
+      let currentTime = new Date();
 
-  //     if (currentTime > endTime) {
-  //       document.location.replace('/VoteCard');
-  //       return;
-  //     }
-  //   }, 1000);
-  // }
+      if (currentTime > endTime) {
+        document.location.replace('/VoteCard');
+        return;
+      }
+    }, 1000);
+  } 
 
   const submitCard = (e) => {
     console.log(e.target.dataset.ans)
@@ -44,7 +44,7 @@ function GamePlay() {
         const startTime = res.data.data.createdAt
         let endTime = new Date(startTime)
         endTime.setSeconds(endTime.getSeconds() + 10)
-        // timer(endTime)
+        timer(endTime)
       })
       .catch(err => console.log(err))
     axios.get('/api/player/cards', { withCredentials: true })
@@ -60,23 +60,24 @@ function GamePlay() {
 
   // }
 
-  const rotateStyle = {
-    transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
-    transformOrigin: `center 60%`
+  // const rotateStyle = {
+  //   transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
+  //   transformOrigin: `center 60%`
 
-  };
+  // };
 
   return (
     <div className="container-fluid">
       <ScoreBar />
       <BlackCard blackcard={blackCard} />
-      {whiteCard.map((card, index) => (
-        <div style={rotateStyle} length={whiteCard.length} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
+      {whiteCard.length ? whiteCard.map((card, index) => (
+        <div style={{transform: `rotate(${whiteCard.index * (180 / index)}) translate(-50%, -50%)`,
+        transformOrigin: `center 60%`}} length={7} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
           <div data-ans={card} className="white-card-body">
             <h5 data-ans={card} className="card-title">{card}</h5>
           </div>
         </div>
-      ))}
+      )) : <></>}
     </div>
   )
 }

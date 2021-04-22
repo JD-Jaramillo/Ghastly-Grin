@@ -106,13 +106,13 @@ function VoteCard() {
       <BlackCard blackcard={blackCard} />
       <div key={"cont"} className="vote-container">
         {/* {user === owner ? <div onClick={setToggle(true)}>TOGGLE TIME</div> : null} */}
-        {whiteCard.map((e) => (
+        {whiteCard ? whiteCard.map((e) => (
           <div key={whiteCard.indexOf(e)} onClick={vote ? (e) => updateScore(e) : null} data-id={e.user} className="vote-card">
             <div data-id={e.user} className="white-card-body">
               <h5 data-id={e.user} className="card-title">{e.answer}</h5>
             </div>
           </div>
-        ))}
+        )) : <></>}
       </div>
     </div>
   )
