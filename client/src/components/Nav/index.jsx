@@ -9,11 +9,11 @@ function Nav() {
 
   const logOut = () => {
     axios.post('/api/user/logout', { withCredentials: true })
-    .then(() => {
-      console.log("Logged Out")
-      document.location.replace('/')
-    })
-    .catch(err => console.log(err))
+      .then(() => {
+        console.log("Logged Out")
+        document.location.replace('/')
+      })
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -27,15 +27,19 @@ function Nav() {
       {loggedIn ?
         <>
           <li className="nav-item">
-            <Link className="nav-link" to="/CreateGame">Create/Join Game</Link>
+            <Link to="/CreateGame">
+              <span><a className="nav-links">Create/Join Game</a></span>
+            </Link>
           </li>
           <li className="nav-item">
-          <div onClick={logOut} className="nav-link">Log-Out</div>
+            <span><a onClick={logOut} className="nav-links">Log Out</a></span>
           </li>
         </>
         :
         <li className="nav-item">
-          <Link className="nav-link" to="/LogSign">Log-In/Sign-Up</Link>
+          <Link to="/LogSign">
+            <span><a className="nav-links">Log In</a></span>
+          </Link>
         </li>
       }
     </ul>
