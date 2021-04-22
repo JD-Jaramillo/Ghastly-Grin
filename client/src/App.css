@@ -9,12 +9,7 @@
   --purpleDragon: #551A8B;
 }
 
-#root {
-  background-color: #6B6E70;
-  height: 100%;
-}
-
-/* html {
+html {
   height: 100%;
 }
 body {
@@ -24,4 +19,4 @@ body {
 .body-all {
   background-color: #6B6E70;
   height: 100vh;
-} */
+}
