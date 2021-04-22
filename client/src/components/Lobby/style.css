@@ -1,5 +1,6 @@
 .lobby-start {
     grid-area: lob-h;
+    text-align: center;
 } 
 
 .chat {
@@ -7,6 +8,7 @@
 }
 
 .ch-ct {
+    color: var(--playerCards);
     border: 2px solid var(--randomCard);
     border-radius: 5px;
     padding: 10px;
@@ -14,17 +16,22 @@
 }
 .ch-ct:hover {
     background-color: var(--secondaryColor);
-    color: var(--playerCards);
+    color: var(--randomCard);
 }
 
 .lob-h, .chat-h {
    font-size: 36px;    
 }
 
+.chat-h {
+    text-align: center;
+}
+
 .startBtn {
     grid-area: start-btn;
     margin-top: 8px;
     margin-bottom: 18px;
+    margin: auto;
 }
 
 .players {
@@ -42,6 +49,7 @@
 }
 
 .lobby-page {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr 30% 1fr 30% 1fr;
     grid-template-rows: 25% 25% auto;

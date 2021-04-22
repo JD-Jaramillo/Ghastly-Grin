@@ -1,14 +1,16 @@
 .justify-content-end {
-  margin-bottom: 5px;
+  margin-bottom: .5rem;
 }
 
-.nav-links {
+.nav-link {
   font-size: 26px;
   color: #fff;
 }
 
-.nav-links:hover {
-  color: #fff;
+.nav-link:hover {
+  color: var(--randomCard);
+  transform: scale(1.1);
+  text-decoration: var(--randomCard);
 }
 
 a:hover {

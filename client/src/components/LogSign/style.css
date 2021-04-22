@@ -2,6 +2,9 @@
   margin-top: 56px;
 }
 
+h3 {
+  text-align: center;
+}
 
 form {
   border: .25rem black solid;
@@ -13,8 +16,10 @@ form {
 .btn {
   background-color: #333 !important;
   color: #fff !important;
+  margin-left: 52px;
 }
 
 .btn:hover {
-  color: red !important;
+  color: var(--randomCard) !important;
+  transform: scale(1.1) !important;
 }
