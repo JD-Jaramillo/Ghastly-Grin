@@ -73,7 +73,7 @@ router.post("/", withAuth, async (req, res) => {
 router.put("/score/:id", withAuth, async (req, res) => {
   try {
     const updatePlayer = await Player.update(
-      { score: Sequelize.literal(`score + ${req.body.score}`) },
+      { score: Sequelize.literal(`score + 1`) },
       {
         where: {
           user_id: req.params.id

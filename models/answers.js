@@ -1,14 +1,4 @@
 const answers = [
-    "A mousetrap",
-    "Lincoln",
-    "Reagan",
-    "George W. Bush",
-    "Obama",
-    "A corpse",
-    "A church",
-    "A blessing",
-    "Mice",
-    "A hunting license",
     "ABC, Always Be Coding.",
     "For sure.",
     "I can't get my site to deploy.",
@@ -43,7 +33,9 @@ const answers = [
     "Your keyboard dying in the middle of a presentation.",
     "Mom's Spaghetti.",
     "Code nightmares.",
-    "You're on mute"
+    "You're on mute",
+    "Sommer's apples",
+    "Discord Gifs"
     ]
 
 module.exports = answers;

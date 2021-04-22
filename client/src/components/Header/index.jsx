@@ -9,6 +9,9 @@ function Header() {
       <Link to="/">
         <h1 className="row">Ghastly Grin</h1>
       </Link>
+      <Link to="/Lobby">
+        <h1 className="row">Lobby</h1>
+      </Link>
       <Nav />
     </div>
 
