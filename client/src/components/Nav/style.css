@@ -1,10 +1,16 @@
-.nav-link {
-  color: #fff;
-  font-size: 24px;
+.justify-content-end {
+  margin-bottom: 5px;
 }
 
-.nav-link:hover {
+.nav-links {
+  font-size: 26px;
   color: #fff;
-  text-decoration: underline;
-  text-decoration: #007bff;
 }
+
+.nav-links:hover {
+  color: #fff;
+}
+
+a:hover {
+  transition: all .2s ease-in-out;
+} 

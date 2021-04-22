@@ -4,12 +4,28 @@ import "./style.css"
 import { Link } from 'react-router-dom';
 
 function Header() {
+
+  // document.onreadystatechange = () => {
+  //   if (document.readyState == "interactive") {
+  //     ('#nav-icon2').click(function () {
+  //       this.toggleClass('open');
+  //     });
+  //   }
+
   return (
     <div className="banner .container-fluid">
       <Link to="/">
-        <h1 className="row">Ghastly Grin</h1>
+        <h1 className="row bighead">Ghastly Grin</h1>
       </Link>
       <nav className="nav-group">
+        <div id="nav-icon2">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <Link to="/">
           <span><a className="nav-links">Home</a></span>
         </Link>
@@ -27,4 +43,3 @@ function Header() {
 }
 
 export default Header;
-
