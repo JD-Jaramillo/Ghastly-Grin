@@ -7,8 +7,8 @@ import ScoreBar from "../ScoreBar";
 function VoteCard() {
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
-  const [user, setUser] = useState();
-  const [users, setUsers] = useState();
+  // const [user, setUser] = useState();
+  // const [users, setUsers] = useState();
   // const [owner, setOwner] = useState();
   // const [round, setRound] = useState();
   // const [maxRound, setMaxRound] = useState();
@@ -52,11 +52,13 @@ function VoteCard() {
                   })
                   .catch(err => console.log(err))
               } else {
-                // document.location.replace('/GamePlay')
+                stopTimer();
+                document.location.replace('/GamePlay')
                 console.log("id and owner no match")
               }
             } else {
-              console.log("send them to end game")
+              stopTimer();
+              document.location.replace('/')
             }
           })
           .catch(err => console.log(err));
@@ -81,10 +83,10 @@ function VoteCard() {
       .then(res => {
         setBlackCard(res.data.data.prompt)
         console.log(blackCard)
-        setUsers(res.data.data.users)
+        // setUsers(res.data.data.users)
         const arr = JSON.parse(res.data.data.answers)
         setWhiteCard(arr)
-        setUser(res.data.user_id)
+        // setUser(res.data.user_id)
         const startTime = res.data.data.createdAt
         let endTime = new Date(startTime)
         endTime.setSeconds(endTime.getSeconds() + 25)
@@ -92,13 +94,13 @@ function VoteCard() {
       })
       .catch(err => console.log(err));
 
-    axios.get('/api/user')
-      .then(res => {
-        setUser(res.data.user_id)
-        console.log(res.data.user_id)
-      })
-      .catch(err => console.log(err))
-  }, [])
+    // axios.get('/api/user')
+    //   .then(res => {
+    //     // setUser(res.data.user_id)
+    //     console.log(res.data.user_id)
+    //   })
+    //   .catch(err => console.log(err))
+  }, [blackCard])
 
   return (
     <div>

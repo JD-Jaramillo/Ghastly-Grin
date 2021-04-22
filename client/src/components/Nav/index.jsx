@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import userContext from "../../utils/userContext"
 import "./style.css";
 
 function Nav() {
@@ -28,17 +27,17 @@ function Nav() {
         <>
           <li className="nav-item">
             <Link to="/CreateGame">
-              <span><a className="nav-link">Create/Join Game</a></span>
+              <div className="nav-link">Create/Join Game</div>
             </Link>
           </li>
           <li className="nav-item">
-            <span><a onClick={logOut} className="nav-link">Log Out</a></span>
+            <div onClick={logOut} className="nav-link">Log Out</div>
           </li>
         </>
         :
         <li className="nav-item">
           <Link to="/LogSign">
-            <span><a className="nav-link">Log In</a></span>
+            <div className="nav-link">Log In</div>
           </Link>
         </li>
       }
