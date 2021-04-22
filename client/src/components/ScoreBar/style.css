@@ -1,0 +1,35 @@
+.tcontainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ticker-wrap {
+  width: 100%;
+  padding-left: 100%;
+  background-color: #333;
+}
+
+@keyframes ticker {
+  100% {
+      transform: translate3d(-280%, 0, 0);
+  }
+}
+
+.ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation-timing-function: linear;
+  animation: ticker 30s infinite;
+}
+
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-block;
+  padding: 0 40px;
+  font-size: 20px;
+  color: #86C232;
+}
