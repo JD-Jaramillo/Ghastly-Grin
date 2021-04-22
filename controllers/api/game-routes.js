@@ -1,6 +1,7 @@
 const withAuth = require('../../utils/auth');
 const { Game, User, Player } = require("../../models");
 const Answers = require('../../models/answers')
+const Sequelize = require("sequelize");
 
 
 
@@ -39,8 +40,8 @@ router.post("/", async (req, res) => {
     let arr = Answers
     for (let i = 0; i < 7; i++) {
       const whiteCards = Math.floor(Math.random() * arr.length)
-      hand.push(arr[whiteCards]);
-      arr.splice(whiteCards, 1)
+      await hand.push(arr[whiteCards]);
+      await arr.splice(whiteCards, 1)
     }
     const playerInit = await Player.create({
       score: 0,
@@ -68,6 +69,25 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log(err);
     // res.status(400).json(err);
+  }
+})
+
+router.put("/", async (req, res) => {
+  try {
+    const roundIncrement = Game.update(
+      {round: Sequelize.literal(`round + 1`)},
+      {
+        where: {
+          game_owner: req.session.user_id
+        }
+    })
+    if (!roundIncrement) {
+      res.status(404).json({ message: "No player found with this id!" });
+      return;
+    }
+    res.status(200).json(roundIncrement);
+  } catch (err) {
+    res.status(400).json(err);
   }
 })
 
