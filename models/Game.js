@@ -11,6 +11,21 @@ Game.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    round: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    maxrounds: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+    timer: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 15,
+    },
     game_owner: {
       type: DataTypes.INTEGER,
       references: {
