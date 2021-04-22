@@ -1,0 +1,6 @@
+.offset-rotate {
+    position: relative;
+    transform: rotate(-36deg) translate(-18%, 10%);
+    transform-origin: center;
+    width: 100%;
+}

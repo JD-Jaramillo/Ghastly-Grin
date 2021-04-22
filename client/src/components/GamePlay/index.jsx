@@ -3,6 +3,7 @@ import BlackCard from "../BlackCard";
 import WhiteCard from "../WhiteCard";
 // import questions from "../../utils/questions";
 import axios from "axios";
+import "./style.css";
 import ScoreBar from "../ScoreBar";
 
 function GamePlay() {
@@ -53,6 +54,10 @@ function GamePlay() {
       })
       .catch(err => console.log(err))
   }, [])
+
+  // fanStyle(num) {
+
+  // }
 
   return (
     <div className="container-fluid">
