@@ -16,7 +16,7 @@ import VoteCard from "./components/VoteCard";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
-
+  
   // socket.emit("welcome", "connected");
   return (
     <Router>
