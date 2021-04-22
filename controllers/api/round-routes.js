@@ -1,5 +1,7 @@
 const { Round } = require('../../models');
 const withAuth = require('../../utils/auth');
+const Questions = require('../../models/questions')
+
 
 const router = require('express').Router();
 
@@ -23,9 +25,10 @@ router.post("/", withAuth, async (req, res) => {
     await Round.destroy({
       where: { game_id: req.session.game_id }
     })
+    const rng = Math.floor(Math.random() * Questions.length)
     const roundCreate = await Round.create({
-      prompt: req.body.prompt,
-      game_id: req.body.game_id,
+      prompt: Questions[rng],
+      game_id: req.session.game_id,
       users: req.body.users
     })
     res.status(200).json(roundCreate)
