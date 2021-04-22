@@ -28,17 +28,17 @@ function Nav() {
         <>
           <li className="nav-item">
             <Link to="/CreateGame">
-              <span><a className="nav-links">Create/Join Game</a></span>
+              <span><a className="nav-link">Create/Join Game</a></span>
             </Link>
           </li>
           <li className="nav-item">
-            <span><a onClick={logOut} className="nav-links">Log Out</a></span>
+            <span><a onClick={logOut} className="nav-link">Log Out</a></span>
           </li>
         </>
         :
         <li className="nav-item">
           <Link to="/LogSign">
-            <span><a className="nav-links">Log In</a></span>
+            <span><a className="nav-link">Log In</a></span>
           </Link>
         </li>
       }

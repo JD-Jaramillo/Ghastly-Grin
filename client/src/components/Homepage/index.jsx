@@ -3,7 +3,7 @@ import "./style.css";
 
 function HomePage() {
     return (
-        <div>
+        <div className="main-content">
             <div id="carousel" className="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div className="carousel-indicators">
                     <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
