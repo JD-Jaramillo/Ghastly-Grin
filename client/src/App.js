@@ -42,10 +42,6 @@ function App() {
         <Route path="/VoteCard">
           <VoteCard />
         </Route>
-<<<<<<< HEAD
-        <Footer />
-=======
->>>>>>> main
       </div>
         <Footer />
     </Router>

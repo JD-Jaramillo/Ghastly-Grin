@@ -6,19 +6,15 @@
   --thirdColor: #61892F;
   --randomCard: #86C232;
   --playerCards: white;
-<<<<<<< HEAD
-  --logoPurple: #551A8B;
+  --purpleDragon: #551A8B;
 }
 
 #root {
   background-color: #6B6E70;
   height: 100%;
 }
-=======
-  --purpleDragon: #551A8B;
-}
 
-html {
+/* html {
   height: 100%;
 }
 body {
@@ -28,5 +24,4 @@ body {
 .body-all {
   background-color: #6B6E70;
   height: 100vh;
-}
->>>>>>> main
+} */
