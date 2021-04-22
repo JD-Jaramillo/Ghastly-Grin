@@ -4,6 +4,7 @@ import WhiteCard from "../WhiteCard";
 // import questions from "../../utils/questions";
 import axios from "axios";
 import ScoreBar from "../ScoreBar";
+import Timer from "../Timer"
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -28,9 +29,9 @@ function GamePlay() {
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
         setAnswered(true);
-        axios.put(`/api/player/card`, {card: e.target.dataset.ans}, { withCredentials: true })
-        .then(res => console.log("playerupdated"))
-        .catch(err => console.log(err))
+        axios.put(`/api/player/card`, { card: e.target.dataset.ans }, { withCredentials: true })
+          .then(res => console.log("playerupdated"))
+          .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
   }
@@ -57,16 +58,17 @@ function GamePlay() {
   return (
     <div className="container-fluid">
       <ScoreBar />
+      <Timer />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
         <div disabled={answered} key={whiteCard.indexOf(card)} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center">
-          <div  data-ans={card} className="white-card-body">
-            <h5  data-ans={card} className="card-title">{card}</h5>
+          <div data-ans={card} className="white-card-body">
+            <h5 data-ans={card} className="card-title">{card}</h5>
           </div>
         </div>
-      ))}
-    </div>
-  )
+  ))}
+  </div>
+)
 }
 
 export default GamePlay;
