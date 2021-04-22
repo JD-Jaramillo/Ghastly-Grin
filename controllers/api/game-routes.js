@@ -56,7 +56,8 @@ router.post("/", async (req, res) => {
     })
     const playerFormat = JSON.parse(JSON.stringify(playerFind))
     // req.session.save(() => {
-      // req.session.player_id = playerFormat.id;
+      req.session.game_id = gameFormat.id;
+      req.session.player_id = playerFormat.id;
       console.log(playerInit)
       console.log(gameFormat)
       console.log(playerFormat)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 // import io from "socket.io-client"
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
@@ -12,12 +12,22 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import GamePlay from "./components/GamePlay";
 import VoteCard from "./components/VoteCard";
+import axios from 'axios';
 // import UserContext from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
-  
+  const [loggedIn, setLoggedIn] = useState();
+
+  useEffect(() => {
+    axios.get('/api/user')
+      .then(res => {
+        setLoggedIn(res.data.loggedIn)
+      })
+  }, [])
+
   // socket.emit("welcome", "connected");
+  
   return (
     <Router>
       <div className='body-all'>
@@ -37,7 +47,7 @@ function App() {
           <Lobby />
         </Route>
         <Route path="/GamePlay">
-          <GamePlay />
+        {loggedIn ? <GamePlay /> : <Homepage />}
         </Route>
         <Route path="/VoteCard">
           <VoteCard />

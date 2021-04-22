@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
-import WhiteCard from "../WhiteCard";
+// import WhiteCard from "../WhiteCard";
 // import questions from "../../utils/questions";
 import axios from "axios";
 import "./style.css";
@@ -13,7 +13,8 @@ function GamePlay() {
   const [answered, setAnswered] = useState(false);
   // const [player, setplayer] = useState({});
 
-  const timer = (endTime) => {
+
+ const timer = (endTime) => {
     setInterval(() => {
       let currentTime = new Date();
 
@@ -22,16 +23,16 @@ function GamePlay() {
         return;
       }
     }, 1000);
-  }
+  } 
 
   const submitCard = (e) => {
     console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
         setAnswered(true);
-        axios.put(`/api/player/card`, {card: e.target.dataset.ans}, { withCredentials: true })
-        .then(res => console.log("playerupdated"))
-        .catch(err => console.log(err))
+        axios.put(`/api/player/card`, { card: e.target.dataset.ans }, { withCredentials: true })
+          .then(res => console.log("playerupdated"))
+          .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
   }
@@ -59,18 +60,25 @@ function GamePlay() {
 
   // }
 
+  // const rotateStyle = {
+  //   transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
+  //   transformOrigin: `center 60%`
+
+  // };
+
   return (
     <>
     <ScoreBar />
     <div className="container-fluid">
       <BlackCard blackcard={blackCard} />
-      {whiteCard.map((card) => (
-        <div disabled={answered} key={whiteCard.indexOf(card)} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center">
-          <div  data-ans={card} className="white-card-body">
-            <h5  data-ans={card} className="card-title">{card}</h5>
+      {whiteCard.length ? whiteCard.map((card, index) => (
+        <div style={{transform: `rotate(${whiteCard.index * (180 / index)}) translate(-50%, -50%)`,
+        transformOrigin: `center 60%`}} length={7} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
+          <div data-ans={card} className="white-card-body">
+            <h5 data-ans={card} className="card-title">{card}</h5>
           </div>
         </div>
-      ))}
+      )) : <></>}
     </div>
     </>
   )
