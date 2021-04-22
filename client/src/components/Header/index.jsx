@@ -14,6 +14,7 @@ function Header() {
 
   return (
     <div className="banner .container-fluid">
+      <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo"/>
       <Link to="/">
         <h1 className="row bighead">Ghastly Grin</h1>
       </Link>
