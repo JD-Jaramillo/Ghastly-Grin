@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth');
 
 
 router.get("/", function(req, res, next) {
-  res.send("API is working properly");
+  res.send(req.session);
 });
 
 router.get("/:id", withAuth, async (req, res, next) => {

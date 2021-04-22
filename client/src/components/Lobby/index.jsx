@@ -13,9 +13,7 @@ function Lobby() {
         axios.get('/api/player', { withCredentials: true })
             .then(async res => {
                 const playerData = res.data.data;
-                console.log(playerData[0].game_id);
                 setGame(playerData[0].game_id)
-                console.log(res.data.session.user_id);
                 // setUser(res.data.session.user_id)
                 for (let element of playerData) {
                     const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });

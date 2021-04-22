@@ -1,16 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 
 function ScoreBar() {
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/player', { withCredentials: true })
+      .then(async res => {
+        const playerData = res.data.data;
+        console.log(playerData)
+        for (let element of playerData) {
+          const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+          setPlayers(players => [...players, { name: data.username, score: element.score }])
+        }
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   return (
-    <div className="score">
-      <h5>Scoreboard:</h5>
-      <ul className ="scoreList">
-        <li>Player 1: </li>
-        <li>Player 2: </li>
-        <li>Player 3: </li>
-      </ul>
-    </div>
+    <>
+      <div className="tcontainer">
+        <div className="ticker-wrap">
+          <div className="ticker-move">
+          <h5 className="ticker-item">Scoreboard: </h5>
+          {players.map(e => (
+            <div className="ticker-item">{e.name}: {e.score}</div>
+          ))}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
