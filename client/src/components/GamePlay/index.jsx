@@ -60,8 +60,9 @@ function GamePlay() {
   // }
 
   return (
+    <>
+    <ScoreBar />
     <div className="container-fluid">
-      <ScoreBar />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card) => (
         <div disabled={answered} key={whiteCard.indexOf(card)} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center">
@@ -71,6 +72,7 @@ function GamePlay() {
         </div>
       ))}
     </div>
+    </>
   )
 }
 

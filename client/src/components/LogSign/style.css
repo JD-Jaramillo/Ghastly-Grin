@@ -2,7 +2,6 @@
   margin-top: 56px;
 }
 
-
 form {
   border: .25rem black solid;
   margin: 20px;
@@ -16,5 +15,6 @@ form {
 }
 
 .btn:hover {
-  color: red !important;
+  transform: translateY(4px);
+  color: var(--randomCard) !important;
 }
