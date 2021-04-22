@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import axios from "axios";
 import questions from "../../utils/questions";
-import answers from "../../utils/answers";
 
 
 function Lobby() {

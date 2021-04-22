@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
 import WhiteCard from "../WhiteCard";
-import answers from "../../utils/answers";
 // import questions from "../../utils/questions";
 import axios from "axios";
 import ScoreBar from "../ScoreBar";
