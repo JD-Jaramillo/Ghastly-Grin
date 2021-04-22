@@ -8,7 +8,7 @@ function CreateGame() {
 
   const newGame = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:3001/api/game/', {
+    const response = await fetch('/api/game/', {
       method: 'POST',
       credentials: 'include',
       // body: JSON.stringify({id: uuid()}),

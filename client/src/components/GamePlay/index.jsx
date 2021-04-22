@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
 import WhiteCard from "../WhiteCard";
-import answers from "../../utils/answers";
 // import questions from "../../utils/questions";
 import axios from "axios";
 import "./style.css";
@@ -11,7 +10,7 @@ function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
   const [user, setUser] = useState();
-  const [answered, setAnswered] = useState(false)
+  const [answered, setAnswered] = useState(false);
   // const [player, setplayer] = useState({});
 
   const timer = (endTime) => {
@@ -19,7 +18,8 @@ function GamePlay() {
       let currentTime = new Date();
 
       if (currentTime > endTime) {
-        document.location.replace('/VoteCard')
+        document.location.replace('/VoteCard');
+        return;
       }
     }, 1000);
   }
@@ -28,7 +28,10 @@ function GamePlay() {
     console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
-        setAnswered(true)
+        setAnswered(true);
+        axios.put(`/api/player/card`, {card: e.target.dataset.ans}, { withCredentials: true })
+        .then(res => console.log("playerupdated"))
+        .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
   }
@@ -47,6 +50,7 @@ function GamePlay() {
       .then(res => {
         setWhiteCard(res.data.cards)
         setUser(res.data.user_id)
+        console.log(res.data.user_id)
       })
       .catch(err => console.log(err))
   }, [])

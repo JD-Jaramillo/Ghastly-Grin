@@ -40,10 +40,14 @@ function App() {
           <GamePlay />
         </Route>
         <Route path="/VoteCard">
-        <VoteCard />
+          <VoteCard />
         </Route>
+<<<<<<< HEAD
         <Footer />
+=======
+>>>>>>> main
       </div>
+        <Footer />
     </Router>
   );
 }
