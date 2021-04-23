@@ -69,7 +69,9 @@ function LogSign() {
             <label htmlFor="signupPassword">Password</label>
             <input ref={signupPassword} type="password" className="form-control" id="signupPassword" />
           </div>
-          <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
+          <div className="btn-parent">
+            <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
+          </div>
         </form>
         <form className="col-4 offset-1">
           <h3>Log In</h3>
@@ -81,7 +83,9 @@ function LogSign() {
             <label htmlFor="exampleInputPassword1">Password</label>
             <input ref={loginUsername} type="password" className="form-control" id="exampleInputPassword1" />
           </div>
-          <button onClick={loginFormHandler} type="submit" className="btn">Log In</button>
+          <div className="btn-parent">
+            <button onClick={loginFormHandler} type="submit" className="btn">Log In</button>
+          </div>
         </form>
       </div>
     </div>
