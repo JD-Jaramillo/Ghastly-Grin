@@ -56,22 +56,16 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
-  // fanStyle(num) {
-
-  // }
-
-  const rotateStyle = {
-    transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
-    transformOrigin: `center 60%`
-
-  };
-
   return (
     <div className="container-fluid">
       <ScoreBar />
       <BlackCard blackcard={blackCard} />
       {whiteCard.map((card, index) => (
-        <div style={rotateStyle} length={whiteCard.length} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
+        <div disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} style={
+          {
+            transform: `rotate(${index * (60/ 7)}deg) translate(-150px, -100px)`
+          }}
+          className="d-flex justify-content-center white-card-el">
           <div data-ans={card} className="white-card-body">
             <h5 data-ans={card} className="card-title">{card}</h5>
           </div>
