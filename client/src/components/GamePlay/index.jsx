@@ -63,8 +63,9 @@ function GamePlay() {
   }, [])
 
   return (
+    <>
+    <ScoreBar />
     <div className="container-fluid">
-      <ScoreBar />
       <BlackCard blackcard={blackCard} />
       <div className="d-flex flex-row">
         <div className="offset-rotate">
@@ -87,6 +88,7 @@ function GamePlay() {
         </div>
       </div>
     </div>
+    </>
   )
   // <div disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} style={
   //   {
