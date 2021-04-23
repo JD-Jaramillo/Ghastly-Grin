@@ -27,7 +27,14 @@
   left: 50%;
 }
 
-.offset-rotate {
+/* .offset-rotate {
     margin-top: 20px;
     margin-bottom: 50px
+} */
+
+.offset-rotate {
+  position: relative;
+  transform: rotate(-36deg);
+  transform-origin: center;
+  width: 100%;
 }
