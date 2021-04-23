@@ -66,16 +66,16 @@ function Lobby() {
     }
 
     const startGame = async () => {
-        const rng = Math.floor(Math.random() * questions.length)
-        const prompt = questions[rng];
+        // const rng = Math.floor(Math.random() * questions.length)
+        // const prompt = questions[rng];
         await axios.put('/api/game/', { withCredentials: true })
             .then(res => console.log(res))
             .catch(err => console.log(err))
-        await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+        await axios.post('/api/round', { users: players }, { withCredentials: true })
             .then(res => {
                 document.location.replace('/GamePlay')
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log("round: " + err))
     }
 
     useEffect(() => {

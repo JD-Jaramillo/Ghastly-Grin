@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Link, Route } from 'react-router-dom';
 import Lobby from '../Lobby';
@@ -8,17 +9,12 @@ function CreateGame() {
 
   const newGame = async (event) => {
     event.preventDefault();
-    const response = await fetch('/api/game/', {
-      method: 'POST',
-      credentials: 'include',
-      // body: JSON.stringify({id: uuid()}),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    if (response.ok) {
-      document.location.replace("/Lobby")
-    } else {
-      alert('Failed to create game.');
-    }
+    axios.post('/api/game', { test: "test" }, { withCredentials: true })
+      .then(res => {
+        document.location.replace("/Lobby")
+      })
+      .catch(err => console.log(err))
+
   }
 
   return (

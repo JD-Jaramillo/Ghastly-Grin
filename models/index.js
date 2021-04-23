@@ -2,6 +2,7 @@ const User = require("./User");
 const Game = require("./Game");
 const Player = require("./Player");
 const Round = require("./Round");
+const Deck = require("./Deck");
 
 User.hasOne(Game, {
   foreignKey: "game_owner",
@@ -29,5 +30,11 @@ Player.belongsTo(User, {
   as: "user",
   foreignKey: "user_id"
 });
+Game.hasOne(Deck, {
+  foreignKey: "game_id"
+});
+Deck.belongsTo(Game, {
+  foreignKey: "game_id"
+})
 
-module.exports = {User, Game, Player, Round};
+module.exports = {User, Game, Player, Round, Deck};
