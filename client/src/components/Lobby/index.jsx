@@ -6,29 +6,42 @@ import questions from "../../utils/questions";
 
 function Lobby() {
     const [players, setPlayers] = useState([]);
-    // const [user, setUser] = useState();
+    const [user, setUser] = useState();
     const [game, setGame] = useState();
+    const [owner, setOwner] = useState();
+    
+
     const getPlayers = () => {
         axios.get('/api/player', { withCredentials: true })
             .then(async res => {
                 const playerData = res.data.data;
                 setGame(playerData[0].game_id)
-                // setUser(res.data.session.user_id)
+                setUser(res.data.session.user_id)
                 for (let element of playerData) {
                     const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                     setPlayers(players => [...players, data.username])
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+        axios.get('/api/game', { withCredentials: true })
+            .then(async res => {
+                setOwner(res.data.game_owner)
+            })
+            .catch(err => console.log(err));
         setInterval(() => {
-            setPlayers([]);
+            // setPlayers([]);
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
-
                     const playerData = res.data.data;
-                    for (let element of playerData) {
-                        const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                        setPlayers(players => [...players, data.username])
+                    console.log(playerData.length, players.length)
+                    if (playerData.length > players.length) {
+                        // await setPlayers([])
+                        for (let element of playerData) {
+                            const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                            if (players.includes(data.username)) {
+                                await setPlayers(players => [...players, data.username])
+                            }
+                        }
                     }
                 })
                 .catch(err => console.log(err))
@@ -39,11 +52,11 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
-        await axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
-        .then(res => {
-            document.location.replace('/GamePlay')
-        })
-        .catch(err => console.log(err))
+        await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+            .then(res => {
+                document.location.replace('/GamePlay')
+            })
+            .catch(err => console.log(err))
     }
 
     useEffect(() => {
@@ -55,7 +68,7 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <button onClick={startGame} type="submit" className="btn startBtn btn-primary">Start Game</button>
+                    <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn btn-primary">{user}Start Game</button>
                     {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
                     <ol className="players">
                         {players.map(player => {
