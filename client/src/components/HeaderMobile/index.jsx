@@ -11,7 +11,7 @@ function HeaderMobile() {
       <div className="mobile-menu-base">
         <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo" />
         <Link to="/">
-          <h1 id="title" className="row">Ghastly Grin</h1>
+          <h1 id="title" className="row">Ghastly<span className="wrap">Grin</span></h1>
         </Link>
         <div onClick={() => setHamburgerState(!hamburgerState)} className={hamburgerState ? null : 'open'} id="nav-icon2">
           <span></span>

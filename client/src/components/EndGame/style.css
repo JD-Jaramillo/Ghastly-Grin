@@ -1,0 +1,29 @@
+.endContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 40px;
+}
+
+.scoreHeader {
+  color: var(--purpleDragon);
+  font-weight: 500;
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.list-group {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  border: black 2px solid;
+  border-radius: 8px;
+}
+
+.list-group-item {
+  background-color: #333 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--secondaryColor);
+  font-size: 24px;
+}

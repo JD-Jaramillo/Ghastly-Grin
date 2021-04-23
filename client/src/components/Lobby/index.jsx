@@ -87,7 +87,7 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn btn-primary">{owner === user ? 'Start Game' : 'Waiting'}</button>
+                    <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
                     {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
                     <ol className="players">
                         {players.map(player => {
