@@ -1,13 +1,5 @@
-.white-card-el {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: -5%;
-    top: 75%;
-}
-
-.white-card-el:hover {
-
+.card-element:hover {
+    z-index: 1;
 }
 
 .white-card-body {
@@ -18,7 +10,6 @@
   color: #551a8b;
   border-radius: 15px;
   box-shadow: 0 0 10px rgb(14, 14, 14);
-  /* transform: translate(-75%, 200%) */
 }
 
 .card-element {
@@ -27,14 +18,9 @@
   left: 50%;
 }
 
-/* .offset-rotate {
-    margin-top: 20px;
-    margin-bottom: 50px
-} */
-
 .offset-rotate {
   position: relative;
-  transform: rotate(-36deg);
-  transform-origin: center;
+  transform: rotate(-20deg) translateX(-50%);
   width: 100%;
+  left: 32%;
 }

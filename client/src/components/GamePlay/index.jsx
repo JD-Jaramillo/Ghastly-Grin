@@ -25,7 +25,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        document.location.replace('/VoteCard');
+        // document.location.replace('/VoteCard');
 
       }
     };
@@ -71,8 +71,8 @@ function GamePlay() {
           {whiteCard.map((card, index) => (
             <div style={
               {
-                transform: `rotate(${index * (180 / 7)}deg) translate(-50%, -50%)`,
-                transformOrigin: `center 60%`
+                transform: `rotate(${index * (90 / 7)}deg) translate(-50%, -50%)`,
+                transformOrigin: `center 115%`
               }
             }
               onClick={submitCard}
