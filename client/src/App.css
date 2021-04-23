@@ -1,5 +1,4 @@
 
-
 :root {
   --appBackground: #222629;
   --secondaryColor: #d8d8d8;
@@ -10,13 +9,12 @@
 }
 
 html {
-  min-height: 100%;
-}
-body {
-  min-height: 100%;
+  background-color: var(--secondaryColor);
 }
 
-.body-all {
-  background-color: #6B6E70;
-  height: 100%;
+.main-content {
+  background-color: var(--secondaryColor);
+  min-height: 100vh;
+  margin-top: 0;
+  margin-bottom: 0;
 }

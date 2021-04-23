@@ -1,11 +1,11 @@
 import React from 'react';
-import './footer.css';
+import './Footer.css';
 
 
 function Footer() {
     return (
         <footer id="footer" className='container-fluid'>
-            <a target="_blank" href="https://github.com/JD-Jaramillo/Ghastly-Grin">Ghastly Grin</a>
+            <a target="_blank" rel="noreferrer" href="https://github.com/JD-Jaramillo/Ghastly-Grin">Ghastly Grin</a>
         </footer>
     );
 }

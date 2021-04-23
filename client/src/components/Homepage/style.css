@@ -1,18 +1,10 @@
-.main-content {
-    min-height: 100vh;
-  }
 
 #carousel {
     max-width: 80%;
     margin: 0 auto;
-<<<<<<< HEAD
-    margin-top: 40px;
-    margin-bottom: 40px;
-=======
     margin-top: 30px;
 }
 
 .carousel-inner {
     border-radius: 3px solid var(--appBackground);
->>>>>>> main
 }

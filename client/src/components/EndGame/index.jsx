@@ -1,8 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./style.css";
+import axios from "axios";
 
-function ScoreBar() {
+
+function EndGame() {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
@@ -20,18 +21,11 @@ function ScoreBar() {
 
   return (
     <>
-      <div className="tcontainer">
-        <div className="ticker-wrap">
-          <div className="ticker-move">
-          <h5 className="ticker-item">Scoreboard: </h5>
-          {players.map(e => (
-            <div key={e.name} className="ticker-item">{e.name}: {e.score}</div>
+     {players.map(e => (
+            <div key={e.name} className="">{e.name}: {e.score}</div>
           ))}
-          </div>
-        </div>
-      </div>
     </>
   )
 }
 
-export default ScoreBar;
+export default EndGame;

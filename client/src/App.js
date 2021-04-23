@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // import io from "socket.io-client"
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
@@ -13,7 +13,8 @@ import './App.css';
 import GamePlay from "./components/GamePlay";
 import VoteCard from "./components/VoteCard";
 import axios from 'axios';
-// import UserContext from "./utils/userContext";
+import HeaderMobile from "./components/HeaderMobile";
+import EndGame from "./components/EndGame";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -27,11 +28,12 @@ function App() {
   }, [])
 
   // socket.emit("welcome", "connected");
-  
+
   return (
     <Router>
-      <div className='body-all'>
-        <Header />
+      <Header />
+      <HeaderMobile />
+      <div className="main-content">
         <Instructions />
         <Route exact path="/">
           <Homepage />
@@ -47,13 +49,16 @@ function App() {
           <Lobby />
         </Route>
         <Route path="/GamePlay">
-        {loggedIn ? <GamePlay /> : <Homepage />}
+          {loggedIn ? <GamePlay /> : <Homepage />}
         </Route>
         <Route path="/VoteCard">
           <VoteCard />
         </Route>
-        <Footer />
+        <Route path="/EndGame">
+          <EndGame />
+        </Route>
       </div>
+      <Footer />
     </Router>
   );
 }

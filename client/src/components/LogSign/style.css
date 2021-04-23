@@ -2,13 +2,10 @@
   margin-top: 56px;
 }
 
-<<<<<<< HEAD
-=======
 h3 {
   text-align: center;
 }
 
->>>>>>> main
 form {
   border: .25rem black solid;
   margin: 20px;
@@ -23,11 +20,6 @@ form {
 }
 
 .btn:hover {
-<<<<<<< HEAD
-  transform: translateY(4px);
-  color: var(--randomCard) !important;
-=======
   color: var(--randomCard) !important;
   transform: scale(1.1) !important;
->>>>>>> main
 }

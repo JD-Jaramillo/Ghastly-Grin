@@ -14,16 +14,22 @@ function GamePlay() {
   // const [player, setplayer] = useState({});
 
 
- const timer = (endTime) => {
-    setInterval(() => {
+  const timer = (endTime) => {
+    var timerInterval = setInterval(action, 1000)
+    function stopTimer() {
+      clearInterval(timerInterval)
+    }
+
+    function action() {
       let currentTime = new Date();
 
       if (currentTime > endTime) {
+        stopTimer();
         document.location.replace('/VoteCard');
-        return;
+
       }
-    }, 1000);
-  } 
+    };
+  }
 
   const submitCard = (e) => {
     console.log(e.target.dataset.ans)
@@ -56,32 +62,43 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
-  // fanStyle(num) {
-
-  // }
-
-  // const rotateStyle = {
-  //   transform: `rotate(${whiteCard.index * (180 / 7)}) translate(-50%, -50%)`,
-  //   transformOrigin: `center 60%`
-
-  // };
-
   return (
     <>
     <ScoreBar />
     <div className="container-fluid">
       <BlackCard blackcard={blackCard} />
-      {whiteCard.length ? whiteCard.map((card, index) => (
-        <div style={{transform: `rotate(${whiteCard.index * (180 / index)}) translate(-50%, -50%)`,
-        transformOrigin: `center 60%`}} length={7} disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} className="d-flex justify-content-center white-card-el">
-          <div data-ans={card} className="white-card-body">
-            <h5 data-ans={card} className="card-title">{card}</h5>
-          </div>
+      <div className="d-flex flex-row">
+        <div className="offset-rotate">
+          {whiteCard.map((card, index) => (
+            <div style={
+              {
+                transform: `rotate(${index * (180 / 7)}deg) translate(-50%, -50%)`,
+                transformOrigin: `center 60%`
+              }
+            }
+              onClick={submitCard}
+              className="card-element"
+              data-ans={card}>
+              <div data-ans={card} className="white-card-body">
+                <h5 data-ans={card} className="card-title">{card}</h5>
+              </div>
+            </div>
+          ))}
+
         </div>
-      )) : <></>}
+      </div>
     </div>
     </>
   )
+  // <div disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} style={
+  //   {
+  //     transform: `rotate(${index * (60 / 7)}deg) translate(-150px, -100px)`
+  //   }}
+  //   className="d-flex justify-content-center white-card-el">
+  //   <div data-ans={card} className="white-card-body">
+  //     <h5 data-ans={card} className="card-title">{card}</h5>
+  //   </div>
+  // </div>
 }
 
 export default GamePlay;

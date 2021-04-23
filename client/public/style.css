@@ -8,4 +8,6 @@ html {
     background-color: #6B6E70;
 }
 
-
+body {
+  background-color: #d8d8d8 !important;
+}

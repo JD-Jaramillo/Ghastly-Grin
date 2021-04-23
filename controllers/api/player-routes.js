@@ -31,7 +31,6 @@ router.get("/cards", withAuth, async (req, res) => {
   }
 })
 
-// MUST BE CALLED WITH A GAME_ID IN BODY
 router.post("/", withAuth, async (req, res) => {
   console.log(req.session)
   try {
@@ -39,7 +38,7 @@ router.post("/", withAuth, async (req, res) => {
 
     let arr = Answers
     for (let i = 0; i < 7; i++) {
-      const whiteCards = Math.floor(Math.random() * arr.length)
+      const whiteCards = await Math.floor(Math.random() * arr.length)
       await hand.push(arr[whiteCards]);
       await arr.splice(whiteCards, 1)
     }
@@ -47,7 +46,7 @@ router.post("/", withAuth, async (req, res) => {
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
-    const newPlayer = await Player.create({
+    await Player.create({
       score: 0,
       cards: hand,
       game_id: req.body.id,
