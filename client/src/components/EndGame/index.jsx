@@ -21,9 +21,14 @@ function EndGame() {
 
   return (
     <>
-     {players.map(e => (
-            <div key={e.name} className="">{e.name}: {e.score}</div>
-          ))}
+      <div className="endContainer">
+        <ul className="list-group">
+        <h5 className="scoreHeader">- Scoreboard -</h5>
+        {players.map(e => (
+          <li className="list-group-item" key={e.name}>{e.name}: {e.score}</li>
+        ))}
+        </ul>
+      </div>
     </>
   )
 }
