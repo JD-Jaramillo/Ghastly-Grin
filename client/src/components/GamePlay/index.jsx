@@ -25,7 +25,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        // document.location.replace('/VoteCard');
+        document.location.replace('/VoteCard');
 
       }
     };
@@ -69,12 +69,14 @@ function GamePlay() {
       <div className="d-flex flex-row">
         <div className="offset-rotate">
           {whiteCard.map((card, index) => (
-            <div style={ 
-              {transform: `rotate(${index * (180/7)}deg) translate(-50%, -50%)`,
-              transformOrigin: `center 60%`}
-            } 
-              onClick={submitCard} 
-              className="card-element" 
+            <div style={
+              {
+                transform: `rotate(${index * (180 / 7)}deg) translate(-50%, -50%)`,
+                transformOrigin: `center 60%`
+              }
+            }
+              onClick={submitCard}
+              className="card-element"
               data-ans={card}>
               <div data-ans={card} className="white-card-body">
                 <h5 data-ans={card} className="card-title">{card}</h5>
