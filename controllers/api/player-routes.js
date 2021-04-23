@@ -13,7 +13,7 @@ router.get("/", withAuth, async (req, res, next) => {
     })
     const lobby = await JSON.parse(JSON.stringify(playerLobby));
     res.send({ session: req.session, data: lobby })
-    res.status(200).json(lobby)
+    // res.status(200).json(lobby)
   } catch (err) {
     res.status(500).json(err);
   }

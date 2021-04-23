@@ -6,31 +6,47 @@ import questions from "../../utils/questions";
 
 function Lobby() {
     const [players, setPlayers] = useState([]);
-    const [user, setUser] = useState();
+    var [user, setUser] = useState();
     const [game, setGame] = useState();
-    const [owner, setOwner] = useState();
-    
+    var [owner, setOwner] = useState();
+    let ownerID;
+    let userID;
 
-    const getPlayers = () => {
-        axios.get('/api/player', { withCredentials: true })
+    const getPlayers = async () => {
+        await axios.get('/api/player', { withCredentials: true })
             .then(async res => {
+                console.log(res.data.data)
                 const playerData = res.data.data;
-                setGame(playerData[0].game_id)
-                setUser(res.data.session.user_id)
+                await setGame(playerData[0].game_id)
+                await setUser(res.data.session.user_id)
+                userID = res.data.session.user_id
                 for (let element of playerData) {
                     const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                    setPlayers(players => [...players, data.username])
+                    await setPlayers(players => [...players, data.username])
                 }
             })
             .catch(err => console.log(err));
-        axios.get('/api/game', { withCredentials: true })
+        await axios.get('/api/game', { withCredentials: true })
             .then(async res => {
                 setOwner(res.data.game_owner)
+                ownerID = res.data.game_owner
             })
             .catch(err => console.log(err));
-        setInterval(() => {
+        setInterval(async () => {
+            console.log(user, owner)
+            console.log(userID, ownerID)
             // setPlayers([]);
-            axios.get('/api/player', { withCredentials: true })
+            if (userID !== ownerID) {
+                console.log("user NOT owner");
+                await axios.get('/api/game', { withCredentials: true })
+                    .then(res => {
+                        if (res.data.round > 0) {
+                            document.location.replace('/GamePlay')
+                        }
+                    })
+                    .catch(err => console.log(err));
+            }
+            await axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
                     const playerData = res.data.data;
                     console.log(playerData.length, players.length)
@@ -53,8 +69,8 @@ function Lobby() {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
         await axios.put('/api/game/', { withCredentials: true })
-                  .then(res => console.log(res))
-                  .catch(err => console.log(err))
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
             .then(res => {
                 document.location.replace('/GamePlay')
