@@ -32,6 +32,7 @@ function GamePlay() {
   }
 
   const submitCard = (e) => {
+    e.target.style = "display: none"
     console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
@@ -63,17 +64,17 @@ function GamePlay() {
   }, [])
 
   return (
-    <>
-    <ScoreBar />
-    <div className="container-fluid">
+    <> 
+      <ScoreBar />
+    <div className="container">
       <BlackCard blackcard={blackCard} />
       <div className="d-flex flex-row">
         <div className="offset-rotate">
           {whiteCard.map((card, index) => (
             <div style={
               {
-                transform: `rotate(${index * (180 / 7)}deg) translate(-50%, -50%)`,
-                transformOrigin: `center 60%`
+                transform: `rotate(${index * (90 / 7)}deg) translate(-50%, -50%)`,
+                transformOrigin: `center 115%`
               }
             }
               onClick={submitCard}
@@ -90,15 +91,6 @@ function GamePlay() {
     </div>
     </>
   )
-  // <div disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} style={
-  //   {
-  //     transform: `rotate(${index * (60 / 7)}deg) translate(-150px, -100px)`
-  //   }}
-  //   className="d-flex justify-content-center white-card-el">
-  //   <div data-ans={card} className="white-card-body">
-  //     <h5 data-ans={card} className="card-title">{card}</h5>
-  //   </div>
-  // </div>
 }
 
 export default GamePlay;

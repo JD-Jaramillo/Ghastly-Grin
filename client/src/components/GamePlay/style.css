@@ -1,13 +1,11 @@
-.white-card-el {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: -5%;
-    top: 75%;
+.card-element:hover {
+  z-index: 1;
+  transition: 2s ease-in-out;
 }
 
-.white-card-el:hover {
-
+.white-card-body:hover {
+    box-shadow: 0 0 15px var(--purpleDragon);
+    transform:translate( 10px, -20px);
 }
 
 .white-card-body {
@@ -18,23 +16,16 @@
   color: #551a8b;
   border-radius: 15px;
   box-shadow: 0 0 10px rgb(14, 14, 14);
-  /* transform: translate(-75%, 200%) */
 }
 
 .card-element {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  left: 275px;
+  top: 300px;
 }
-
-/* .offset-rotate {
-    margin-top: 20px;
-    margin-bottom: 50px
-} */
 
 .offset-rotate {
   position: relative;
-  transform: rotate(-36deg);
-  transform-origin: center;
-  width: 100%;
+  transform: rotate(-20deg);
+  max-width: 90%;
 }
