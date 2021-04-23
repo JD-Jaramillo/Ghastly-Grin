@@ -47,7 +47,7 @@ router.post("/", withAuth, async (req, res) => {
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
-    const newPlayer = await Player.create({
+    await Player.create({
       score: 0,
       cards: hand,
       game_id: req.body.id,
