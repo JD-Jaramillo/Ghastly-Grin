@@ -13,7 +13,7 @@ router.get("/", withAuth, async (req, res, next) => {
     })
     const lobby = await JSON.parse(JSON.stringify(playerLobby));
     res.send({ session: req.session, data: lobby })
-    res.status(200).json(lobby)
+    // res.status(200).json(lobby)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,7 +31,6 @@ router.get("/cards", withAuth, async (req, res) => {
   }
 })
 
-// MUST BE CALLED WITH A GAME_ID IN BODY
 router.post("/", withAuth, async (req, res) => {
   console.log(req.session)
   try {
@@ -39,7 +38,7 @@ router.post("/", withAuth, async (req, res) => {
 
     let arr = Answers
     for (let i = 0; i < 7; i++) {
-      const whiteCards = Math.floor(Math.random() * arr.length)
+      const whiteCards = await Math.floor(Math.random() * arr.length)
       await hand.push(arr[whiteCards]);
       await arr.splice(whiteCards, 1)
     }

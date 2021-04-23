@@ -12,7 +12,7 @@ function Nav() {
         console.log("Logged Out")
         document.location.replace('/')
       })
-      .catch(err => console.log(err))
+      .catch(err => document.location.replace('/LogSign'))
   }
 
   useEffect(() => {

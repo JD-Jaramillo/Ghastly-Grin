@@ -6,29 +6,58 @@ import questions from "../../utils/questions";
 
 function Lobby() {
     const [players, setPlayers] = useState([]);
-    // const [user, setUser] = useState();
+    var [user, setUser] = useState();
     const [game, setGame] = useState();
-    const getPlayers = () => {
-        axios.get('/api/player', { withCredentials: true })
+    var [owner, setOwner] = useState();
+    let ownerID;
+    let userID;
+
+    const getPlayers = async () => {
+        await axios.get('/api/player', { withCredentials: true })
             .then(async res => {
+                console.log(res.data.data)
                 const playerData = res.data.data;
-                setGame(playerData[0].game_id)
-                // setUser(res.data.session.user_id)
+                await setGame(playerData[0].game_id)
+                await setUser(res.data.session.user_id)
+                userID = res.data.session.user_id
                 for (let element of playerData) {
                     const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                    setPlayers(players => [...players, data.username])
+                    await setPlayers(players => [...players, data.username])
                 }
             })
-            .catch(err => console.log(err))
-        setInterval(() => {
-            setPlayers([]);
-            axios.get('/api/player', { withCredentials: true })
+            .catch(err => console.log(err));
+        await axios.get('/api/game', { withCredentials: true })
+            .then(async res => {
+                setOwner(res.data.game_owner)
+                ownerID = res.data.game_owner
+            })
+            .catch(err => console.log(err));
+        setInterval(async () => {
+            console.log(user, owner)
+            console.log(userID, ownerID)
+            // setPlayers([]);
+            if (userID !== ownerID) {
+                console.log("user NOT owner");
+                await axios.get('/api/game', { withCredentials: true })
+                    .then(res => {
+                        if (res.data.round > 0) {
+                            document.location.replace('/GamePlay')
+                        }
+                    })
+                    .catch(err => console.log(err));
+            }
+            await axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
-
                     const playerData = res.data.data;
-                    for (let element of playerData) {
-                        const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                        setPlayers(players => [...players, data.username])
+                    console.log(playerData.length, players.length)
+                    if (playerData.length > players.length) {
+                        // await setPlayers([])
+                        for (let element of playerData) {
+                            const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
+                            if (players.includes(data.username)) {
+                                await setPlayers(players => [...players, data.username])
+                            }
+                        }
                     }
                 })
                 .catch(err => console.log(err))
@@ -39,6 +68,9 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
+        await axios.put('/api/game/', { withCredentials: true })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
             .then(res => {
                 document.location.replace('/GamePlay')
@@ -55,7 +87,7 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <button onClick={startGame} type="submit" className="btn startBtn">Start Game</button>
+                    <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
                     {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
                     <ol className="players">
                         {players.map(player => {
