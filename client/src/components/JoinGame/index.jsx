@@ -10,7 +10,7 @@ function JoinGame() {
   const newPlayer = async (event) => {
     const ID = gameID.current.value
     event.preventDefault();
-    axios.post('http://localhost:3001/api/player', {id: ID}, { withCredentials: true })
+    await axios.post('http://localhost:3001/api/player', {id: ID}, { withCredentials: true })
     .then(res => 
       document.location.replace("/Lobby")
       )
