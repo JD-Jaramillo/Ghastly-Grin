@@ -14,7 +14,7 @@ import GamePlay from "./components/GamePlay";
 import VoteCard from "./components/VoteCard";
 import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
-// import UserContext from "./utils/userContext";
+import EndGame from "./components/EndGame";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -53,6 +53,9 @@ function App() {
         </Route>
         <Route path="/VoteCard">
           <VoteCard />
+        </Route>
+        <Route path="/EndGame">
+          <EndGame />
         </Route>
       </div>
       <Footer />

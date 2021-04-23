@@ -14,22 +14,22 @@ function GamePlay() {
   // const [player, setplayer] = useState({});
 
 
-  // const timer = (endTime) => {
-  //   var timerInterval = setInterval(action, 1000)
-  //   function stopTimer() {
-  //     clearInterval(timerInterval)
-  //   }
+  const timer = (endTime) => {
+    var timerInterval = setInterval(action, 1000)
+    function stopTimer() {
+      clearInterval(timerInterval)
+    }
 
-  //   function action() {
-  //     let currentTime = new Date();
+    function action() {
+      let currentTime = new Date();
 
-  //     if (currentTime > endTime) {
-  //       stopTimer();
-  //       document.location.replace('/VoteCard');
-        
-  //     }
-  //   };
-  // }
+      if (currentTime > endTime) {
+        stopTimer();
+        document.location.replace('/VoteCard');
+
+      }
+    };
+  }
 
   const submitCard = (e) => {
     console.log(e.target.dataset.ans)
@@ -50,7 +50,7 @@ function GamePlay() {
         const startTime = res.data.data.createdAt
         let endTime = new Date(startTime)
         endTime.setSeconds(endTime.getSeconds() + 10)
-        // timer(endTime)
+        timer(endTime)
       })
       .catch(err => console.log(err))
     axios.get('/api/player/cards', { withCredentials: true })
@@ -69,7 +69,7 @@ function GamePlay() {
       {whiteCard.map((card, index) => (
         <div disabled={answered} key={index} index={index} data-ans={card} onClick={!answered ? (e) => submitCard(e) : null} style={
           {
-            transform: `rotate(${index * (60/ 7)}deg) translate(-150px, -100px)`
+            transform: `rotate(${index * (60 / 7)}deg) translate(-150px, -100px)`
           }}
           className="d-flex justify-content-center white-card-el">
           <div data-ans={card} className="white-card-body">

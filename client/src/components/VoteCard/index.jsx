@@ -49,7 +49,7 @@ function VoteCard() {
               }
             } else {
               stopTimer();
-              document.location.replace('/')
+              document.location.replace('/EndGame')
             }
           })
           .catch(err => console.log(err));
