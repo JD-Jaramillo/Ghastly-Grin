@@ -15,14 +15,20 @@ function GamePlay() {
 
 
   // const timer = (endTime) => {
-  //   setInterval(() => {
+  //   var timerInterval = setInterval(action, 1000)
+  //   function stopTimer() {
+  //     clearInterval(timerInterval)
+  //   }
+
+  //   function action() {
   //     let currentTime = new Date();
 
   //     if (currentTime > endTime) {
+  //       stopTimer();
   //       document.location.replace('/VoteCard');
-  //       return;
+        
   //     }
-  //   }, 1000);
+  //   };
   // }
 
   const submitCard = (e) => {

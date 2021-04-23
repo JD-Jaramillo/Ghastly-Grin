@@ -1,8 +1,7 @@
 
-
 :root {
   --appBackground: #222629;
-  --secondaryColor: #474B4F;
+  --secondaryColor: #d8d8d8;
   --thirdColor: #61892F;
   --randomCard: #86C232;
   --playerCards: white;
@@ -10,13 +9,12 @@
 }
 
 html {
-  height: 100%;
-}
-body {
-  min-height: 100%;
+  background-color: var(--secondaryColor);
 }
 
-.body-all {
-  background-color: #6B6E70;
-  height: 100vh;
+.main-content {
+  background-color: var(--secondaryColor);
+  min-height: 100vh;
+  margin-top: 0;
+  margin-bottom: 0;
 }

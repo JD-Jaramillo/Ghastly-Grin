@@ -2,11 +2,8 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    /* transform-origin: center; */
     left: -5%;
     top: 75%;
-    /* width: 1024px;
-    height: 500px; */
 }
 
 .white-card-el:hover {

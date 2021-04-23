@@ -25,7 +25,7 @@ function ScoreBar() {
           <div className="ticker-move">
           <h5 className="ticker-item">Scoreboard: </h5>
           {players.map(e => (
-            <div className="ticker-item">{e.name}: {e.score}</div>
+            <div key={e.name} className="ticker-item">{e.name}: {e.score}</div>
           ))}
           </div>
         </div>
