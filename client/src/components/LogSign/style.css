@@ -2,6 +2,17 @@
   margin-top: 56px;
 }
 
+@media only screen and (max-width: 525px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-4 {
+    max-width: 80% !important;
+  }
+}
+
 h3 {
   text-align: center;
 }
@@ -13,10 +24,14 @@ form {
   border-radius: 8px;
 }
 
+.btn-parent {
+  display: flex;
+  justify-content: center;
+}
+
 .btn {
   background-color: #333 !important;
   color: #fff !important;
-  margin-left: 52px;
 }
 
 .btn:hover {
