@@ -39,6 +39,7 @@ app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('secret'));
+
 // app.use(express.static(path.join(__dirname, '/client')));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -69,6 +70,7 @@ app.use(compression());
 //   })
 // });
 // httpServer.listen(3001);
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
