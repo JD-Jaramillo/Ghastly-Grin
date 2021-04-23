@@ -46,7 +46,7 @@
 @media only screen and (max-width: 425px) {
   #title {
   font-size: 24px !important;
-    margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
  span.wrap {
@@ -65,7 +65,7 @@
   }
 
   
-  }
+}
 
 @media only screen and (max-width: 992px) {
   #title {
@@ -177,15 +177,17 @@
   }
 }
 
+.nav-link-wrap:hover {
+  color: var(--randomCard);
+}
+
 .nav-links:hover {
   color: var(--randomCard);
-  text-decoration: var(--randomCard);
 }
 
 a:hover {
   color: var(--randomCard);
   transform: scale(1.1);
-  text-decoration: var(--randomCard);
 }
 
 .mobile-dropdown {
