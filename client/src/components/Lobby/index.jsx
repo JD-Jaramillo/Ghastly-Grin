@@ -39,11 +39,11 @@ function Lobby() {
     const startGame = async () => {
         const rng = Math.floor(Math.random() * questions.length)
         const prompt = questions[rng];
-        await axios.post('/api/round', {prompt: prompt, game_id: game, users: players}, { withCredentials: true })
-        .then(res => {
-            document.location.replace('/GamePlay')
-        })
-        .catch(err => console.log(err))
+        await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+            .then(res => {
+                document.location.replace('/GamePlay')
+            })
+            .catch(err => console.log(err))
     }
 
     useEffect(() => {
@@ -55,7 +55,7 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <button onClick={startGame} type="submit" className="btn startBtn btn-primary">Start Game</button>
+                    <button onClick={startGame} type="submit" className="btn startBtn">Start Game</button>
                     {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
                     <ol className="players">
                         {players.map(player => {

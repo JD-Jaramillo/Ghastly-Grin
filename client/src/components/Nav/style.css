@@ -26,6 +26,12 @@ a:hover {
 
 .nav-item {
   background-color: var(--purpleDragon);
-  border: 3px solid #d8d8d8;
+  border: 1px solid var(--secondaryColor);
   border-radius: 4px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+}
+
+.nav-item:hover {
+  border: 1px solid var(--randomCard);
 }

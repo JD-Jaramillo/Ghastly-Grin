@@ -15,7 +15,7 @@
     margin:10px 0;
 }
 .ch-ct:hover {
-    background-color: var(--secondaryColor);
+    background-color: var(--purpleDragon);
     color: var(--randomCard);
 }
 
@@ -32,6 +32,10 @@
     margin-top: 8px;
     margin-bottom: 18px;
     margin: auto;
+}
+
+.startBtn:hover {
+    border: 3px solid var(--purpleDragon);
 }
 
 .players {
