@@ -1,5 +1,4 @@
 
-
 :root {
   --appBackground: #222629;
   --secondaryColor: #d8d8d8;
@@ -9,7 +8,13 @@
   --purpleDragon: #551A8B;
 }
 
-
-.body-all {
+html {
   background-color: var(--secondaryColor);
+}
+
+.main-content {
+  background-color: var(--secondaryColor);
+  min-height: 100vh;
+  margin-top: 0;
+  margin-bottom: 0;
 }

@@ -22,7 +22,7 @@ function Nav() {
       })
   }, [])
   return (
-    <ul className="nav justify-content-end">
+    <ul className="nav nav-login">
       {loggedIn ?
         <>
           <li className="nav-item">
