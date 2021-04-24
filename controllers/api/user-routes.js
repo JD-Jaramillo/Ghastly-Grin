@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth');
 
 
 router.get("/", function (req, res, next) {
-  res.send(req.session);
+  res.json(req.session);
 });
 
 router.get("/:id", withAuth, async (req, res, next) => {
@@ -76,10 +76,10 @@ router.post("/login", async (req, res) => {
     req.session.user_id = userID;
     req.session.loggedIn = true;
     console.log(req.session.user_id)
-    res.send(req.session)
-    res
-      .status(200)
-      .json({ user: dbUserData, message: "You are now logged in!" });
+    res.json(req.session)
+    // res
+    //   .status(200)
+    //   .json({ user: dbUserData, message: "You are now logged in!" });
     // });
   } catch (err) {
     console.log(err);
