@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import axios from "axios";
 // import userContext from "../../utils/userContext";
 import "./style.css";
 
@@ -13,19 +14,23 @@ function LogSign() {
     const password = loginUsername.current.value;
 
     if (email && password) {
-      const response = await fetch('/api/user/login', {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // const response = await fetch('http://localhost:3001/api/user/login', {
+      //   method: 'POST',
+      //   credentials: 'include',
+      //   body: JSON.stringify({ email, password }),
+      //   headers: { 'Content-Type': 'application/json' },
+      await axios.post('/api/user/login', { email, password }, { withCredentials: true })
+        .then(res => {
+          document.location.replace('/CreateGame');
+          console.log("testpass")
+        })
+        .catch(err => console.log(err))
 
-      if (response.ok) {
-        console.log("testpass")
-        document.location.replace('/CreateGame');
-      } else {
-        alert('Failed to log in.');
-      }
+
+      // if (response.ok) {
+      // } else {
+      //   alert('Failed to log in.');
+      // }
     }
   };
   const signupEmail = useRef();
