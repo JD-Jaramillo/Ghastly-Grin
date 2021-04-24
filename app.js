@@ -39,7 +39,7 @@ app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('secret'));
-// app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '/client')));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, 'client/build')));
