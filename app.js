@@ -17,11 +17,11 @@ const sequelize = require("./config/connection");
 
 var app = express();
 
-app.use(cors({
-  origin: ["https://ghastlygrin.herokuapp.com/"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+// app.use(cors({
+//   origin: ["https://ghastlygrin.herokuapp.com/"],
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }));
 const PORT = process.env.PORT || 3001;
 
 const sess = {

@@ -44,7 +44,7 @@ function LogSign() {
     const password = signupPassword.current.value;
 
     if (email && username && password) {
-      await axios.post('http://localhost:3001/api/user', { email, username, password }, { withCredentials: true })
+      await axios.post('/api/user', { email, username, password }, { withCredentials: true })
         .then(res => {
           document.location.replace('/CreateGame');
           console.log("testpass")
