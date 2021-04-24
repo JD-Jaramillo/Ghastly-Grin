@@ -1,6 +1,7 @@
 const withAuth = require('../../utils/auth');
-const { Game, User, Player } = require("../../models");
+const { Game, User, Player, Deck } = require("../../models");
 const Answers = require('../../models/answers')
+const Questions = require('../../models/questions')
 const Sequelize = require("sequelize");
 
 
@@ -23,6 +24,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res) => {
   console.log(req.session.user_id)
+  console.log(req.body)
   try {
     await Game.destroy({
       where: { game_owner: req.session.user_id}
@@ -35,14 +37,33 @@ router.post("/", async (req, res) => {
         game_owner: req.session.user_id
       }
     })
-    const gameFormat = JSON.parse(JSON.stringify(gameFind))
+    const gameFormat = JSON.parse(JSON.stringify(gameFind));
+    await Deck.create({
+      questions: Questions,
+      answers: Answers,
+      game_id: gameFormat.id
+    });
+    const deckFind = await Deck.findOne({
+      where: {
+        game_id: gameFormat.id
+      }
+    });
+    const deckFormat = JSON.parse(JSON.stringify(deckFind))
     const hand = [];
-    let arr = Answers
+    let arr = deckFormat.answers
     for (let i = 0; i < 7; i++) {
       const whiteCards = Math.floor(Math.random() * arr.length)
       await hand.push(arr[whiteCards]);
       await arr.splice(whiteCards, 1)
     }
+    await Deck.update(
+      {answers: arr},
+      {
+        where: {
+          game_id: gameFormat.id
+        }
+      }
+      );
     const playerInit = await Player.create({
       score: 0,
       cards: hand,

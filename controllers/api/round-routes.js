@@ -1,6 +1,7 @@
-const { Round } = require('../../models');
+const { Round, Deck } = require('../../models');
 const withAuth = require('../../utils/auth');
 const Questions = require('../../models/questions')
+const Answers = require('../../models/answers')
 
 
 const router = require('express').Router();
@@ -13,7 +14,7 @@ router.get("/", withAuth, async (req, res) => {
       }
     });
     const getRound = await JSON.parse(JSON.stringify(roundData))
-    res.status(200).json({data: getRound, user_id: req.session.user_id})
+    res.status(200).json({ data: getRound, user_id: req.session.user_id })
   } catch {
     res.status(500).json(err);
   }
@@ -21,17 +22,35 @@ router.get("/", withAuth, async (req, res) => {
 
 // Trigger on Owner clicking Game Start
 router.post("/", withAuth, async (req, res) => {
+  console.log(req.session);
   try {
     await Round.destroy({
       where: { game_id: req.session.game_id }
-    })
-    const rng = Math.floor(Math.random() * Questions.length)
-    const roundCreate = await Round.create({
-      prompt: Questions[rng],
+    });
+    const deckFind = await Deck.findOne({
+      where: {
+        game_id: req.session.game_id
+      }
+    });
+    const deckFormat = await JSON.parse(JSON.stringify(deckFind))
+    const blackCards = deckFormat.questions
+    const rng = await Math.floor(Math.random() * blackCards.length)
+    await Round.create({
+      prompt: blackCards[rng],
       game_id: req.session.game_id,
       users: req.body.users
-    })
-    res.status(200).json(roundCreate)
+    });
+    await blackCards.splice(rng, 1);
+    await Deck.update(
+      { questions: blackCards },
+      {
+        where: {
+          game_id: req.session.game_id
+        }
+      }
+    );
+
+    res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -49,7 +68,7 @@ router.put("/", withAuth, async (req, res) => {
     const formatRound = await JSON.parse(JSON.stringify(findRound))
     if (formatRound.answers !== null) {
       var formatAnswers = JSON.parse(formatRound.answers);
-      var usersAnswers = [...formatAnswers, JSON.parse(JSON.stringify({"user": req.body.user, "answer": req.body.answer}))]
+      var usersAnswers = [...formatAnswers, JSON.parse(JSON.stringify({ "user": req.body.user, "answer": req.body.answer }))]
     } else {
       var usersAnswers = [req.body]
     }

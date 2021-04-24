@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import axios from "axios";
 import questions from "../../utils/questions";
@@ -65,17 +65,26 @@ function Lobby() {
         }, 15000);
     }
 
+    const newCard = useRef()
+    const addCard = async () => {
+        await axios.put('/api/deck', {card: newCard.current.value}, { withCredentials: true })
+        .then( res => {
+            newCard.current.value = ""
+        })
+        .catch( err => console.log(err));
+    }
+
     const startGame = async () => {
-        const rng = Math.floor(Math.random() * questions.length)
-        const prompt = questions[rng];
+        // const rng = Math.floor(Math.random() * questions.length)
+        // const prompt = questions[rng];
         await axios.put('/api/game/', { withCredentials: true })
             .then(res => console.log(res))
             .catch(err => console.log(err))
-        await axios.post('/api/round', { prompt: prompt, game_id: game, users: players }, { withCredentials: true })
+        await axios.post('/api/round', { users: players }, { withCredentials: true })
             .then(res => {
                 document.location.replace('/GamePlay')
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log("round: " + err))
     }
 
     useEffect(() => {
@@ -87,14 +96,15 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
+                    <h4 className="lob-h">Lobby ID: {game}</h4>
                     <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    {/* Each player that joins the lobby array will need to be mapped through here to be rendered on the page */}
-                    <ol className="players">
+                    <input ref={newCard} type="text" aria-describedby="addCard" />
+                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    <ul className="players">
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
                         })}
-
-                    </ol>
+                    </ul>
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Chat</h4>
