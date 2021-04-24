@@ -41,20 +41,20 @@ function App() {
         <Route exact path="/LogSign">
           <LogSign />
         </Route>
-        <Route path="/CreateGame">
+        <Route exact path="/CreateGame">
           <CreateGame />
           <JoinGame />
         </Route>
-        <Route path="/Lobby">
+        <Route exact path="/Lobby">
           <Lobby />
         </Route>
-        <Route path="/GamePlay">
+        <Route exact path="/GamePlay">
           {loggedIn ? <GamePlay /> : <Homepage />}
         </Route>
-        <Route path="/VoteCard">
+        <Route exact path="/VoteCard">
           <VoteCard />
         </Route>
-        <Route path="/EndGame">
+        <Route exact path="/EndGame">
           <EndGame />
         </Route>
       </div>
