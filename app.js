@@ -84,4 +84,4 @@ sequelize.sync({ force: false }).then(() => {
   });
 })
 
-// module.exports = app;
+module.exports = app;
