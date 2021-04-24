@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
 
     req.session.user_id = dbUserId.id
     req.session.loggedIn = true;
-    res.send(req.session)
+    // res.send(req.session)
     res.status(200).json(dbUserId);
   } catch (err) {
     console.log(err);
