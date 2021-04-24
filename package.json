@@ -1,6 +1,6 @@
 {
-  "name": "api",
-  "version": "0.0.0",
+  "name": "ghastlygrin",
+  "version": "1.0.0",
   "private": true,
   "main": "app.js",
   "scripts": {
