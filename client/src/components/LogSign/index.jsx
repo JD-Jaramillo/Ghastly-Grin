@@ -2,9 +2,11 @@ import React, { useRef } from "react";
 import axios from "axios";
 // import userContext from "../../utils/userContext";
 import "./style.css";
+import { useHistory } from "react-router-dom";
 
 function LogSign() {
   // const { id, name } = userContext(userContext);
+  const history = useHistory()
   const loginEmail = useRef();
   const loginUsername = useRef();
   const loginFormHandler = async (event) => {
@@ -21,7 +23,8 @@ function LogSign() {
       //   headers: { 'Content-Type': 'application/json' },
       await axios.post('/api/user/login', { email, password }, { withCredentials: true })
         .then(res => {
-          document.location.replace('/CreateGame');
+          history.push('/CreateGame')
+          // document.location.replace('/CreateGame');
           console.log("testpass")
         })
         .catch(err => console.log(err))
