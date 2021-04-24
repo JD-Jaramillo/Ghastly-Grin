@@ -44,17 +44,25 @@ function LogSign() {
     const password = signupPassword.current.value;
 
     if (email && username && password) {
-      const response = await fetch('http://localhost:3001/api/user', {
-        method: 'POST',
-        body: JSON.stringify({ email, username, password }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (response.ok) {
-        document.location.replace('/CreateGame');
-      } else {
-        alert('Your password must be atleast 8 characters long and use a valid email');
-      }
+      await axios.post('http://localhost:3001/api/user', { email, username, password }, { withCredentials: true })
+        .then(res => {
+          document.location.replace('/CreateGame');
+          console.log("testpass")
+        })
+        .catch(err => console.log(err))
     }
+
+    //   const response = await fetch('http://localhost:3001/api/user', {
+    //     method: 'POST',
+    //     body: JSON.stringify({ email, username, password }),
+    //     headers: { 'Content-Type': 'application/json' },
+    //   });
+    //   if (response.ok) {
+    //     document.location.replace('/CreateGame');
+    //   } else {
+    //     alert('Your password must be atleast 8 characters long and use a valid email');
+    //   }
+    // }
   };
 
   return (
