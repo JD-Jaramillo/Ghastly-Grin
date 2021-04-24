@@ -1,7 +1,7 @@
 import React from "react";
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-class Carousel extends React.Component {
+class CardCarousel extends React.Component {
     
     constructor(props) {
         super(props)
@@ -52,10 +52,10 @@ class Carousel extends React.Component {
         return(
             <div id="carousel" className="noselect">
                 <div className="arrow arrow-left" onClick={this.leftClick}><i className="fi-arrow-left"></i></div>
-                <ReactCSSTransitionGroup 
+                {/* <ReactCSSTransitionGroup 
                     transitionName={this.state.direction}>
                     {this.generateItems()}
-                </ReactCSSTransitionGroup>
+                </ReactCSSTransitionGroup> */}
                 <div className="arrow arrow-right" onClick={this.rightClick}><i className="fi-arrow-right"></i></div>
             </div>
         )
@@ -82,4 +82,6 @@ class Item extends React.Component {
 }
 
 var items = [1, 2, 3, 4, 5, 6, 7,]
-ReactDOM.render(<Carousel items={items} active={0}/>, document.getElementById('app'))
+// ReactDOM.render(<Carousel items={items} active={0}/>, document.getElementById('app'));
+
+export default CardCarousel;

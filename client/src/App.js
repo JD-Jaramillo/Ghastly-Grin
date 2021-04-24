@@ -15,6 +15,7 @@ import VoteCard from "./components/VoteCard";
 import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
+import CardCarousel from "./components/CardCarousel";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         </Route>
         <Route path="/GamePlay">
           {loggedIn ? <GamePlay /> : <Homepage />}
+          <CardCarousel />
         </Route>
         <Route path="/VoteCard">
           <VoteCard />

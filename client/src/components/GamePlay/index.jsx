@@ -25,7 +25,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        document.location.replace('/VoteCard');
+        // document.location.replace('/VoteCard');
 
       }
     };
