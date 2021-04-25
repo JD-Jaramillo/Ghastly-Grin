@@ -3,8 +3,10 @@ import axios from "axios";
 // import userContext from "../../utils/userContext";
 import "./style.css";
 import { useHistory } from "react-router-dom";
+import { useAppContext } from "../../utils/userContext";
 
 function LogSign() {
+  const {setLoggedIn} = useAppContext();
   const history = useHistory()
   const loginEmail = useRef();
   const loginUsername = useRef();
@@ -17,7 +19,9 @@ function LogSign() {
     if (email && password) {
       await axios.post('/api/user/login', { email, password }, { withCredentials: true })
         .then(res => {
-          history.push('/CreateGame')
+          setLoggedIn(true);
+          // history.push('/CreateGame')
+          document.location.replace('/')
           console.log("testpass")
         })
         .catch(err => console.log(err))
@@ -38,7 +42,9 @@ function LogSign() {
     if (email && username && password) {
       await axios.post('/api/user', { email, username, password }, { withCredentials: true })
         .then(res => {
-          history.push('/CreateGame');
+          setLoggedIn(true);
+          // history.push('/CreateGame');
+          document.location.replace('/')
           console.log("testpass")
         })
         .catch(err => console.log(err))

@@ -11,7 +11,8 @@ function Nav() {
     axios.post('/api/user/logout', { withCredentials: true })
       .then(() => {
         console.log("Logged Out")
-        history.push('/')
+        // history.push('/')
+        document.location.replace('/LogSign')
       })
       .catch(err => history.push('/LogSign'))
   }
