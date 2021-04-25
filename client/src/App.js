@@ -15,6 +15,7 @@ import VoteCard from "./components/VoteCard";
 import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
+import { AppContext } from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -39,7 +40,9 @@ function App() {
           <Homepage />
         </Route>
         <Route exact path="/LogSign">
-          <LogSign />
+          <AppContext.Provider value={{ loggedIn, setLoggedIn }}>
+            <LogSign />
+          </AppContext.Provider>
         </Route>
         <Route exact path="/CreateGame">
           <CreateGame />
