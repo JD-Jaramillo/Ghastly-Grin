@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Nav from "../Nav";
-import "./style.css"
+import "./style.css";
 import { Link } from 'react-router-dom';
 
 function HeaderMobile() {
@@ -22,10 +22,10 @@ function HeaderMobile() {
           <span></span>
         </div>
       </div>
-      <div className={hamburgerState ? 'mobile-dropdown' : 'mobile-dropdown open'} >
+      <div onClick={() => setHamburgerState(!hamburgerState)} className={hamburgerState ? 'mobile-dropdown' : 'mobile-dropdown open'} >
         <div className="nav-group">
           <Link className="nav-link-wrap" to="/">
-            <span><a className="nav-links">Home</a></span>
+            <span ><a className="nav-links">Home</a></span>
           </Link>
           <Link className="nav-link-wrap" to="/Lobby">
             <span><a className="nav-links">Lobby</a></span>
