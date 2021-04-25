@@ -5,6 +5,9 @@ import BlackCard from "../BlackCard";
 import axios from "axios";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
+import CardCarousel from "../CardCarousel";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -63,32 +66,36 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
-  return (
-    <> 
-      <ScoreBar />
-    <div className="container">
-      <BlackCard blackcard={blackCard} />
-      <div className="d-flex flex-row">
-        <div className="offset-rotate">
-          {whiteCard.map((card, index) => (
-            <div style={
-              {
-                transform: `rotate(${index * (90 / 7)}deg) translate(-50%, -50%)`,
-                transformOrigin: `center 115%`
-              }
-            }
-              onClick={submitCard}
-              className="card-element"
-              data-ans={card}>
-              <div data-ans={card} className="white-card-body">
-                <h5 data-ans={card} className="card-title">{card}</h5>
-              </div>
-            </div>
-          ))}
+  const matches = useMediaQuery('(min-width:1030px)');
 
-        </div>
+  return (
+    <>
+      <ScoreBar />
+      <div className="container">
+        <BlackCard blackcard={blackCard} />
+        {matches ?
+          <div className="d-flex flex-row">
+            <div className="offset-rotate">
+              {whiteCard.map((card, index) => (
+                <div style={
+                  {
+                    transform: `rotate(${index * (90 / 7)}deg) translate(-50%, -50%)`,
+                    transformOrigin: `center 115%`
+                  }
+                }
+                  onClick={submitCard}
+                  className="card-element"
+                  data-ans={card}>
+                  <div data-ans={card} className="white-card-body">
+                    <h5 data-ans={card} className="card-title">{card}</h5>
+                  </div>
+                </div>
+              ))}
+
+            </div>
+          </div>
+          : <CardCarousel/> }
       </div>
-    </div>
     </>
   )
 }

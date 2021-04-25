@@ -1,87 +1,45 @@
 import React from "react";
-// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+import "./style.css";
 
-class CardCarousel extends React.Component {
-    
-    constructor(props) {
-        super(props)
-        this.state = {
-            items: this.props.items,
-            active: this.props.active,
-            direction: ''
-        }
-        this.rightClick = this.moveRight.bind(this)
-        this.leftClick = this.moveLeft.bind(this)
-    }
+function CardCarousel(props) {
+   return(
 
-    generateItems() {
-        var items = []
-        var level
-        console.log(this.state.active)
-        for (var i = this.state.active - 2; i < this.state.active + 3; i++) {
-            var index = i
-            if (i < 0) {
-                index = this.state.items.length + i
-            } else if (i >= this.state.items.length) {
-                index = i % this.state.items.length
-            }
-            level = this.state.active - i
-            items.push(<Item key={index} id={this.state.items[index]} level={level} />)
-        }
-        return items
-    }
-    
-    moveLeft() {
-        var newActive = this.state.active
-        newActive--
-        this.setState({
-            active: newActive < 0 ? this.state.items.length - 1 : newActive,
-            direction: 'left'
-        })
-    }
-    
-    moveRight() {
-        var newActive = this.state.active
-        this.setState({
-            active: (newActive + 1) % this.state.items.length,
-            direction: 'right'
-        })
-    }
-    
-    render() {
-        return(
-            <div id="carousel" className="noselect">
-                <div className="arrow arrow-left" onClick={this.leftClick}><i className="fi-arrow-left"></i></div>
-                {/* <ReactCSSTransitionGroup 
-                    transitionName={this.state.direction}>
-                    {this.generateItems()}
-                </ReactCSSTransitionGroup> */}
-                <div className="arrow arrow-right" onClick={this.rightClick}><i className="fi-arrow-right"></i></div>
+   <div class="slider">
+
+        <a href="#slide-1">1</a>
+        <a href="#slide-2">2</a>
+        <a href="#slide-3">3</a>
+        <a href="#slide-4">4</a>
+        <a href="#slide-5">5</a>
+        <a href="#slide-6">6</a>
+        <a href="#slide-7">7</a>
+
+        <div class="slides">
+            <div id="slide-1">
+                {props.whiteCard}
             </div>
-        )
-    }
-}
-
-class Item extends React.Component {
-    
-    constructor(props) {
-        super(props)
-        this.state = {
-            level: this.props.level
-        }
-    }
-    
-    render() {
-        const className = 'item level' + this.props.level
-        return(
-            <div className={className}>
-                {this.props.id}
+            <div id="slide-2">
+                {props.whiteCard}
             </div>
-        )
-    }
-}
+            <div id="slide-3">
+                {props.whiteCard}
+            </div>
+            <div id="slide-4">
+                {props.whiteCard}
+            </div>
+            <div id="slide-5">
+                {props.whiteCard}
+            </div>
+            <div id="slide-6">
+                {props.whiteCard}
+            </div>
+            <div id="slide-7">
+                {props.whiteCard}
+            </div>
+        </div>
+    </div>
+   ) 
 
-var items = [1, 2, 3, 4, 5, 6, 7,]
-// ReactDOM.render(<Carousel items={items} active={0}/>, document.getElementById('app'));
+}
 
 export default CardCarousel;

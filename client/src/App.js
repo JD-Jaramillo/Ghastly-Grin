@@ -51,7 +51,6 @@ function App() {
         </Route>
         <Route path="/GamePlay">
           {loggedIn ? <GamePlay /> : <Homepage />}
-          <CardCarousel />
         </Route>
         <Route path="/VoteCard">
           <VoteCard />
