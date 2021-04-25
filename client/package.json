@@ -1,8 +1,13 @@
 {
-  "name": "client",
+  "name": "ghastlygrin",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
+  "proxy": "http://localhost:3001",
+  "homepage": "https://ghastlygrin.herokuapp.com/",
+=======
   "proxy": "http://localhost:3001/",
+>>>>>>> 375a3baa7314f087cb2368a92740a780aa34c7b3
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -23,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

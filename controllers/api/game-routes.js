@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
     res.status(200).json(formatData)
-    res.send(req.session)
+    // res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -79,11 +79,11 @@ router.post("/", async (req, res) => {
     // req.session.save(() => {
       req.session.game_id = gameFormat.id;
       req.session.player_id = playerFormat.id;
-      console.log(playerInit)
-      console.log(gameFormat)
-      console.log(playerFormat)
-      res.send(req.session)
-      res.status(200).json(gameInit)
+      // console.log(playerInit)
+      // console.log(gameFormat)
+      // console.log(playerFormat)
+      // res.json(req.session)
+      res.status(200).json(req.session)
     // })
     
     //Probably wont work, maybe make an array?

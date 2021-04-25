@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./style.css";
 
 function Nav() {
+  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState();
 
   const logOut = () => {
     axios.post('/api/user/logout', { withCredentials: true })
       .then(() => {
         console.log("Logged Out")
-        document.location.replace('/')
+        history.push('/')
       })
-      .catch(err => document.location.replace('/LogSign'))
+      .catch(err => history.push('/LogSign'))
   }
 
   useEffect(() => {

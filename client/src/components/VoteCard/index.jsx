@@ -3,8 +3,10 @@ import BlackCard from "../BlackCard";
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
+import { useHistory } from "react-router";
 
 function VoteCard() {
+  const history = useHistory();
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
   const [vote, setVote] = useState(true);
@@ -38,18 +40,18 @@ function VoteCard() {
                   .then(res => {
                     console.log("id and owner yes match")
                     stopTimer();
-                    document.location.replace('/GamePlay')
+                    history.push('/GamePlay')
                     return;
                   })
                   .catch(err => console.log(err))
               } else {
                 stopTimer();
-                document.location.replace('/GamePlay')
+                history.push('/GamePlay')
                 console.log("id and owner no match")
               }
             } else {
               stopTimer();
-              document.location.replace('/EndGame')
+              history.push('/EndGame')
             }
           })
           .catch(err => console.log(err));
