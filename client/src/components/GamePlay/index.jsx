@@ -101,13 +101,6 @@ function GamePlay() {
         <div>
             {whiteCard.map((card, index) => (
               <div
-              style={
-                {
-                  display: `flex`,
-                  flexDirection: `column`,
-                  
-                }
-              }
                 onClick={ answered ? null : submitCard }
                 className="d-flex justify-content-evenly" 
                 key={card}
