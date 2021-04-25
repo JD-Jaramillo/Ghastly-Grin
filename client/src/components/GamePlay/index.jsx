@@ -79,8 +79,9 @@ function GamePlay() {
                 transformOrigin: `center 115%`
               }
             }
-              onClick={submitCard}
+              onClick={answered ? null : submitCard}
               className="card-element"
+              key={card}
               data-ans={card}>
               <div data-ans={card} className="white-card-body">
                 <h5 data-ans={card} className="card-title">{card}</h5>
