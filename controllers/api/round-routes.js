@@ -50,7 +50,7 @@ router.post("/", withAuth, async (req, res) => {
       }
     );
 
-    res.json(req.session)
+    res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }

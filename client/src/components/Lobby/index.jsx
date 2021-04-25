@@ -69,11 +69,11 @@ function Lobby() {
 
     const newCard = useRef()
     const addCard = async () => {
-        await axios.put('/api/deck', {card: newCard.current.value}, { withCredentials: true })
-        .then( res => {
-            newCard.current.value = ""
-        })
-        .catch( err => console.log(err));
+        await axios.put('/api/deck', { card: newCard.current.value }, { withCredentials: true })
+            .then(res => {
+                newCard.current.value = ""
+            })
+            .catch(err => console.log(err));
     }
 
     const startGame = async () => {

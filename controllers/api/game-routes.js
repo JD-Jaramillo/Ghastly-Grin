@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
     res.status(200).json(formatData)
-    // res.json(req.session)
+    // res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }

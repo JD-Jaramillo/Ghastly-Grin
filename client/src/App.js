@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
 import JoinGame from "../src/components/JoinGame";
-import Lobby from "../src/components/Lobby";
+import Lobby from "./components/Lobby";
 import Homepage from "../src/components/Homepage";
 import Instructions from "../src/components/Instructions";
 import Header from "./components/Header/index";
