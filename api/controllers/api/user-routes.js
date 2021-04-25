@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {User} = require("../../api/models")
 
 router.get("/", function(req, res, next) {
-  res.send("API is working properly");
+  res.json("API is working properly");
 });
 
 // Create New User

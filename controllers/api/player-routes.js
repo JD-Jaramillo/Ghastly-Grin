@@ -12,7 +12,7 @@ router.get("/", withAuth, async (req, res, next) => {
       where: { game_id: req.session.game_id }
     })
     const lobby = await JSON.parse(JSON.stringify(playerLobby));
-    res.send({ session: req.session, data: lobby })
+    res.json({ session: req.session, data: lobby })
     // res.status(200).json(lobby)
   } catch (err) {
     res.status(500).json(err);
@@ -61,7 +61,7 @@ router.post("/", withAuth, async (req, res) => {
     console.log(playerFormat);
     req.session.player_id = playerFormat.id;
     req.session.game_id = req.body.id;
-    // res.send(req.session)
+    // res.json(req.session)
     res.status(200).json(req.session)
   } catch (err) {
     res.status(500).json(err);

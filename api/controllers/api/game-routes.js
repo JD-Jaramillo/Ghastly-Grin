@@ -7,7 +7,7 @@ const router = require('express').Router();
 router.get("/", function(req, res, next) {
   console.log(req.session.user_id);
   console.log(req.session.loggedIn);
-  res.send("API is working properly");
+  res.json("API is working properly");
 });
 
 router.post("/", withAuth, async (req, res) => {

@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 const router = require('express').Router();
 
 router.get("/", function(req, res, next) {
-  res.send("API is working properly");
+  res.json("API is working properly");
 });
 
 // MUST BE CALLED WITH A GAME_ID IN BODY
