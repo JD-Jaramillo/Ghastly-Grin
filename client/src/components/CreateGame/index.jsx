@@ -1,17 +1,17 @@
 import axios from "axios";
 import React from "react";
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useHistory } from 'react-router-dom';
 import Lobby from '../Lobby';
 import "./style.css";
 // import uuid from "react-uuid"
 
 function CreateGame() {
-
+  const history = useHistory();
   const newGame = async (event) => {
     event.preventDefault();
     axios.post('/api/game', { test: "test" }, { withCredentials: true })
       .then(res => {
-        document.location.replace("/Lobby")
+        history.push("/Lobby")
       })
       .catch(err => console.log(err))
 
@@ -22,14 +22,7 @@ function CreateGame() {
       <div className="form-group">
         <h4>Create a Lobby</h4>
         <p>(click create lobby to get your secure lobby id)</p>
-        {/* <label for="exampleFormControlSelect1">How Many Players will your game have?</label>
-        <select className="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select> */}
-        {/* onClick={newGame} */}
+        
         <Link to="/Lobby" onClick={newGame} type="submit" className="btn">Create Lobby</Link>
         <Route path="/Lobby" component={Lobby} />
       </div>

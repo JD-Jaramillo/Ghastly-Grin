@@ -5,6 +5,7 @@ import BlackCard from "../BlackCard";
 import axios from "axios";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
+import { useHistory } from "react-router";
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -12,6 +13,7 @@ function GamePlay() {
   const [user, setUser] = useState();
   const [answered, setAnswered] = useState(false);
   // const [player, setplayer] = useState({});
+  const history = useHistory();
 
 
   const timer = (endTime) => {
@@ -25,7 +27,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        document.location.replace('/VoteCard');
+        history.push('/VoteCard');
 
       }
     };

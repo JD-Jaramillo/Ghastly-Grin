@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import axios from "axios";
 import questions from "../../utils/questions";
+import { useHistory } from "react-router";
 
 
 function Lobby() {
+    const history = useHistory();
     const [players, setPlayers] = useState([]);
     var [user, setUser] = useState();
     const [game, setGame] = useState();
@@ -41,7 +43,7 @@ function Lobby() {
                 await axios.get('/api/game', { withCredentials: true })
                     .then(res => {
                         if (res.data.round > 0) {
-                            document.location.replace('/GamePlay')
+                            history.push('/GamePlay')
                         }
                     })
                     .catch(err => console.log(err));
@@ -82,7 +84,7 @@ function Lobby() {
             .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
             .then(res => {
-                document.location.replace('/GamePlay')
+                history.push('/GamePlay')
             })
             .catch(err => console.log("round: " + err))
     }
