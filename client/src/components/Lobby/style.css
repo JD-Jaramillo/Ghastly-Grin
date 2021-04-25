@@ -38,8 +38,21 @@
     border: 3px solid var(--purpleDragon);
 }
 
+.card-input {
+    margin: 20px;
+}
+
+.playersHeader {
+    font-size: 32px;
+    color: var(--purpleDragon);
+    margin-top: 20px;
+}
+
 .players {
     grid-area: players;
+    list-style-type: none;
+    font-size: 24px;
+    color: var(--purpleDragon);
 }
 
 .chat-cont {
@@ -47,6 +60,10 @@
     list-style-type: none;
     padding-left: 0;
 }
+
+/* .chat-cont:hover {
+    background-color: var(--purpleDragon)
+} */
 
 .text {
     float: right;
