@@ -75,34 +75,34 @@ function Lobby() {
 
     const removeCard = async (e) => {
         console.log(e.target.innerHTML);
-        await axios.put('/api/deck/del', {card: e.target.innerHTML}, {withCredentials: true})
-        .then(res => {
-            console.log("set new whitecards")
-            setWhiteCards(res.data)
-        })
-        .catch(err => console.log(err))
+        await axios.put('/api/deck/del', { card: e.target.innerHTML }, { withCredentials: true })
+            .then(res => {
+                console.log("set new whitecards")
+                setWhiteCards(res.data)
+            })
+            .catch(err => console.log(err))
     }
-    
+
     const newCard = useRef()
     const addCard = async () => {
         await axios.put('/api/deck', { card: newCard.current.value }, { withCredentials: true })
-        .then(res => {
-            newCard.current.value = ""
-        })
-        .catch(err => console.log(err));
+            .then(res => {
+                newCard.current.value = ""
+            })
+            .catch(err => console.log(err));
     }
-    
+
     const startGame = async () => {
         await axios.put('/api/game/', { withCredentials: true })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
-        .then(res => {
-            history.push('/GamePlay')
-        })
-        .catch(err => console.log("round: " + err))
+            .then(res => {
+                history.push('/GamePlay')
+            })
+            .catch(err => console.log("round: " + err))
     }
-    
+
     useEffect(() => {
         const getCards = async () => {
             console.log(whiteCards)
@@ -122,22 +122,22 @@ function Lobby() {
             <div className="lobby-page">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby</h4>
-                    <h4 className="lob-h">Lobby ID: {game}</h4>
                     <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    <input ref={newCard} type="text" aria-describedby="addCard" />
-                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                     <ul className="players">
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
                         })}
                     </ul>
+                    <h4 className="lob-h">Lobby ID: {game}</h4>
+                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    <input ref={newCard} type="text" aria-describedby="addCard" />
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Answer Cards</h4>
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => {e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red"}} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                         {/* <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                         <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
