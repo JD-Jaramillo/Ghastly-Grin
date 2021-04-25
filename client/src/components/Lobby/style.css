@@ -38,19 +38,17 @@
     border: 3px solid var(--purpleDragon);
 }
 
-.card-input {
-    margin: 20px;
-}
-
 .playersHeader {
     font-size: 32px;
-    color: var(--purpleDragon);
+    color: var(--appBackground);
     margin-top: 20px;
 }
 
 .players {
     grid-area: players;
     list-style-type: none;
+    text-align: center;
+    margin-right: 28px;
     font-size: 24px;
     color: var(--purpleDragon);
 }
@@ -61,9 +59,13 @@
     padding-left: 0;
 }
 
-/* .chat-cont:hover {
-    background-color: var(--purpleDragon)
-} */
+.input-group {
+    justify-content: center;
+}
+
+.card-input {
+    margin-top: 2px;
+}
 
 .text {
     float: right;
