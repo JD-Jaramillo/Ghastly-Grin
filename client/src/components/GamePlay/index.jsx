@@ -5,9 +5,9 @@ import BlackCard from "../BlackCard";
 import axios from "axios";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
-import CardCarousel from "../CardCarousel";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useHistory } from "react-router";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CardCarousel from '../CardCarousel';
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -29,7 +29,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        history.push('/VoteCard');
+        // history.push('/VoteCard');
 
       }
     };
@@ -67,37 +67,64 @@ function GamePlay() {
       .catch(err => console.log(err))
   }, [])
 
-  const matches = useMediaQuery('(min-width:1030px)');
-
+  const matches = useMediaQuery('(min-width:1220px)');
+  
   return (
-    <>
+    <> 
       <ScoreBar />
     <div className="container">
       <BlackCard blackcard={blackCard} />
       {matches ? 
       <div className="d-flex flex-row">
         <div className="offset-rotate">
-          {whiteCard.map((card, index) => (
-            <div style={
-              {
-                transform: `rotate(${index * (90 / whiteCard.length)}deg) translate(-50%, -50%)`,
-                transformOrigin: `center 115%`
+            {whiteCard.map((card, index) => (
+              <div style={
+                {
+                  transform: `rotate(${index * (90 / whiteCard.length)}deg) translate(-50%, -50%)`,
+                  transformOrigin: `center 115%`
+                }
               }
-            }
-              onClick={answered ? null : submitCard }
-              className="card-element"
-              key={card}
-              data-ans={card}>
-              <div data-ans={card} className="white-card-body">
-                <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                onClick={ answered ? null : submitCard }
+                className="card-element"
+                key={card}
+                data-ans={card}>
+                <div data-ans={card} className="white-card-body">
+                  <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
+      </div> : 
+      <div>
 
-            </div>
-          </div>
-          : <CardCarousel/> }
+      <div className="mobile-card-container">
+        <div>
+            {whiteCard.map((card, index) => (
+              <div
+              style={
+                {
+                  display: `flex`,
+                  flexDirection: `column`,
+                  
+                }
+              }
+                onClick={ answered ? null : submitCard }
+                className="d-flex justify-content-evenly" 
+                key={card}
+                data-ans={card}>
+                <div data-ans={card} className="white-card-body">
+                  <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
+      </div> 
+
+      
+      
+    }
+    </div>
     </>
   )
 }
