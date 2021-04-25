@@ -11,8 +11,8 @@ const router = require('express').Router();
 router.get("/", async (req, res, next) => {
   console.log(req.session.game_id);
   try {
-    const gameData = await Game.findOne({ 
-      where: { id: req.session.game_id}
+    const gameData = await Game.findOne({
+      where: { id: req.session.game_id }
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
     res.status(200).json(formatData)
@@ -27,9 +27,9 @@ router.post("/", async (req, res) => {
   console.log(req.body)
   try {
     await Game.destroy({
-      where: { game_owner: req.session.user_id}
+      where: { game_owner: req.session.user_id }
     })
-    const gameInit = await Game.create({
+    await Game.create({
       game_owner: req.session.user_id
     });
     const gameFind = await Game.findOne({
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
         game_owner: req.session.user_id
       }
     })
-    const gameFormat = JSON.parse(JSON.stringify(gameFind));
+    const gameFormat = await JSON.parse(JSON.stringify(gameFind));
     await Deck.create({
       questions: Questions,
       answers: Answers,
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
         game_id: gameFormat.id
       }
     });
-    const deckFormat = JSON.parse(JSON.stringify(deckFind))
+    const deckFormat = await JSON.parse(JSON.stringify(deckFind))
     const hand = [];
     let arr = deckFormat.answers
     for (let i = 0; i < 7; i++) {
@@ -57,14 +57,17 @@ router.post("/", async (req, res) => {
       await arr.splice(whiteCards, 1)
     }
     await Deck.update(
-      {answers: arr},
+      { answers: arr },
       {
         where: {
           game_id: gameFormat.id
         }
       }
-      );
-    const playerInit = await Player.create({
+    );
+    await Player.destroy({
+      where: { user_id: req.session.user_id }
+    })
+    await Player.create({
       score: 0,
       cards: hand,
       game_id: gameFormat.id,
@@ -77,15 +80,15 @@ router.post("/", async (req, res) => {
     })
     const playerFormat = JSON.parse(JSON.stringify(playerFind))
     // req.session.save(() => {
-      req.session.game_id = gameFormat.id;
-      req.session.player_id = playerFormat.id;
-      // console.log(playerInit)
-      // console.log(gameFormat)
-      // console.log(playerFormat)
-      // res.json(req.session)
-      res.status(200).json(req.session)
+    req.session.game_id = gameFormat.id;
+    req.session.player_id = playerFormat.id;
+    // console.log(playerInit)
+    // console.log(gameFormat)
+    // console.log(playerFormat)
+    // res.json(req.session)
+    res.status(200).json(req.session)
     // })
-    
+
     //Probably wont work, maybe make an array?
 
   } catch (err) {
@@ -97,12 +100,12 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
   try {
     const roundIncrement = Game.update(
-      {round: Sequelize.literal(`round + 1`)},
+      { round: Sequelize.literal(`round + 1`) },
       {
         where: {
           game_owner: req.session.user_id
         }
-    })
+      })
     if (!roundIncrement) {
       res.status(404).json({ message: "No player found with this id!" });
       return;
@@ -121,7 +124,7 @@ router.delete("/", withAuth, async (req, res) => {
       }
     });
     if (!gameDelete) {
-      res.status(404).json({ message: "no game found with this id!"});
+      res.status(404).json({ message: "no game found with this id!" });
     }
     res.status(200).json(gameDelete)
   } catch (err) {

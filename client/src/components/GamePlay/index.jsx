@@ -72,26 +72,27 @@ function GamePlay() {
   return (
     <>
       <ScoreBar />
-      <div className="container">
-        <BlackCard blackcard={blackCard} />
-        {matches ?
-          <div className="d-flex flex-row">
-            <div className="offset-rotate">
-              {whiteCard.map((card, index) => (
-                <div style={
-                  {
-                    transform: `rotate(${index * (90 / 7)}deg) translate(-50%, -50%)`,
-                    transformOrigin: `center 115%`
-                  }
-                }
-                  onClick={submitCard}
-                  className="card-element"
-                  data-ans={card}>
-                  <div data-ans={card} className="white-card-body">
-                    <h5 data-ans={card} className="card-title">{card}</h5>
-                  </div>
-                </div>
-              ))}
+    <div className="container">
+      <BlackCard blackcard={blackCard} />
+      {matches ? 
+      <div className="d-flex flex-row">
+        <div className="offset-rotate">
+          {whiteCard.map((card, index) => (
+            <div style={
+              {
+                transform: `rotate(${index * (90 / whiteCard.length)}deg) translate(-50%, -50%)`,
+                transformOrigin: `center 115%`
+              }
+            }
+              onClick={answered ? null : submitCard }
+              className="card-element"
+              key={card}
+              data-ans={card}>
+              <div data-ans={card} className="white-card-body">
+                <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+              </div>
+            </div>
+          ))}
 
             </div>
           </div>

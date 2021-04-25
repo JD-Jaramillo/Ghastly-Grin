@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import axios from "axios";
-import questions from "../../utils/questions";
 import { useHistory } from "react-router";
 
 
@@ -34,20 +33,25 @@ function Lobby() {
                 ownerID = res.data.game_owner
             })
             .catch(err => console.log(err));
-        setInterval(async () => {
-            console.log(user, owner)
-            console.log(userID, ownerID)
-            // setPlayers([]);
-            if (userID !== ownerID) {
-                console.log("user NOT owner");
-                await axios.get('/api/game', { withCredentials: true })
-                    .then(res => {
-                        if (res.data.round > 0) {
+
+        function stopTimer() {
+            clearInterval(timerInterval)
+        }
+        const timerInterval = setInterval(checkPlayers, 15000);
+        async function checkPlayers() {
+            await axios.get('/api/game', { withCredentials: true })
+                .then(res => {
+                    if (res.data.round > 0) {
+                        stopTimer();
+                        if (userID !== ownerID) {
                             history.push('/GamePlay')
                         }
-                    })
-                    .catch(err => console.log(err));
-            }
+                    }
+                })
+                .catch(err => console.log(err));
+
+
+
             await axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
                     const playerData = res.data.data;
@@ -63,9 +67,9 @@ function Lobby() {
                     }
                 })
                 .catch(err => console.log(err))
-
-        }, 15000);
+        }
     }
+
 
     const newCard = useRef()
     const addCard = async () => {
@@ -77,8 +81,6 @@ function Lobby() {
     }
 
     const startGame = async () => {
-        // const rng = Math.floor(Math.random() * questions.length)
-        // const prompt = questions[rng];
         await axios.put('/api/game/', { withCredentials: true })
             .then(res => console.log(res))
             .catch(err => console.log(err))
