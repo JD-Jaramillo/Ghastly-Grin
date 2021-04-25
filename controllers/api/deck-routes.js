@@ -34,4 +34,25 @@ router.put("/", async (req, res) => {
   }
 })
 
+router.put("/del", async (req, res) => {
+  try {
+    const deckData = await Deck.findOne({
+      where: { game_id: req.session.game_id }
+    });
+    const deck = await JSON.parse(JSON.stringify(deckData));
+    const whitecards = deck.answers
+    const index = whitecards.indexOf(req.body.card)
+    await whitecards.splice(index, 1);
+    await Deck.update(
+      { answers: whitecards },
+      {
+        where: { game_id: req.session.game_id }
+      }
+    )
+    res.status(200).json(whitecards)
+  } catch {
+    res.status(500).json(err)
+  }
+})
+
 module.exports = router;

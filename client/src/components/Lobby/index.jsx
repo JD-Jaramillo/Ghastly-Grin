@@ -10,6 +10,7 @@ function Lobby() {
     var [user, setUser] = useState();
     const [game, setGame] = useState();
     var [owner, setOwner] = useState();
+    const [whiteCards, setWhiteCards] = useState([]);
     let ownerID;
     let userID;
 
@@ -39,6 +40,8 @@ function Lobby() {
         }
         const timerInterval = setInterval(checkPlayers, 15000);
         async function checkPlayers() {
+            console.log(whiteCards);
+
             await axios.get('/api/game', { withCredentials: true })
                 .then(res => {
                     if (res.data.round > 0) {
@@ -70,29 +73,48 @@ function Lobby() {
         }
     }
 
-
+    const removeCard = async (e) => {
+        console.log(e.target.innerHTML);
+        await axios.put('/api/deck/del', {card: e.target.innerHTML}, {withCredentials: true})
+        .then(res => {
+            console.log("set new whitecards")
+            setWhiteCards(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+    
     const newCard = useRef()
     const addCard = async () => {
         await axios.put('/api/deck', { card: newCard.current.value }, { withCredentials: true })
-            .then(res => {
-                newCard.current.value = ""
-            })
-            .catch(err => console.log(err));
+        .then(res => {
+            newCard.current.value = ""
+        })
+        .catch(err => console.log(err));
     }
-
+    
     const startGame = async () => {
         await axios.put('/api/game/', { withCredentials: true })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
-            .then(res => {
-                history.push('/GamePlay')
-            })
-            .catch(err => console.log("round: " + err))
+        .then(res => {
+            history.push('/GamePlay')
+        })
+        .catch(err => console.log("round: " + err))
     }
-
+    
     useEffect(() => {
-        getPlayers()
+        const getCards = async () => {
+            console.log(whiteCards)
+            await axios.get('/api/deck', { withCredentials: true })
+                .then(res => {
+                    console.log("getWhite")
+                    setWhiteCards(res.data.answers)
+                })
+                .catch(err => console.log(err));
+        }
+        getPlayers();
+        getCards();
     }, [])
 
     return (
@@ -111,12 +133,15 @@ function Lobby() {
                     </ul>
                 </div>
                 <div className="chat">
-                    <h4 className="chat-h">Chat</h4>
+                    <h4 className="chat-h">Answer Cards</h4>
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
+                        {user === owner ? whiteCards.map(whitecard => {
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => {e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red"}} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                        }) : <div>Only the owner can view cards</div>}
+                        {/* <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                         <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
-                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
-                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
+                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li> */}
                     </ul>
                 </div>
             </div>
