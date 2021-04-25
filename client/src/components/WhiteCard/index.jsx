@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
+import { useHistory } from "react-router";
 import "./style.css";
 
 function WhiteCard(props) {
+  const history = useHistory();
   // Generate white card attached to user based on turn
   // Map through data to get random generated card string
   const userID = props.user;
@@ -18,7 +20,7 @@ function WhiteCard(props) {
   const submitCard = () => {
     axios.put('/api/round', {user: userID , answer: ans}, { withCredentials: true })
     .then(res => {
-      document.location.replace("/VoteCard")
+      history.push("/VoteCard")
     })
     .catch(err => console.log(err))
   }

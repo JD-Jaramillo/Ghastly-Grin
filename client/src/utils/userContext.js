@@ -1,8 +1,7 @@
-import React from "react";
+import { useContext, createContext } from "react";
 
-const UserContext = React.createContext({
-  id: "",
-  name: "",
-});
+export const AppContext = createContext(null);
 
-export default UserContext;
+export function useAppContext() {
+  return useContext(AppContext);
+}

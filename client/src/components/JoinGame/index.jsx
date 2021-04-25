@@ -1,18 +1,19 @@
 import React, { useRef } from "react";
 import Lobby from "../Lobby";
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 import "./style.css";
 
 function JoinGame() {
+  const history = useHistory();
   const gameID = useRef();
   const newPlayer = async (event) => {
     const ID = gameID.current.value
     event.preventDefault();
-    await axios.post('http://localhost:3001/api/player', {id: ID}, { withCredentials: true })
+    await axios.post('/api/player', {id: ID}, { withCredentials: true })
     .then(res => 
-      document.location.replace("/Lobby")
+      history.push("/Lobby")
       )
     .catch(err => console.log(err))
   }
