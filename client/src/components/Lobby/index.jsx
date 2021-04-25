@@ -121,11 +121,9 @@ function Lobby() {
         <>
             <div className="lobby-page">
                 <div className="lobby-start">
-                    <h4 className="lob-h">Lobby</h4>
-                    <h4 className="lob-h">Lobby ID: {game}</h4>
+                    <h4 className="lob-h">Lobby: {game}</h4>
                     <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    <input ref={newCard} type="text" aria-describedby="addCard" />
-                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    <h5 className="playersHeader">Players</h5>
                     <ul className="players">
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
@@ -134,10 +132,14 @@ function Lobby() {
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Answer Cards</h4>
+                    <div className="input-group">
+                        <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                        <input ref={newCard} type="text" aria-describedby="addCard" className="card-input" />
+                    </div>
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => {e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red"}} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => {e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "#86C232"}} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                         {/* <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                         <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
