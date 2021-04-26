@@ -75,34 +75,34 @@ function Lobby() {
 
     const removeCard = async (e) => {
         console.log(e.target.innerHTML);
-        await axios.put('/api/deck/del', {card: e.target.innerHTML}, {withCredentials: true})
-        .then(res => {
-            console.log("set new whitecards")
-            setWhiteCards(res.data)
-        })
-        .catch(err => console.log(err))
+        await axios.put('/api/deck/del', { card: e.target.innerHTML }, { withCredentials: true })
+            .then(res => {
+                console.log("set new whitecards")
+                setWhiteCards(res.data)
+            })
+            .catch(err => console.log(err))
     }
-    
+
     const newCard = useRef()
     const addCard = async () => {
         await axios.put('/api/deck', { card: newCard.current.value }, { withCredentials: true })
-        .then(res => {
-            newCard.current.value = ""
-        })
-        .catch(err => console.log(err));
+            .then(res => {
+                newCard.current.value = ""
+            })
+            .catch(err => console.log(err));
     }
-    
+
     const startGame = async () => {
         await axios.put('/api/game/', { withCredentials: true })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
-        .then(res => {
-            history.push('/GamePlay')
-        })
-        .catch(err => console.log("round: " + err))
+            .then(res => {
+                history.push('/GamePlay')
+            })
+            .catch(err => console.log("round: " + err))
     }
-    
+
     useEffect(() => {
         const getCards = async () => {
             console.log(whiteCards)
@@ -139,7 +139,7 @@ function Lobby() {
                     {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => {e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "#86C232"}} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                         {/* <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
                         <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
