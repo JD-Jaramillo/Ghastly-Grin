@@ -92,7 +92,7 @@ function Lobby() {
         function stopTimer() {
             clearInterval(timerInterval)
         }
-        const timerInterval = setInterval(checkPlayers, 10000);
+        const timerInterval = setInterval(checkPlayers, 1000);
         function checkPlayers() {
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
@@ -112,11 +112,11 @@ function Lobby() {
                 })
                 .catch(err => console.log(err));
             axios.get('/api/game', { withCredentials: true })
-                .then(async res => {
-                    setOwner(res.data.game_owner)
-                    setRounds(res.data.maxrounds)
-                    setTimer(res.data.timer)
-                    if (res.data.round > 0) {
+                .then(async result => {
+                    setOwner(result.data.game_owner)
+                    setRounds(result.data.maxrounds)
+                    setTimer(result.data.timer)
+                    if (result.data.round > 0) {
                         stopTimer();
                         axios.put('/api/player/hand', { withCredentials: true })
                             .then(res => {
