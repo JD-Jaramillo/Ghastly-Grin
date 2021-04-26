@@ -2,13 +2,13 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 40px;
   font-size: 40px;
+  padding-top: 60px;
 }
 
 .scoreHeader {
   color: var(--purpleDragon);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -24,6 +24,16 @@
 .list-group-item {
   background-color: #333 !important;
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--secondaryColor);
+  color: var(--randomCard);
   font-size: 24px;
+}
+
+@media only screen and (max-width: 526px) {
+  .scoreHeader {
+    font-size: 24px;
+  }
+
+  .list-group-item {
+    font-size: 16px;
+  }
 }

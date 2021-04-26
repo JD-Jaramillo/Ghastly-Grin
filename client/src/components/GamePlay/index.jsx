@@ -15,6 +15,7 @@ function GamePlay() {
   const [user, setUser] = useState();
   const [answered, setAnswered] = useState(false);
   const history = useHistory();
+  const [clock, setClock] = useState();
 
   const timer = useCallback((endTime) => {
     var timerInterval = setInterval(action, 1000)
@@ -27,7 +28,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        history.push('/VoteCard');
+        // history.push('/VoteCard');
       }
     };
   }, [history]);
@@ -36,6 +37,7 @@ function GamePlay() {
     axios.get('/api/game', { withCredentials: true })
       .then(res => {
         const gameTimer = res.data.timer;
+        setClock(gameTimer);
         axios.get('/api/round', { withCredentials: true })
           .then(newRes => {
             const startTime = newRes.data.data.createdAt;
@@ -80,7 +82,7 @@ function GamePlay() {
   return (
     <>
       <ScoreBar />
-      <Timer />
+      <Timer timer={clock}/>
       <div className="container">
         <BlackCard blackcard={blackCard} />
         {matches ?
