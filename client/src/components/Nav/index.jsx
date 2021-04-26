@@ -3,25 +3,28 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./style.css";
 
-function Nav() {
+function Nav(props) {
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = useState();
+  // const [loggedIn, setLoggedIn] = useState();
+  const loggedIn = props.loggedIn
+  const setLoggedIn = props.setLoggedIn
 
   const logOut = () => {
     axios.post('/api/user/logout', { withCredentials: true })
       .then(() => {
         console.log("Logged Out")
-        // history.push('/')
-        document.location.replace('/LogSign')
+        setLoggedIn(false)
+        history.push('/')
+        // document.location.replace('/LogSign')
       })
       .catch(err => history.push('/LogSign'))
   }
 
   useEffect(() => {
-    axios.get('/api/user')
-      .then(res => {
-        setLoggedIn(res.data.loggedIn)
-      })
+    // axios.get('/api/user')
+    //   .then(res => {
+    //     setLoggedIn(res.data.loggedIn)
+    //   })
   }, [])
   return (
     <ul className="nav nav-login">

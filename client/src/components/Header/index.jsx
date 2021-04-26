@@ -3,7 +3,7 @@ import Nav from "../Nav";
 import "./style.css"
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
   
 
   return (
@@ -23,7 +23,7 @@ function Header() {
           <span><div className="nav-links">Exit Game</div></span>
         </Link >
       </div>
-      <Nav />
+      <Nav loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn}/>
     </nav>
   )
 }

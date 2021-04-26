@@ -2,12 +2,11 @@ import React, { useRef } from "react";
 import axios from "axios";
 // import userContext from "../../utils/userContext";
 import "./style.css";
-// import { useHistory } from "react-router-dom";
-import { useAppContext } from "../../utils/userContext";
+import { useHistory } from "react-router-dom";
 
-function LogSign() {
-  const {setLoggedIn} = useAppContext();
-  // const history = useHistory()
+function LogSign(props) {
+  const setLoggedIn = props.setLoggedIn
+  const history = useHistory()
   const loginEmail = useRef();
   const loginUsername = useRef();
   const loginFormHandler = async (event) => {
@@ -20,8 +19,8 @@ function LogSign() {
       await axios.post('/api/user/login', { email, password }, { withCredentials: true })
         .then(res => {
           setLoggedIn(true);
-          // history.push('/CreateGame')
-          document.location.replace('/')
+          history.push('/CreateGame')
+          // document.location.replace('/')
           console.log("testpass")
         })
         .catch(err => console.log(err))
