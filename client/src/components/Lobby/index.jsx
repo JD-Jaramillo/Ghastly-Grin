@@ -54,6 +54,7 @@ function Lobby(props) {
         e.preventDefault();
         await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
             .then(res => {
+                // console.log(res.data.answers);
                 setWhiteCards(res.data.answers)
             })
             .catch(err => console.log(err))
@@ -105,11 +106,11 @@ function Lobby(props) {
                     const arr = []
 
                     await playerData.forEach(element => {
-                        console.log(element.username)
+                        // console.log(element.username)
                         // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         arr.push(element.username)
                     })
-                    console.log(arr);
+                    // console.log(arr);
                     setPlayers(arr)
                 })
                 .catch(err => console.log(err));
@@ -127,17 +128,17 @@ function Lobby(props) {
                     }
                 })
                 .catch(err => console.log(err));
-        }
-        const getCards = async () => {
-            await axios.get('/api/deck', { withCredentials: true })
+            axios.get('/api/deck', { withCredentials: true })
                 .then(res => {
-                    console.log("getWhite")
+                    // console.log("getWhite")
                     setWhiteCards(res.data.answers)
                 })
                 .catch(err => console.log(err));
         }
+        // const getCards = async () => {
+        // }
 
-        getCards();
+        // getCards();
     }, [history, setTimer])
 
     return (
@@ -179,27 +180,28 @@ function Lobby(props) {
                     </form>
                     : null}
                 <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                
+
                 <h4 className="playersHeader">Players:</h4>
                 <ul className="players">
-                    <li>{players.map(player => {
+                    {players.map(player => {
                         return (<li key={player}>{player}</li>)
                     })}
-                    </li>
+
 
                 </ul>
             </div>
             <div className="chat">
                 <h4 className="chat-h">Answer Cards</h4>
                 <div className="input-btn d-flex align-items-center justify-content-center">
-                    <label htmlFor="add-card"></label>
+                    <label htmlFor="add-card">Make a Card</label>
                     <input className="create-input"
-                        placeholder="card name here"
+                        style={{ zIndex: "1" }}
+                        placeholder="card text here"
                         id="add-card"
                         ref={newCard}
                         type="text"
                         aria-describedby="addCard" />
-                    <button id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    <button style={{ zIndex: "1" }} id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                 </div>
                 <div className="input-group">
                     <ul className="chat-cont">

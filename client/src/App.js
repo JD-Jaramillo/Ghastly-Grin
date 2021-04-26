@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     axios.get('/api/user')
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         setLoggedIn(res.data.loggedIn)
         if(res.data.game_id !== null) {
           setGameID(res.data.game_id)
