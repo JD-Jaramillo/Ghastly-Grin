@@ -1,30 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 
 
 
 function Timer(props) {
-  const timerTime = useRef();
-  
-  useEffect(() => {
-    timerTime.current.textContent = props.timer;
-    let timerCount = props.timer;
+  const [counter, setCounter] = useState(props.timer);
 
-   
-      setInterval(function() {
-        timerCount--;
-        timerTime.current.textContent = timerCount;
-        
-      }, 1000);
-      
-  
-  },[props.timer]);
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
+
 
 
     return (
         
           <div className="timer-container">
-            <h5 ref={timerTime} className="timer"> </h5>
+            <h5 className="timer">{counter}</h5>
             <img id='timerImg' src="/GhastlyGrinLogoTrans_purple.png" alt=""/>
           </div>
         

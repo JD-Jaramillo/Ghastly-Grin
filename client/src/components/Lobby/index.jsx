@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 
-function Lobby() {
+function Lobby(props) {
     const history = useHistory();
     var [user, setUser] = useState();
     const [players, setPlayers] = useState([]);
@@ -12,7 +12,9 @@ function Lobby() {
     var [owner, setOwner] = useState();
     const [whiteCards, setWhiteCards] = useState([]);
     const [rounds, setRounds] = useState();
-    const [timer, setTimer] = useState();
+    // const [timer, setTimer] = useState();
+    const timer = props.timer;
+    const setTimer = props.setTimer;
     // let ownerID;
     // let userID;
     const numRounds = useRef();
@@ -136,7 +138,7 @@ function Lobby() {
         }
 
         getCards();
-    }, [history])
+    }, [history, setTimer])
 
     return (
 
