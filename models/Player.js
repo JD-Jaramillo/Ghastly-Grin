@@ -15,6 +15,10 @@ Player.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     cards: {
       type: DataTypes.JSON,
       allowNull: true,

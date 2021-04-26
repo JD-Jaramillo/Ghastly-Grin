@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import axios from "axios";
 // import userContext from "../../utils/userContext";
 import "./style.css";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../utils/userContext";
 
 function LogSign() {
   const {setLoggedIn} = useAppContext();
-  const history = useHistory()
+  // const history = useHistory()
   const loginEmail = useRef();
   const loginUsername = useRef();
   const loginFormHandler = async (event) => {

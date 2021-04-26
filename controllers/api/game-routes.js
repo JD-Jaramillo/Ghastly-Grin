@@ -66,12 +66,17 @@ router.post("/", async (req, res) => {
     //     }
     //   }
     // );
+    const userData = await User.findOne({
+      where: { id: req.session.user_id }
+    })
+    const formatUser = JSON.parse(JSON.stringify(userData))
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
     await Player.create({
       score: 0,
       cards: [],
+      username: formatUser.username,
       game_id: gameFormat.id,
       user_id: req.session.user_id
     })
