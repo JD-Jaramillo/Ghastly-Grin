@@ -86,18 +86,18 @@ function App() {
                 ],
                 "image": [
                   {
-                    "src": "/GhastlyGrinLogoTrans_green.png",
+                    "src": "/ghastlyGrinLogoTrans_green.png",
                     "height": 20,
                     "width": 23
                   },
                   {
-                    "src": "/GhastlyGrinLogoTrans_purple.png",
+                    "src": "/ghastlyGrinLogoTrans_purple.png",
                     "height": 20,
                     "width": 20
                   },
                   {
-                    "src": "/figi_doodle.png",
-                    "height": 20,
+                    "src": "/randomCard.png",
+                    "height": 30,
                     "width": 20
                   }
                 ]
