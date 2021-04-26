@@ -23,7 +23,7 @@ function EndGame() {
     <>
       <div className="endContainer">
         <ul className="list-group">
-        <h5 className="scoreHeader">- Scoreboard -</h5>
+        <h5 className="scoreHeader">Scoreboard</h5>
         {players.map(e => (
           <li className="list-group-item" key={e.name}>{e.name}: {e.score}</li>
         ))}
