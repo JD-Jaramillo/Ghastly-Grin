@@ -185,13 +185,18 @@ function Lobby() {
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Answer Cards</h4>
-                    <div className="input-group">
-                        <input
+                    <div className="input-btn d-flex align-items-center justify-content-center">
+                        <label for="add-card"></label>
+                        <input className="create-input"
+                            placeholder="card name here"
+                            id="add-card"
                             ref={newCard}
                             type="text"
                             aria-describedby="addCard" />
                         <button id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                     </div>
+                </div>
+                <div className="input-group">
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
                             return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)

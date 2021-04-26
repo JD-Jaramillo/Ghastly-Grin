@@ -7,7 +7,6 @@
     text-align: center;
 } 
 
-
 .chat {
     grid-area: chat-h;
 }
@@ -39,11 +38,6 @@
     margin: auto;
 }
 
-#create-cards {
-    margin-left: 74px;
-    margin-top: 6px;
-    border-radius: 5px;
-}
 
 .startBtn:hover {
     border: 3px solid var(--purpleDragon);
@@ -70,8 +64,14 @@
     padding-left: 0;
 }
 
-.input-group {
-    justify-content: center;
+#create-cards {
+    margin-top: 6px;
+    border-radius: 5px;
+}
+
+.input-btn {
+    flex-direction: column;
+    margin-top: -8px;
 }
 
 .card-input {
