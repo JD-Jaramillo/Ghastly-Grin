@@ -204,7 +204,6 @@ function Lobby() {
                     </ul>
                 </div>
             </div>
-        </div>
 
     )
 }

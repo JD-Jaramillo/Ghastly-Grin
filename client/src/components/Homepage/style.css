@@ -8,3 +8,8 @@
 .carousel-inner {
     border-radius: 3px solid var(--appBackground);
 }
+
+
+.carousel-header {
+    color: var(--purpleDragon) !important;
+}
