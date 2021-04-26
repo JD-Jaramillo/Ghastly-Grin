@@ -28,7 +28,7 @@ function GamePlay() {
 
       if (currentTime > endTime) {
         stopTimer();
-        // history.push('/VoteCard');
+        history.push('/VoteCard');
       }
     };
   }, [history]);

@@ -8,24 +8,28 @@ import Lobby from "./components/Lobby";
 import Homepage from "../src/components/Homepage";
 import Instructions from "../src/components/Instructions";
 import Header from "./components/Header/index";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import GamePlay from "./components/GamePlay";
 import VoteCard from "./components/VoteCard";
 import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
-import { AppContext } from "./utils/userContext";
 import Particles from "react-particles-js";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
   const [loggedIn, setLoggedIn] = useState();
+  const [gameID, setGameID] = useState(false);
 
   useEffect(() => {
     axios.get('/api/user')
       .then(res => {
+        console.log(res.data)
         setLoggedIn(res.data.loggedIn)
+        if(res.data.game_id !== null) {
+          setGameID(res.data.game_id)
+        }
       })
   }, [])
 
@@ -33,34 +37,9 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <HeaderMobile />
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
+      <HeaderMobile loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
       <div className="main-content">
-        {/* <Particles 
-          className="particles"
-          params={{
-            particles: {
-              number: 
-                { value: 200, density: { enable: true, value_area: 1000 } },
-              color: {value: "#551A8B"},
-              shape: {
-                type: "circles",
-                stroke: { width: 10, color: "#551A8B" },
-                polygon: { nb_sides: 5 },
-                image: { src: "img/github.svg", width: 100, height: 100 }
-            },
-            line_linked: {
-              enable: true,
-              distance: 200,
-              color: "#551A8B",
-              opacity: 0.1,
-              width: 2
-            },
-            move: {
-              enable: false,
-            }
-          }
-          }}/> */}
         <Particles
           className="particles"
           params={{
@@ -82,7 +61,7 @@ function App() {
               "shape": {
                 "type": [
                   "image",
-                  "image", 
+                  "image",
                 ],
                 "image": [
                   {
@@ -119,30 +98,35 @@ function App() {
             "retina_detect": false
           }} />
         <Instructions />
-        <Route exact path="/">
-          <Homepage />
-        </Route>
-        <Route exact path="/LogSign">
-          <AppContext.Provider value={{ loggedIn, setLoggedIn }}>
-            <LogSign />
-          </AppContext.Provider>
-        </Route>
-        <Route exact path="/CreateGame">
-          <CreateGame />
-          <JoinGame />
-        </Route>
-        <Route exact path="/Lobby">
-          <Lobby />
-        </Route>
-        <Route exact path="/GamePlay">
-          {loggedIn ? <GamePlay /> : <Homepage />}
-        </Route>
-        <Route exact path="/VoteCard">
-          <VoteCard />
-        </Route>
-        <Route exact path="/EndGame">
-          <EndGame />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path="/LogSign">
+            <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>
+          </Route>
+          <Route exact path="/CreateGame">
+            {loggedIn ? (<><CreateGame />
+            <JoinGame /></>) : <LogSign setLoggedIn={setLoggedIn}/>}
+          </Route>
+          <Route exact path="/Lobby">
+          {loggedIn ? 
+             <Lobby /> 
+           : <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>}
+          </Route>
+          <Route exact path="/GamePlay">
+            {loggedIn ? <GamePlay /> : <Homepage />}
+          </Route>
+          <Route exact path="/VoteCard">
+            <VoteCard />
+          </Route>
+          <Route exact path="/EndGame">
+            <EndGame />
+          </Route>
+          <Route >
+            <Homepage />
+          </Route>
+        </Switch>
       </div>
       <Footer />
     </Router>

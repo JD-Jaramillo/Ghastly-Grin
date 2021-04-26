@@ -3,11 +3,11 @@ import Nav from "../Nav";
 import "./style.css";
 import { Link } from 'react-router-dom';
 
-function HeaderMobile() {
+function HeaderMobile(props) {
   const [hamburgerState, setHamburgerState] = useState(true);
 
   return (
-    <nav className="mobile-navigation .container-fluid">
+    <nav className="mobile-navigation container-fluid">
       <div className="mobile-menu-base">
         <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo" />
         <Link to="/">
@@ -27,14 +27,18 @@ function HeaderMobile() {
           <Link className="nav-link-wrap" to="/">
             <span className="nav-links">Home</span>
           </Link>
+          {props.gameID ?
+          <>
           <Link className="nav-link-wrap" to="/Lobby">
             <span className="nav-links">Lobby</span>
           </Link >
           <Link className="nav-link-wrap" to="/Lobby">
             <span className="nav-links">Exit Game</span>
           </Link >
+          </>
+          : null}
         </div>
-        <Nav />
+        <Nav loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn}/>
       </div>
     </nav>
   )

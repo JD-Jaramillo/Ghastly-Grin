@@ -186,7 +186,7 @@ function Lobby() {
             <div className="chat">
                 <h4 className="chat-h">Answer Cards</h4>
                 <div className="input-btn d-flex align-items-center justify-content-center">
-                    <label for="add-card"></label>
+                    <label htmlFor="add-card"></label>
                     <input className="create-input"
                         placeholder="card name here"
                         id="add-card"

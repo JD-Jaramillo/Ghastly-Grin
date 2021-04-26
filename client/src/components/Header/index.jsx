@@ -3,8 +3,8 @@ import Nav from "../Nav";
 import "./style.css"
 import { Link } from 'react-router-dom';
 
-function Header() {
-  
+function Header(props) {
+
 
   return (
     <nav className="desktop-navigation .container-fluid">
@@ -16,14 +16,19 @@ function Header() {
         <Link to="/">
           <span><div className="nav-links">Home</div></span>
         </Link>
-        <Link to="/Lobby">
-          <span><div className="nav-links">Lobby</div></span>
-        </Link >
-        <Link to="/Lobby">
-          <span><div className="nav-links">Exit Game</div></span>
-        </Link >
+        {props.gameID ?
+          <>
+            <Link to="/Lobby">
+              <span><div className="nav-links">Lobby</div></span>
+            </Link >
+            <Link to="/">
+              <span><div className="nav-links">Exit Game</div></span>
+            </Link >
+          </>
+          : null
+        }
       </div>
-      <Nav />
+      <Nav loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
     </nav>
   )
 }
