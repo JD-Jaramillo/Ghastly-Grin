@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
 // import WhiteCard from "../WhiteCard";
 // import questions from "../../utils/questions";
@@ -14,11 +14,9 @@ function GamePlay() {
   const [blackCard, setBlackCard] = useState();
   const [user, setUser] = useState();
   const [answered, setAnswered] = useState(false);
-  // const [player, setplayer] = useState({});
   const history = useHistory();
 
-
-  const timer = (endTime) => {
+  const timer = useCallback((endTime) => {
     var timerInterval = setInterval(action, 1000)
     function stopTimer() {
       clearInterval(timerInterval)
@@ -32,8 +30,23 @@ function GamePlay() {
         history.push('/VoteCard');
       }
     };
-  }
+  }, [history]);
 
+  const getGame = useCallback(() => {
+    axios.get('/api/game', { withCredentials: true })
+      .then(res => {
+        const gameTimer = res.data.timer;
+        axios.get('/api/round', { withCredentials: true })
+          .then(newRes => {
+            const startTime = newRes.data.data.createdAt;
+            let endTime = new Date(startTime);
+            endTime.setSeconds(endTime.getSeconds() + gameTimer);
+            timer(endTime);
+            setBlackCard(newRes.data.data.prompt)
+          })
+          .catch(err => console.log(err))
+      })
+  }, [timer])
   const submitCard = (e) => {
     e.target.style = "display: none"
     console.log(e.target.dataset.ans)
@@ -48,27 +61,19 @@ function GamePlay() {
   }
 
   useEffect(() => {
-    axios.get('/api/game', {withCredentials: true})
-      .then(res => {
-        const gameTimer = res.data.timer;
-        axios.get('/api/round', { withCredentials: true })
-          .then(newRes => {
-            setBlackCard(newRes.data.data.prompt)
-            const startTime = newRes.data.data.createdAt
-            let endTime = new Date(startTime)
-            endTime.setSeconds(endTime.getSeconds() + gameTimer)
-            timer(endTime)
-          })
-          .catch(err => console.log(err))
-      })
-    axios.get('/api/player/cards', { withCredentials: true })
-      .then(res => {
-        setWhiteCard(res.data.cards)
-        setUser(res.data.user_id)
-        console.log(res.data.user_id)
-      })
-      .catch(err => console.log(err))
-  }, [])
+    let runThrough;
+    if (runThrough !== "done") {
+      getGame();
+      axios.get('/api/player/cards', { withCredentials: true })
+        .then(res => {
+          setWhiteCard(res.data.cards)
+          setUser(res.data.user_id)
+          console.log(res.data.user_id)
+        })
+        .catch(err => console.log(err))
+    }
+    runThrough = "done";
+  }, [getGame])
 
   const matches = useMediaQuery('(min-width:1220px)');
 
