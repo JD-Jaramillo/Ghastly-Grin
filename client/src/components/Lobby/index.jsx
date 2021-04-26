@@ -195,13 +195,13 @@ function Lobby() {
                         aria-describedby="addCard" />
                     <button id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                 </div>
-            </div>
-            <div className="input-group">
-                <ul className="chat-cont">
-                    {user === owner ? whiteCards.map(whitecard => {
-                        return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
-                    }) : <div>Only the owner can view cards</div>}
-                </ul>
+                <div className="input-group">
+                    <ul className="chat-cont">
+                        {user === owner ? whiteCards.map(whitecard => {
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                        }) : <div>Only the owner can view cards</div>}
+                    </ul>
+                </div>
             </div>
         </div>
     )
