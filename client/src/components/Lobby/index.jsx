@@ -139,8 +139,8 @@ function Lobby() {
     }, [history])
 
     return (
-        <>
-            <div className="lobby-page">
+        
+            <div className="lobby-page main-content">
                 <div className="lobby-start">
                     <h4 className="lob-h">Lobby: {game}</h4>
                     {user === owner ?
@@ -199,7 +199,7 @@ function Lobby() {
                     </ul>
                 </div>
             </div>
-        </>
+
     )
 }
 

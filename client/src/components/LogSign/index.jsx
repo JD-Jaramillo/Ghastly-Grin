@@ -53,7 +53,7 @@ function LogSign() {
   };
 
   return (
-    <div className="container">
+    <div className="container main-content">
       <div className="row justify-content-center align-items-center">
       <img className="fanLogo" style={{maxWidth: `150px`}}src="/CardFanLogo.png" alt="logo" />
       </div>

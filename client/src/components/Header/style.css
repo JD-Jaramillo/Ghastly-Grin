@@ -58,3 +58,7 @@ a:hover {
   transform: scale(1.1);
   text-decoration: var(--randomCard) !important;
 } 
+
+nav {
+  border-bottom: 8px solid var(--purpleDragon);
+}
