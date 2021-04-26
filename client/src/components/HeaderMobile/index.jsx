@@ -25,13 +25,13 @@ function HeaderMobile() {
       <div onClick={() => setHamburgerState(!hamburgerState)} className={hamburgerState ? 'mobile-dropdown' : 'mobile-dropdown open'} >
         <div className="nav-group">
           <Link className="nav-link-wrap" to="/">
-            <span ><a className="nav-links">Home</a></span>
+            <span className="nav-links">Home</span>
           </Link>
           <Link className="nav-link-wrap" to="/Lobby">
-            <span><a className="nav-links">Lobby</a></span>
+            <span className="nav-links">Lobby</span>
           </Link >
           <Link className="nav-link-wrap" to="/Lobby">
-            <span><a className="nav-links">Exit Game</a></span>
+            <span className="nav-links">Exit Game</span>
           </Link >
         </div>
         <Nav />
