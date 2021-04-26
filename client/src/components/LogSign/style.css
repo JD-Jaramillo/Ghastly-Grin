@@ -38,3 +38,7 @@ form {
   color: var(--randomCard) !important;
   transform: scale(1.1) !important;
 }
+
+.fanLogo {
+  margin: 20px;
+}

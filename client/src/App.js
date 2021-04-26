@@ -82,7 +82,7 @@ function App() {
               "shape": {
                 "type": [
                   "image",
-                  "image"
+                  "image", 
                 ],
                 "image": [
                   {

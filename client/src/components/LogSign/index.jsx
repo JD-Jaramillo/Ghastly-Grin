@@ -54,8 +54,12 @@ function LogSign() {
 
   return (
     <div className="container">
+      <div className="row justify-content-center align-items-center">
+      <img className="fanLogo" style={{maxWidth: `150px`}}src="/CardFanLogo.png" alt="logo" />
+      </div>
+
       <div className="row justify-content-center">
-        <form className="col-4 offset-1">
+        <form className="col-4">
           <h3>Sign Up</h3>
           <div className="form-group">
             <label htmlFor="signupUsername">Username</label>
@@ -73,7 +77,7 @@ function LogSign() {
             <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
           </div>
         </form>
-        <form className="col-4 offset-1">
+        <form className="col-4">
           <h3>Log In</h3>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
