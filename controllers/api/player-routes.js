@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { Player } = require('../../models');
+const { Player, Deck } = require('../../models');
 const withAuth = require('../../utils/auth');
 const Answers = require('../../models/answers')
 
@@ -34,24 +34,32 @@ router.get("/cards", withAuth, async (req, res) => {
 router.post("/", withAuth, async (req, res) => {
   console.log(req.session)
   try {
-    const hand = [];
+    // const findDeck = await Deck.findOne({
+    //   where: {game_id: req.session.game_id}
+    // })
+    // const formatDeck = await JSON.parse(JSON.stringify(findDeck))
+    // const hand = [];
 
-    let arr = Answers
-    for (let i = 0; i < 7; i++) {
-      const whiteCards = await Math.floor(Math.random() * arr.length)
-      await hand.push(arr[whiteCards]);
-      await arr.splice(whiteCards, 1)
-    }
+    // let arr = formatDeck.answers
+    // for (let i = 0; i < 7; i++) {
+    //   const rng = await Math.floor(Math.random() * arr.length)
+    //   await hand.push(arr[rng]);
+    //   await arr.splice(rng, 1)
+    // }
 
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
     await Player.create({
       score: 0,
-      cards: hand,
+      cards: [],
       game_id: req.body.id,
       user_id: req.session.user_id
     });
+    // await Deck.update(
+    //   {answers: arr},
+    //   { where: {game_id: req.session.game_id}}
+    // )
     const playerFind = await Player.findOne({
       where: {
         user_id: req.session.user_id
@@ -78,12 +86,10 @@ router.put("/card", withAuth, async (req, res) => {
     console.log(cards);
     const pos = cards.indexOf(req.body.card);
     await cards.splice(pos, 1);
-    let arr = Answers
-    for (const card of cards) {
-      const cardInd = arr.indexOf(card)
-      arr.splice(cardInd, 1)
-    }
-    const whiteCards = Math.floor(Math.random() * arr.length)
+    const deckFind = await Deck.findOne({ where: {game_id: req.session.game_id}});
+    const formatDeck = JSON.parse(JSON.stringify(deckFind))
+    let arr = formatDeck.answers
+    const whiteCards = await Math.floor(Math.random() * arr.length)
     await cards.push(arr[whiteCards])
     const updatePlayer = await Player.update(
       {cards: cards},
@@ -101,7 +107,39 @@ router.put("/card", withAuth, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
 
+router.put("/hand", withAuth, async (req, res) => {
+  try {
+    // const findPlayer = await Player.findOne({
+    //   where: {user_id: req.session.user_id}
+    // })
+    // const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
+    const deckFind = await Deck.findOne({ where: {game_id: req.session.game_id}});
+    const formatDeck = JSON.parse(JSON.stringify(deckFind))
+    const hand = [];
+    let arr = formatDeck.answers
+    for (let i = 0; i < 7; i++) {
+      const rng = await Math.floor(Math.random() * arr.length)
+      await hand.push(arr[rng]);
+      await arr.splice(rng, 1)
+    }
+    const updatePlayer = await Player.update(
+      {cards: hand},
+      {
+        where: {
+          user_id: req.session.user_id
+        }
+      }
+    )
+    if (!updatePlayer) {
+      res.status(404).json({ message: "No player found with this id!" });
+      return;
+    }
+    res.status(200).json(updatePlayer);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // MUST HAVE USER ID IN PARAMS, AND BODY SCORE

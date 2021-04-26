@@ -13,8 +13,8 @@ function Lobby() {
     const [whiteCards, setWhiteCards] = useState([]);
     const [rounds, setRounds] = useState();
     const [timer, setTimer] = useState();
-    let ownerID;
-    let userID;
+    // let ownerID;
+    // let userID;
     const numRounds = useRef();
     const timerCount = useRef();
     const cohortPack = useRef();
@@ -27,7 +27,7 @@ function Lobby() {
                 const playerData = res.data.data;
                 await setGame(playerData[0].game_id)
                 await setUser(res.data.session.user_id)
-                userID = res.data.session.user_id
+                // userID = res.data.session.user_id
                 for (let element of playerData) {
                     const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                     await setPlayers(players => [...players, data.username])
@@ -39,36 +39,33 @@ function Lobby() {
                 setOwner(res.data.game_owner)
                 setRounds(res.data.maxrounds)
                 setTimer(res.data.timer)
-                ownerID = res.data.game_owner
+                // ownerID = res.data.game_owner
             })
             .catch(err => console.log(err));
 
         function stopTimer() {
             clearInterval(timerInterval)
         }
-        const timerInterval = setInterval(checkPlayers, 15000);
+        const timerInterval = setInterval(checkPlayers, 1000);
         async function checkPlayers() {
-            console.log(whiteCards);
-
             await axios.get('/api/game', { withCredentials: true })
                 .then(res => {
                     if (res.data.round > 0) {
                         stopTimer();
-                        if (userID !== ownerID) {
+                        // if (userID !== ownerID) {
+                        axios.put('/api/player/hand', { withCredentials: true })
+                        .then(res => {
                             history.push('/GamePlay')
-                        }
+                        })
+                        // }
                     }
                 })
                 .catch(err => console.log(err));
-
-
-
             await axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
                     const playerData = res.data.data;
                     console.log(playerData.length, players.length)
                     if (playerData.length > players.length) {
-                        // await setPlayers([])
                         for (let element of playerData) {
                             const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                             if (players.includes(data.username)) {
@@ -82,11 +79,11 @@ function Lobby() {
     }
     const updateGame = async (e) => {
         e.preventDefault();
-        await axios.put('/api/game/update', {rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked}, {withCredentials: true})
-        .then(res => {
-            setWhiteCards(res.data.answers)
-        })
-        .catch(err => console.log(err))
+        await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
+            .then(res => {
+                setWhiteCards(res.data.answers)
+            })
+            .catch(err => console.log(err))
     }
 
     const removeCard = async (e) => {
@@ -114,7 +111,8 @@ function Lobby() {
             .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
             .then(res => {
-                history.push('/GamePlay')
+                console.log(res)
+                // history.push('/GamePlay')
             })
             .catch(err => console.log("round: " + err))
     }
