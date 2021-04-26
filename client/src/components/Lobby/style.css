@@ -7,6 +7,7 @@
     text-align: center;
 } 
 
+
 .chat {
     grid-area: chat-h;
 }
@@ -36,6 +37,12 @@
     margin-top: 8px;
     margin-bottom: 18px;
     margin: auto;
+}
+
+#create-cards {
+    margin-left: 74px;
+    margin-top: 6px;
+    border-radius: 5px;
 }
 
 .startBtn:hover {
@@ -86,5 +93,28 @@
     "players players chat-cont chat-cont";
 }
 
+@media only screen and (max-width: 820px) {
+    .lobby-start {
+        grid-area: lobby;
+    }
+
+    .chat {
+        grid-area: chat;
+    }
+
+    .chat-cont {
+        text-align: center;
+    }
+
+    .lobby-page {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 10% 1fr 10%;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        ". lobby ."
+        ". chat ."
+    }
+}
 
 
