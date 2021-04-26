@@ -11,8 +11,14 @@ function Lobby() {
     const [game, setGame] = useState();
     var [owner, setOwner] = useState();
     const [whiteCards, setWhiteCards] = useState([]);
+    const [rounds, setRounds] = useState();
+    const [timer, setTimer] = useState();
     let ownerID;
     let userID;
+    const numRounds = useRef();
+    const timerCount = useRef();
+    const cohortPack = useRef();
+    const cahPack = useRef();
 
     const getPlayers = async () => {
         await axios.get('/api/player', { withCredentials: true })
@@ -31,6 +37,8 @@ function Lobby() {
         await axios.get('/api/game', { withCredentials: true })
             .then(async res => {
                 setOwner(res.data.game_owner)
+                setRounds(res.data.maxrounds)
+                setTimer(res.data.timer)
                 ownerID = res.data.game_owner
             })
             .catch(err => console.log(err));
@@ -71,6 +79,14 @@ function Lobby() {
                 })
                 .catch(err => console.log(err))
         }
+    }
+    const updateGame = async (e) => {
+        e.preventDefault();
+        await axios.put('/api/game/update', {rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked}, {withCredentials: true})
+        .then(res => {
+            setWhiteCards(res.data.answers)
+        })
+        .catch(err => console.log(err))
     }
 
     const removeCard = async (e) => {
@@ -121,9 +137,47 @@ function Lobby() {
         <>
             <div className="lobby-page">
                 <div className="lobby-start">
-                    <h4 className="lob-h">Lobby: {game}</h4>
+                    <h4 className="lob-h">Lobby</h4>
+                    <h4 className="lob-h">Lobby ID: {game}</h4>
+                    {user === owner ?
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="numRounds">Number of Rounds</label>
+                                <input ref={numRounds} type="number" className="form-control" id="numRounds" aria-describedby="numRounds" defaultValue={rounds} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="timerCount">Timer Per Round</label>
+                                <input ref={timerCount} type="number" className="form-control" id="timerCount" aria-describedby="timerCount" defaultValue={timer} />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    ref={cohortPack}
+                                    type="checkbox"
+                                    id="GCP"
+                                    aria-describedby="GCP"
+                                    value="cohort" />
+                                <label htmlFor="GCP">Greatest Cohort Pack</label>
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    ref={cahPack}
+                                    type="checkbox"
+                                    id="cah"
+                                    aria-describedby="cah"
+                                    value="cah" />
+                                <label htmlFor="GCP">CardsAgainstHumanity Pack</label>
+                            </div>
+                            <div className="btn-parent">
+                                <button onClick={(e) => updateGame(e)} type="click" className="btn">Update Game</button>
+                            </div>
+                        </form>
+                        : null}
                     <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    <h5 className="playersHeader">Players</h5>
+                    <input
+                        ref={newCard}
+                        type="text"
+                        aria-describedby="addCard" />
+                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                     <ul className="players">
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
@@ -132,18 +186,10 @@ function Lobby() {
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Answer Cards</h4>
-                    <div className="input-group">
-                        <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
-                        <input ref={newCard} type="text" aria-describedby="addCard" className="card-input" />
-                    </div>
-                    {/* The chat will need to mapped through to dynamically render each comment by user_id */}
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
-                        {/* <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
-                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li>
-                        <li className="ch-ct"><span>user_id </span><span className="text">Chat content</span></li> */}
                     </ul>
                 </div>
             </div>
