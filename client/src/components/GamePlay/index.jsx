@@ -9,13 +9,14 @@ import { useHistory } from "react-router";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Timer from '../Timer';
 
-function GamePlay() {
+function GamePlay(props) {
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
   const [user, setUser] = useState();
   const [answered, setAnswered] = useState(false);
   const history = useHistory();
-  const [clock, setClock] = useState();
+  // const [clock, setClock] = useState();
+  const clock = props.timer;
 
   const timer = useCallback((endTime) => {
     var timerInterval = setInterval(action, 1000)
@@ -34,21 +35,21 @@ function GamePlay() {
   }, [history]);
 
   const getGame = useCallback(() => {
-    axios.get('/api/game', { withCredentials: true })
-      .then(res => {
-        const gameTimer = res.data.timer;
-        setClock(gameTimer);
-        axios.get('/api/round', { withCredentials: true })
-          .then(newRes => {
-            const startTime = newRes.data.data.createdAt;
-            let endTime = new Date(startTime);
-            endTime.setSeconds(endTime.getSeconds() + gameTimer);
-            timer(endTime);
-            setBlackCard(newRes.data.data.prompt)
-          })
-          .catch(err => console.log(err))
+    // axios.get('/api/game', { withCredentials: true })
+    //   .then(res => {
+    //     const gameTimer = res.data.timer;
+    // setClock(gameTimer);
+    axios.get('/api/round', { withCredentials: true })
+      .then(newRes => {
+        const startTime = newRes.data.data.createdAt;
+        let endTime = new Date(startTime);
+        endTime.setSeconds(endTime.getSeconds() + clock);
+        timer(endTime);
+        setBlackCard(newRes.data.data.prompt)
       })
-  }, [timer])
+      .catch(err => console.log(err))
+    // })
+  }, [timer, clock])
   const submitCard = (e) => {
     e.target.style = "display: none"
     console.log(e.target.dataset.ans)
@@ -82,7 +83,7 @@ function GamePlay() {
   return (
     <>
       <ScoreBar />
-      <Timer timer={clock}/>
+      <Timer timer={clock} />
       <div className="container">
         <BlackCard blackcard={blackCard} />
         {matches ?
@@ -115,8 +116,8 @@ function GamePlay() {
                       {
                         marginTop: `-50px`,
                         marginBottom: `-50px`
-                    
-                    }
+
+                      }
                     }
 
                     onClick={answered ? null : submitCard}

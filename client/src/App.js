@@ -21,6 +21,7 @@ import Particles from "react-particles-js";
 function App() {
   const [loggedIn, setLoggedIn] = useState();
   const [gameID, setGameID] = useState(false);
+  const [timer, setTimer] = useState();
 
   useEffect(() => {
     axios.get('/api/user')
@@ -111,14 +112,14 @@ function App() {
           </Route>
           <Route exact path="/Lobby">
           {loggedIn ? 
-             <Lobby /> 
+             <Lobby timer={timer} setTimer={setTimer}/> 
            : <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>}
           </Route>
           <Route exact path="/GamePlay">
-            {loggedIn ? <GamePlay /> : <Homepage />}
+            {loggedIn ? <GamePlay timer={timer} setTimer={setTimer}/> : <Homepage />}
           </Route>
           <Route exact path="/VoteCard">
-            <VoteCard />
+            <VoteCard timer={timer} setTimer={setTimer}/>
           </Route>
           <Route exact path="/EndGame">
             <EndGame />

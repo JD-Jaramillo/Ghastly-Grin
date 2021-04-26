@@ -4,12 +4,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
 import { useHistory } from "react-router";
+import Timer from '../Timer';
 
-function VoteCard() {
+
+function VoteCard(props) {
   const history = useHistory();
   const [whiteCard, setWhiteCard] = useState([]);
   const [blackCard, setBlackCard] = useState();
   const [vote, setVote] = useState(true);
+  const clock = props.timer;
 
   const timer = useCallback((endTime) => {
     var timerInterval = setInterval(action, 1000)
@@ -72,33 +75,34 @@ function VoteCard() {
 
   useEffect(() => {
     console.log("Use Effect Ran Once");
-    axios.get('/api/game', { withCredentials: true })
-      .then(result => {
-        const timerSet = result.data.timer * 2
-        axios.get('/api/round', { withCredentials: true })
-          .then(res => {
-            setBlackCard(res.data.data.prompt)
-            const arr = JSON.parse(res.data.data.answers)
-            setWhiteCard(arr)
-            const startTime = res.data.data.createdAt
-            let endTime = new Date(startTime)
-            endTime.setSeconds(endTime.getSeconds() + timerSet)
-            timer(endTime)
-          })
-          .catch(err => console.log(err));
+    // axios.get('/api/game', { withCredentials: true })
+    //   .then(result => {
+    //     const timerSet = result.data.timer * 2
+    axios.get('/api/round', { withCredentials: true })
+      .then(res => {
+        setBlackCard(res.data.data.prompt)
+        const arr = JSON.parse(res.data.data.answers)
+        setWhiteCard(arr)
+        const startTime = res.data.data.createdAt
+        let endTime = new Date(startTime)
+        endTime.setSeconds(endTime.getSeconds() + (clock * 2))
+        timer(endTime)
       })
       .catch(err => console.log(err));
+    // })
+    // .catch(err => console.log(err));
 
-  }, [timer])
+  }, [timer, clock])
 
   return (
     <>
       <ScoreBar />
+      <Timer timer={clock} />
       <div className="container">
         <BlackCard blackcard={blackCard} />
         <div key={"cont"} className="vote-container">
           {whiteCard ? whiteCard.map((e) => (
-            <div onMouseOver={(e) => e.target.style.zIndex = 1} key={whiteCard.indexOf(e)} onClick={vote ? (e) => updateScore(e) : null} data-id={e.user} className="vote-card" style={{zIndex: "1"}}>
+            <div onMouseOver={(e) => e.target.style.zIndex = 1} key={whiteCard.indexOf(e)} onClick={vote ? (e) => updateScore(e) : null} data-id={e.user} className="vote-card" style={{ zIndex: "1" }}>
               <div data-id={e.user} className="white-card-body">
                 <h5 data-id={e.user} className="card-title">{e.answer}</h5>
               </div>
