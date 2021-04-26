@@ -30,7 +30,6 @@ function GamePlay() {
       if (currentTime > endTime) {
         stopTimer();
         history.push('/VoteCard');
-
       }
     };
   }
@@ -49,15 +48,19 @@ function GamePlay() {
   }
 
   useEffect(() => {
-    axios.get('/api/round', { withCredentials: true })
+    axios.get('/api/game', {withCredentials: true})
       .then(res => {
-        setBlackCard(res.data.data.prompt)
-        const startTime = res.data.data.createdAt
-        let endTime = new Date(startTime)
-        endTime.setSeconds(endTime.getSeconds() + 10)
-        timer(endTime)
+        const gameTimer = res.data.timer;
+        axios.get('/api/round', { withCredentials: true })
+          .then(newRes => {
+            setBlackCard(newRes.data.data.prompt)
+            const startTime = newRes.data.data.createdAt
+            let endTime = new Date(startTime)
+            endTime.setSeconds(endTime.getSeconds() + gameTimer)
+            timer(endTime)
+          })
+          .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
     axios.get('/api/player/cards', { withCredentials: true })
       .then(res => {
         setWhiteCard(res.data.cards)
@@ -68,64 +71,59 @@ function GamePlay() {
   }, [])
 
   const matches = useMediaQuery('(min-width:1220px)');
-  
+
   return (
-    <> 
+    <>
       <ScoreBar />
       <Timer />
-    <div className="container">
-      <BlackCard blackcard={blackCard} />
-      {matches ? 
-      <div className="d-flex flex-row">
-        <div className="offset-rotate">
-            {whiteCard.map((card, index) => (
-              <div style={
-                {
-                  transform: `rotate(${index * (90 / whiteCard.length)}deg) translate(-50%, -50%)`,
-                  transformOrigin: `center 115%`
+      <div className="container">
+        <BlackCard blackcard={blackCard} />
+        {matches ?
+          <div className="d-flex flex-row">
+            <div className="offset-rotate">
+              {whiteCard.map((card, index) => (
+                <div style={
+                  {
+                    transform: `rotate(${index * (90 / whiteCard.length)}deg) translate(-50%, -50%)`,
+                    transformOrigin: `center 115%`
+                  }
                 }
-              }
-                onClick={ answered ? null : submitCard }
-                className="card-element"
-                key={card}
-                data-ans={card}>
-                <div data-ans={card} className="white-card-body">
-                  <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                  onClick={answered ? null : submitCard}
+                  className="card-element"
+                  key={card}
+                  data-ans={card}>
+                  <div data-ans={card} className="white-card-body">
+                    <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div> :
+          <div>
+            <div className="mobile-card-container">
+              <div>
+                {whiteCard.map((card, index) => (
+                  <div
+                    style={
+                      {
+                        display: `flex`,
+                        flexDirection: `column`,
+                      }
+                    }
+                    onClick={answered ? null : submitCard}
+                    className="d-flex justify-content-evenly"
+                    key={card}
+                    data-ans={card}>
+                    <div data-ans={card} className="white-card-body">
+                      <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-        </div>
-      </div> : 
-      <div>
-
-      <div className="mobile-card-container">
-        <div>
-            {whiteCard.map((card, index) => (
-              <div
-              style={
-                {
-                  display: `flex`,
-                  flexDirection: `column`,
-                  
-                }
-              }
-                onClick={ answered ? null : submitCard }
-                className="d-flex justify-content-evenly" 
-                key={card}
-                data-ans={card}>
-                <div data-ans={card} className="white-card-body">
-                  <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
-                </div>
-              </div>
-            ))}
-        </div>
+            </div>
+          </div>
+        }
       </div>
-      </div> 
-
-      
-      
-    }
-    </div>
     </>
   )
 }

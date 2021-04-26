@@ -5,7 +5,6 @@ const Questions = require('../../models/questions');
 const CahQ = require('../../models/cahQ');
 const CahA = require('../../models/cahA');
 const Sequelize = require("sequelize");
-const cahQ = require('../../models/cahQ');
 
 
 
@@ -46,33 +45,33 @@ router.post("/", async (req, res) => {
       answers: Answers,
       game_id: gameFormat.id
     });
-    const deckFind = await Deck.findOne({
-      where: {
-        game_id: gameFormat.id
-      }
-    });
-    const deckFormat = await JSON.parse(JSON.stringify(deckFind))
-    const hand = [];
-    let arr = deckFormat.answers
-    for (let i = 0; i < 7; i++) {
-      const whiteCards = Math.floor(Math.random() * arr.length)
-      await hand.push(arr[whiteCards]);
-      await arr.splice(whiteCards, 1)
-    }
-    await Deck.update(
-      { answers: arr },
-      {
-        where: {
-          game_id: gameFormat.id
-        }
-      }
-    );
+    // const deckFind = await Deck.findOne({
+    //   where: {
+    //     game_id: gameFormat.id
+    //   }
+    // });
+    // const deckFormat = await JSON.parse(JSON.stringify(deckFind))
+    // const hand = [];
+    // let arr = deckFormat.answers
+    // for (let i = 0; i < 7; i++) {
+    //   const whiteCards = Math.floor(Math.random() * arr.length)
+    //   await hand.push(arr[whiteCards]);
+    //   await arr.splice(whiteCards, 1)
+    // }
+    // await Deck.update(
+    //   { answers: arr },
+    //   {
+    //     where: {
+    //       game_id: gameFormat.id
+    //     }
+    //   }
+    // );
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
     await Player.create({
       score: 0,
-      cards: hand,
+      cards: [],
       game_id: gameFormat.id,
       user_id: req.session.user_id
     })
