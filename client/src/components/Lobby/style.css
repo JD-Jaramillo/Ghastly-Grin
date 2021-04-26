@@ -38,14 +38,33 @@
     border: 3px solid var(--purpleDragon);
 }
 
+.playersHeader {
+    font-size: 32px;
+    color: var(--appBackground);
+    margin-top: 20px;
+}
+
 .players {
     grid-area: players;
+    list-style-type: none;
+    text-align: center;
+    margin-right: 28px;
+    font-size: 24px;
+    color: var(--purpleDragon);
 }
 
 .chat-cont {
     grid-area: chat-cont;
     list-style-type: none;
     padding-left: 0;
+}
+
+.input-group {
+    justify-content: center;
+}
+
+.card-input {
+    margin-top: 2px;
 }
 
 .text {

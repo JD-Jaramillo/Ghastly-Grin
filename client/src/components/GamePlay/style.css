@@ -18,6 +18,16 @@
   box-shadow: 0 0 10px rgb(14, 14, 14);
 }
 
+.white-card-body {
+  padding: 12px;
+  background-color: white;
+  width: 175px;
+  height: 247px;
+  color: #551a8b;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgb(14, 14, 14);
+}
+
 .card-element {
   position: absolute;
   left: 275px;
@@ -28,4 +38,11 @@
   position: relative;
   transform: rotate(-20deg);
   max-width: 90%;
+}
+
+.mobile-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
