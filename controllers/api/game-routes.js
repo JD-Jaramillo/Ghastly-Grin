@@ -10,13 +10,13 @@ const Sequelize = require("sequelize");
 
 const router = require('express').Router();
 
-router.get("/", async (req, res, next) => {
-  console.log(req.session.game_id);
+router.get("/", withAuth, async (req, res, next) => {
   try {
     const gameData = await Game.findOne({
       where: { id: req.session.game_id }
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
+    console.log(formatData);
     res.status(200).json(formatData)
     // res.send(req.session)
   } catch (err) {
@@ -25,8 +25,6 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log(req.session.user_id)
-  console.log(req.body)
   try {
     await Game.destroy({
       where: { game_owner: req.session.user_id }

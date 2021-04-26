@@ -1,3 +1,8 @@
 .form-group {
   position: relative;
+  padding: 20px;
+}
+
+.createPage {
+  margin-top: 0px !important;
 }

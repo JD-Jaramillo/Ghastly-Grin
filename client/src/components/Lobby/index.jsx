@@ -92,7 +92,7 @@ function Lobby() {
         function stopTimer() {
             clearInterval(timerInterval)
         }
-        const timerInterval = setInterval(checkPlayers, 10000);
+        const timerInterval = setInterval(checkPlayers, 1000);
         function checkPlayers() {
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
@@ -106,17 +106,17 @@ function Lobby() {
                         console.log(element.username)
                         // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         arr.push(element.username)
-                    })  
+                    })
                     console.log(arr);
                     setPlayers(arr)
                 })
                 .catch(err => console.log(err));
             axios.get('/api/game', { withCredentials: true })
-                .then(async res => {
-                    setOwner(res.data.game_owner)
-                    setRounds(res.data.maxrounds)
-                    setTimer(res.data.timer)
-                    if (res.data.round > 0) {
+                .then(async result => {
+                    setOwner(result.data.game_owner)
+                    setRounds(result.data.maxrounds)
+                    setTimer(result.data.timer)
+                    if (result.data.round > 0) {
                         stopTimer();
                         axios.put('/api/player/hand', { withCredentials: true })
                             .then(res => {
@@ -139,11 +139,10 @@ function Lobby() {
     }, [history])
 
     return (
-        <>
-            <div className="lobby-page">
+        
+            <div className="lobby-page main-content">
                 <div className="lobby-start">
-                    <h4 className="lob-h">Lobby</h4>
-                    <h4 className="lob-h">Lobby ID: {game}</h4>
+                    <h4 className="lob-h">Lobby: {game}</h4>
                     {user === owner ?
                         <form>
                             <div className="form-group">
@@ -178,11 +177,6 @@ function Lobby() {
                         </form>
                         : null}
                     <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    <input
-                        ref={newCard}
-                        type="text"
-                        aria-describedby="addCard" />
-                    <button onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                     <ul className="players">
                         {players.map(player => {
                             return (<li key={player}>{player}</li>)
@@ -191,14 +185,21 @@ function Lobby() {
                 </div>
                 <div className="chat">
                     <h4 className="chat-h">Answer Cards</h4>
+                    <div className="input-group">
+                        <input
+                            ref={newCard}
+                            type="text"
+                            aria-describedby="addCard" />
+                        <button id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    </div>
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.backgroundColor = "#d8d8d8"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.backgroundColor = "red" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                     </ul>
                 </div>
             </div>
-        </>
+
     )
 }
 

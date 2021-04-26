@@ -2,9 +2,8 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 40px;
   font-size: 40px;
-  padding: 4px;
+  padding-top: 60px;
 }
 
 .scoreHeader {

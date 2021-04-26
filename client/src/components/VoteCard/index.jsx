@@ -1,6 +1,6 @@
 import axios from "axios";
 import BlackCard from "../BlackCard";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
 import { useHistory } from "react-router";
@@ -11,7 +11,7 @@ function VoteCard() {
   const [blackCard, setBlackCard] = useState();
   const [vote, setVote] = useState(true);
 
-  function timer(endTime) {
+  const timer = useCallback((endTime) => {
     var timerInterval = setInterval(action, 1000)
     function stopTimer() {
       clearInterval(timerInterval)
@@ -58,7 +58,7 @@ function VoteCard() {
 
       }
     };
-  }
+  }, [history])
 
   const updateScore = (e) => {
     console.log()
@@ -89,7 +89,7 @@ function VoteCard() {
       })
       .catch(err => console.log(err));
 
-  }, [])
+  }, [timer])
 
   return (
     <>

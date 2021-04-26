@@ -9,7 +9,7 @@
   }
 
   .col-4 {
-    max-width: 80% !important;
+    max-width: 90% !important;
   }
 }
 
@@ -37,4 +37,8 @@ form {
 .btn:hover {
   color: var(--randomCard) !important;
   transform: scale(1.1) !important;
+}
+
+.fanLogo {
+  margin: 20px;
 }
