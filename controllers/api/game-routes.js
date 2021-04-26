@@ -1,8 +1,11 @@
 const withAuth = require('../../utils/auth');
 const { Game, User, Player, Deck } = require("../../models");
-const Answers = require('../../models/answers')
-const Questions = require('../../models/questions')
+const Answers = require('../../models/answers');
+const Questions = require('../../models/questions');
+const CahQ = require('../../models/cahQ');
+const CahA = require('../../models/cahA');
 const Sequelize = require("sequelize");
+const cahQ = require('../../models/cahQ');
 
 
 
@@ -111,6 +114,54 @@ router.put("/", async (req, res) => {
       return;
     }
     res.status(200).json(roundIncrement);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+})
+
+router.put("/update", withAuth, async (req, res) => {
+  try {
+    console.log(req.body)
+    const roundTimer = await Game.update(
+      {
+        maxrounds: req.body.rounds,
+        timer: req.body.timer
+      },
+      {
+        where: {
+          game_owner: req.session.user_id
+        }
+      })
+    let newQuestions;
+    let answers;
+    if (req.body.cp && req.body.cah) {
+      newQuestions = [...Questions, ...CahQ]
+      newAnswers = [...Answers, ...CahA]
+    } else if (req.body.cp) {
+      newQuestions = [...Questions]
+      newAnswers = [...Answers]
+    } else if (req.body.cah) {
+      newQuestions = [...CahQ]
+      newAnswers = [...CahA]
+    }
+    await Deck.update(
+      {
+        questions: newQuestions,
+        answers: newAnswers,
+      },
+      {
+        where: {
+          game_id: req.session.game_id
+        }
+      }
+    )
+    const findDeck = await Deck.findOne({where: {game_id: req.session.game_id}});
+    const formatDeck = await JSON.parse(JSON.stringify(findDeck))
+    if (!roundTimer) {
+      res.status(404).json({ message: "No player found with this id!" });
+      return;
+    }
+    res.status(200).json(formatDeck);
   } catch (err) {
     res.status(400).json(err);
   }
