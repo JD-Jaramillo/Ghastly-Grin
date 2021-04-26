@@ -2,6 +2,8 @@
   margin-top: 56px;
 }
 
+
+
 @media only screen and (max-width: 525px) {
   .row {
     display: flex;

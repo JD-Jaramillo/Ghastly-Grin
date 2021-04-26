@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../utils/userContext";
 
 function LogSign() {
-  const {setLoggedIn} = useAppContext();
+  const { setLoggedIn } = useAppContext();
   const history = useHistory()
   const loginEmail = useRef();
   const loginUsername = useRef();
@@ -73,6 +73,9 @@ function LogSign() {
             <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
           </div>
         </form>
+        <div >
+          <img className="fanLogo col-2 justify-content-center" src="/CardFanLogo.png" alt="logo" />
+        </div>
         <form className="col-4 offset-1">
           <h3>Log In</h3>
           <div className="form-group">

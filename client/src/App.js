@@ -17,6 +17,8 @@ import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
 import { AppContext } from "./utils/userContext";
 // const socket = io.connect("127.0.0.1:3001/");
+import Particles from 'react-particles-js';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState();
@@ -35,6 +37,7 @@ function App() {
       <Header />
       <HeaderMobile />
       <div className="main-content">
+      <Particles />
         <Instructions />
         <Route exact path="/">
           <Homepage />
