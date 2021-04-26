@@ -73,8 +73,8 @@ function LogSign() {
             <button onClick={signupFormHandler} type="submit" className="btn">Sign Up</button>
           </div>
         </form>
-        <div >
-          <img className="fanLogo col-2 justify-content-center" src="/CardFanLogo.png" alt="logo" />
+        <div>
+          <img className="fanLogo col-2 row justify-content-center" src="/CardFanLogo.png" alt="logo" />
         </div>
         <form className="col-4 offset-1">
           <h3>Log In</h3>

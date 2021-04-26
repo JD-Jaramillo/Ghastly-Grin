@@ -37,7 +37,6 @@ function App() {
       <Header />
       <HeaderMobile />
       <div className="main-content">
-      <Particles />
         <Instructions />
         <Route exact path="/">
           <Homepage />
