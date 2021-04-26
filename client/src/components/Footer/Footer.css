@@ -1,12 +1,12 @@
  #footer  {
     color:white;
-    background-color:#333;
+    background-color:var(--appBackground);
     padding-top: 5px;
     padding-bottom: 5px;
     bottom: 0;
     height: 48px;
     text-align: center;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     font-size: 25px;
   }
 

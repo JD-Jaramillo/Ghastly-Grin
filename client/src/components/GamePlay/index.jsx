@@ -106,17 +106,19 @@ function GamePlay() {
           </div> :
           <div>
             <div className="mobile-card-container">
-              <div>
+              <div className="row flex-wrap">
                 {whiteCard.map((card, index) => (
                   <div
                     style={
                       {
-                        display: `flex`,
-                        flexDirection: `column`,
-                      }
+                        marginTop: `-50px`,
+                        marginBottom: `-50px`
+                    
                     }
+                    }
+
                     onClick={answered ? null : submitCard}
-                    className="d-flex justify-content-evenly"
+                    className="d-flex col justify-content-evenly"
                     key={card}
                     data-ans={card}>
                     <div data-ans={card} className="white-card-body">

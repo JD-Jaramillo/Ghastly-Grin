@@ -66,7 +66,7 @@ function App() {
           params={{
             "particles": {
               "number": {
-                "value": 8,
+                "value": 15,
                 "density": {
                   "enable": true,
                   "value_area": 800
@@ -82,7 +82,7 @@ function App() {
               "shape": {
                 "type": [
                   "image",
-                  "circle"
+                  "image", 
                 ],
                 "image": [
                   {
@@ -96,8 +96,8 @@ function App() {
                     "width": 20
                   },
                   {
-                    "src": "/randomCard.png",
-                    "height": 30,
+                    "src": "/ghastlyGrinLogoTrans.png",
+                    "height": 20,
                     "width": 20
                   }
                 ]
