@@ -7,7 +7,7 @@ function HeaderMobile() {
   const [hamburgerState, setHamburgerState] = useState(true);
 
   return (
-    <nav className="mobile-navigation .container-fluid">
+    <nav className="mobile-navigation container-fluid">
       <div className="mobile-menu-base">
         <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo" />
         <Link to="/">

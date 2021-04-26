@@ -36,31 +36,6 @@ function App() {
       <Header />
       <HeaderMobile />
       <div className="main-content">
-        {/* <Particles 
-          className="particles"
-          params={{
-            particles: {
-              number: 
-                { value: 200, density: { enable: true, value_area: 1000 } },
-              color: {value: "#551A8B"},
-              shape: {
-                type: "circles",
-                stroke: { width: 10, color: "#551A8B" },
-                polygon: { nb_sides: 5 },
-                image: { src: "img/github.svg", width: 100, height: 100 }
-            },
-            line_linked: {
-              enable: true,
-              distance: 200,
-              color: "#551A8B",
-              opacity: 0.1,
-              width: 2
-            },
-            move: {
-              enable: false,
-            }
-          }
-          }}/> */}
         <Particles
           className="particles"
           params={{
@@ -142,6 +117,9 @@ function App() {
         </Route>
         <Route exact path="/EndGame">
           <EndGame />
+        </Route>
+        <Route >
+          <Homepage />
         </Route>
       </div>
       <Footer />
