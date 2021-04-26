@@ -62,6 +62,7 @@
     grid-area: chat-cont;
     list-style-type: none;
     padding-left: 0;
+    width: 100%;
 }
 
 #create-cards {
@@ -72,6 +73,10 @@
 .input-btn {
     flex-direction: column;
     margin-top: -8px;
+}
+
+.input-group {
+    text-align: center;
 }
 
 .card-input {
