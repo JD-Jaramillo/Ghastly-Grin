@@ -28,8 +28,8 @@ const sess = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { 
-    expires: 3600000 
+  cookie: {
+    expires: 3600000
   }
 };
 
@@ -64,7 +64,7 @@ app.use(compression());
 //   // set locals, only providing error in development
 //   res.locals.message = err.message;
 //   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
+
 //   // render the error page
 //   res.status(err.status || 500);
 //   res.json({ error: err});
@@ -77,6 +77,12 @@ app.use(compression());
 //   })
 // });
 // httpServer.listen(3001);
+app.use(function (req, res, next) {
+  if (!req.session) {
+    return next(new Error('Oh no')) //handle error
+  }
+  next() //otherwise continue
+});
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
