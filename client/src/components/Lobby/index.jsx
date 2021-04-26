@@ -92,7 +92,7 @@ function Lobby() {
         function stopTimer() {
             clearInterval(timerInterval)
         }
-        const timerInterval = setInterval(checkPlayers, 10000);
+        const timerInterval = setInterval(checkPlayers, 1000);
         function checkPlayers() {
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
