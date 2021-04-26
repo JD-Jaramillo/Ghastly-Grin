@@ -16,6 +16,7 @@ import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
 import { AppContext } from "./utils/userContext";
+import Particles from "react-particles-js";
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -35,6 +36,31 @@ function App() {
       <Header />
       <HeaderMobile />
       <div className="main-content">
+        <Particles 
+          className="particles"
+          params={{
+            particles: {
+              number: 
+                { value: 200, density: { enable: true, value_area: 1000 } },
+              color: {value: "#551A8B"},
+              shape: {
+                type: "circles",
+                stroke: { width: 10, color: "#551A8B" },
+                polygon: { nb_sides: 5 },
+                image: { src: "img/github.svg", width: 100, height: 100 }
+            },
+            line_linked: {
+              enable: true,
+              distance: 200,
+              color: "#551A8B",
+              opacity: 0.1,
+              width: 2
+            },
+            move: {
+              enable: false,
+            }
+          }
+          }}/>
         <Instructions />
         <Route exact path="/">
           <Homepage />
