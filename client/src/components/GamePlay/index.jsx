@@ -7,7 +7,7 @@ import "./style.css";
 import ScoreBar from "../ScoreBar";
 import { useHistory } from "react-router";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import CardCarousel from '../CardCarousel';
+import Timer from '../Timer';
 
 function GamePlay() {
   const [whiteCard, setWhiteCard] = useState([]);
@@ -72,6 +72,7 @@ function GamePlay() {
   return (
     <> 
       <ScoreBar />
+      <Timer />
     <div className="container">
       <BlackCard blackcard={blackCard} />
       {matches ? 
