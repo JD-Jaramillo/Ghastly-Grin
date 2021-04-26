@@ -2,7 +2,7 @@
 #carousel {
     max-width: 80%;
     margin: 0 auto;
-    margin-top: 30px;
+    padding: 50px;
 }
 
 .carousel-inner {
