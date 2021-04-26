@@ -31,7 +31,7 @@ function VoteCard() {
             const owner = res.data.game_owner;
             const round = res.data.round;
             const maxRound = res.data.maxrounds;
-            if (round < maxRound) {
+            if (round <= maxRound) {
               if (userID === owner) {
                 await axios.put('/api/game/', { withCredentials: true })
                   .then(res => console.log(res))
@@ -68,21 +68,25 @@ function VoteCard() {
         setVote(false)
       })
       .catch(err => console.log(err))
-
   }
 
   useEffect(() => {
-    axios.get('/api/round', { withCredentials: true })
-      .then(res => {
-        setBlackCard(res.data.data.prompt)
-        const arr = JSON.parse(res.data.data.answers)
-        setWhiteCard(arr)
-        const startTime = res.data.data.createdAt
-        let endTime = new Date(startTime)
-        endTime.setSeconds(endTime.getSeconds() + 25)
-        timer(endTime)
-      })
-      .catch(err => console.log(err));
+    axios.get('/api/game', {withCredentials: true})
+    .then(result => {
+      const timerSet = result.data.timer*2
+      axios.get('/api/round', { withCredentials: true })
+        .then(res => {
+          setBlackCard(res.data.data.prompt)
+          const arr = JSON.parse(res.data.data.answers)
+          setWhiteCard(arr)
+          const startTime = res.data.data.createdAt
+          let endTime = new Date(startTime)
+          endTime.setSeconds(endTime.getSeconds() + timerSet)
+          timer(endTime)
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 
   }, [blackCard])
 
