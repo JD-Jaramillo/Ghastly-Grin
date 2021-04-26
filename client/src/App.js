@@ -36,7 +36,7 @@ function App() {
       <Header />
       <HeaderMobile />
       <div className="main-content">
-        <Particles 
+        {/* <Particles 
           className="particles"
           params={{
             particles: {
@@ -60,7 +60,64 @@ function App() {
               enable: false,
             }
           }
-          }}/>
+          }}/> */}
+        <Particles
+          className="particles"
+          params={{
+            "particles": {
+              "number": {
+                "value": 8,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "line_linked": {
+                "enable": false
+              },
+              "move": {
+                "speed": 1,
+                "out_mode": "out"
+              },
+              "shape": {
+                "type": [
+                  "image",
+                  "circle"
+                ],
+                "image": [
+                  {
+                    "src": "/GhastlyGrinLogoTrans_green.png",
+                    "height": 20,
+                    "width": 23
+                  },
+                  {
+                    "src": "/GhastlyGrinLogoTrans_purple.png",
+                    "height": 20,
+                    "width": 20
+                  },
+                  {
+                    "src": "/figi_doodle.png",
+                    "height": 20,
+                    "width": 20
+                  }
+                ]
+              },
+              "color": {
+                "value": "#CCC"
+              },
+              "size": {
+                "value": 30,
+                "random": false,
+                "anim": {
+                  "enable": true,
+                  "speed": 4,
+                  "size_min": 10,
+                  "sync": false
+                }
+              }
+            },
+            "retina_detect": false
+          }} />
         <Instructions />
         <Route exact path="/">
           <Homepage />
