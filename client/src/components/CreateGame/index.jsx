@@ -18,7 +18,7 @@ function CreateGame() {
   }
 
   return (
-    <form>
+    <form className="createPage">
       <div className="form-group">
         <h4>Create a Lobby</h4>
         <p>(click create lobby to get your secure lobby id)</p>

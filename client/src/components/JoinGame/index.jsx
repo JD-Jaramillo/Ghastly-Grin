@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import Lobby from "../Lobby";
 import { Route, useHistory } from 'react-router-dom';
 import axios from "axios";
-
 import "./style.css";
 
 function JoinGame() {
