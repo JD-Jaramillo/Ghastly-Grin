@@ -1,3 +1,7 @@
+.addedCardsText {
+    color: var(--playerCards);
+  }
+  
 .lobby-start {
     z-index: 2;
 }
@@ -121,5 +125,4 @@
         ". chat ."
     }
 }
-
 
