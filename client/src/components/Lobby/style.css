@@ -1,4 +1,8 @@
 .lobby-start {
+    z-index: 2;
+}
+
+.lobby-start {
     grid-area: lob-h;
     text-align: center;
 } 

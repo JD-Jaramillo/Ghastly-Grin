@@ -3,6 +3,7 @@
   transition: 2s ease-in-out;
 }
 
+
 .white-card-body:hover {
     box-shadow: 0 0 15px var(--purpleDragon);
     transform:translate( 10px, -20px);
@@ -38,6 +39,7 @@
   position: relative;
   transform: rotate(-20deg);
   max-width: 90%;
+  z-index: inherit;
 }
 
 .mobile-card-container {

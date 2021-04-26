@@ -35,6 +35,7 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
     "react-multi-carousel": "^2.6.2",
+    "react-particles-js": "^3.4.1",
     "react-transition-group": "^1.2.1",
     "sequelize": "^6.6.2",
     "socket.io": "^4.0.1"
