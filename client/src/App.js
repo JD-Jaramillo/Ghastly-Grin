@@ -8,7 +8,7 @@ import Lobby from "./components/Lobby";
 import Homepage from "../src/components/Homepage";
 import Instructions from "../src/components/Instructions";
 import Header from "./components/Header/index";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import GamePlay from "./components/GamePlay";
 import VoteCard from "./components/VoteCard";
@@ -20,11 +20,16 @@ import Particles from "react-particles-js";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState();
+  const [gameID, setGameID] = useState(false);
 
   useEffect(() => {
     axios.get('/api/user')
       .then(res => {
+        console.log(res.data)
         setLoggedIn(res.data.loggedIn)
+        if(res.data.game_id !== null) {
+          setGameID(res.data.game_id)
+        }
       })
   }, [])
 
@@ -32,8 +37,8 @@ function App() {
 
   return (
     <Router>
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-      <HeaderMobile loggedIn={loggedIn} />
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
+      <HeaderMobile loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
       <div className="main-content">
         <Particles
           className="particles"
@@ -56,7 +61,7 @@ function App() {
               "shape": {
                 "type": [
                   "image",
-                  "image", 
+                  "image",
                 ],
                 "image": [
                   {
@@ -93,31 +98,35 @@ function App() {
             "retina_detect": false
           }} />
         <Instructions />
-        <Route exact path="/">
-          <Homepage />
-        </Route>
-        <Route exact path="/LogSign">
-            <LogSign setLoggedIn={setLoggedIn}/>
-        </Route>
-        <Route exact path="/CreateGame">
-          <CreateGame />
-          <JoinGame />
-        </Route>
-        <Route exact path="/Lobby">
-          <Lobby />
-        </Route>
-        <Route exact path="/GamePlay">
-          {loggedIn ? <GamePlay /> : <Homepage />}
-        </Route>
-        <Route exact path="/VoteCard">
-          <VoteCard />
-        </Route>
-        <Route exact path="/EndGame">
-          <EndGame />
-        </Route>
-        <Route >
-          <Homepage />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path="/LogSign">
+            <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>
+          </Route>
+          <Route exact path="/CreateGame">
+            {loggedIn ? (<><CreateGame />
+            <JoinGame /></>) : <LogSign setLoggedIn={setLoggedIn}/>}
+          </Route>
+          <Route exact path="/Lobby">
+          {loggedIn ? 
+             <Lobby /> 
+           : <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>}
+          </Route>
+          <Route exact path="/GamePlay">
+            {loggedIn ? <GamePlay /> : <Homepage />}
+          </Route>
+          <Route exact path="/VoteCard">
+            <VoteCard />
+          </Route>
+          <Route exact path="/EndGame">
+            <EndGame />
+          </Route>
+          <Route >
+            <Homepage />
+          </Route>
+        </Switch>
       </div>
       <Footer />
     </Router>

@@ -4,7 +4,7 @@ import "./style.css"
 import { Link } from 'react-router-dom';
 
 function Header(props) {
-  
+
 
   return (
     <nav className="desktop-navigation .container-fluid">
@@ -16,14 +16,19 @@ function Header(props) {
         <Link to="/">
           <span><div className="nav-links">Home</div></span>
         </Link>
-        <Link to="/Lobby">
-          <span><div className="nav-links">Lobby</div></span>
-        </Link >
-        <Link to="/Lobby">
-          <span><div className="nav-links">Exit Game</div></span>
-        </Link >
+        {props.gameID ?
+          <>
+            <Link to="/Lobby">
+              <span><div className="nav-links">Lobby</div></span>
+            </Link >
+            <Link to="/">
+              <span><div className="nav-links">Exit Game</div></span>
+            </Link >
+          </>
+          : null
+        }
       </div>
-      <Nav loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn}/>
+      <Nav loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
     </nav>
   )
 }

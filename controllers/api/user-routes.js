@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require("../../models");
+const { User, Player } = require("../../models");
 const withAuth = require('../../utils/auth');
 
 
@@ -68,12 +68,18 @@ router.post("/login", async (req, res) => {
       return;
     };
 
-    const userID = (JSON.parse(JSON.stringify(dbUserData.id)));
+    const user = await JSON.parse(JSON.stringify(dbUserData));
+    const playerData = await Player.findOne({ where: { user_id: user.id } });
 
+    const playerFormat = await JSON.parse(JSON.stringify(playerData));
+    if (playerData) {
+      req.session.game_id = playerFormat.game_id
 
+    }
+    
     // req.session.save(() => {
-    // await res.cookie("id", userID, {signed: true, httpOnly: true})
-    req.session.user_id = userID;
+      // await res.cookie("id", userID, {signed: true, httpOnly: true})
+    req.session.user_id = user.id;
     req.session.loggedIn = true;
     console.log(req.session.user_id)
     res.json(req.session)
