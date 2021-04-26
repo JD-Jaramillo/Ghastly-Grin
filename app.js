@@ -78,7 +78,7 @@ app.use(compression());
 // });
 // httpServer.listen(3001);
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => {
     console.log("running server");
   });
