@@ -31,7 +31,7 @@ function VoteCard() {
             const owner = res.data.game_owner;
             const round = res.data.round;
             const maxRound = res.data.maxrounds;
-            if (round <= maxRound) {
+            if (round < maxRound) {
               if (userID === owner) {
                 await axios.put('/api/game/', { withCredentials: true })
                   .then(res => console.log(res))
@@ -71,6 +71,7 @@ function VoteCard() {
   }
 
   useEffect(() => {
+    console.log("Use Effect Ran Once");
     axios.get('/api/game', { withCredentials: true })
       .then(result => {
         const timerSet = result.data.timer * 2
@@ -88,7 +89,7 @@ function VoteCard() {
       })
       .catch(err => console.log(err));
 
-  }, [blackCard])
+  }, [])
 
   return (
     <>
