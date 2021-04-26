@@ -139,52 +139,53 @@ function Lobby() {
     }, [history])
 
     return (
-        
-            <div className="lobby-page main-content">
-                <div className="lobby-start">
-                    <h4 className="lob-h">Lobby: {game}</h4>
-                    {user === owner ?
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="numRounds">Number of Rounds</label>
-                                <input ref={numRounds} type="number" className="form-control" id="numRounds" aria-describedby="numRounds" defaultValue={rounds} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="timerCount">Timer Per Round</label>
-                                <input ref={timerCount} type="number" className="form-control" id="timerCount" aria-describedby="timerCount" defaultValue={timer} />
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    ref={cohortPack}
-                                    type="checkbox"
-                                    id="GCP"
-                                    aria-describedby="GCP"
-                                    value="cohort" />
-                                <label htmlFor="GCP">Greatest Cohort Pack</label>
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    ref={cahPack}
-                                    type="checkbox"
-                                    id="cah"
-                                    aria-describedby="cah"
-                                    value="cah" />
-                                <label htmlFor="GCP">CardsAgainstHumanity Pack</label>
-                            </div>
-                            <div className="btn-parent">
-                                <button onClick={(e) => updateGame(e)} type="click" className="btn">Update Game</button>
-                            </div>
-                        </form>
-                        : null}
-                    <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                    <ul className="players">
-                        {players.map(player => {
-                            return (<li key={player}>{player}</li>)
-                        })}
-                    </ul>
-                </div>
-                <div className="chat">
-                    <h4 className="chat-h">Answer Cards</h4>
+
+        <div className="lobby-page main-content">
+            <div className="lobby-start">
+                <h4 className="lob-h">Lobby: {game}</h4>
+                {user === owner ?
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="numRounds">Number of Rounds</label>
+                            <input ref={numRounds} type="number" className="form-control" id="numRounds" aria-describedby="numRounds" defaultValue={rounds} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="timerCount">Timer Per Round (sec)</label>
+                            <input ref={timerCount} type="number" className="form-control" id="timerCount" aria-describedby="timerCount" defaultValue={timer} />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                ref={cohortPack}
+                                type="checkbox"
+                                id="GCP"
+                                aria-describedby="GCP"
+                                value="cohort" />
+                            <label htmlFor="GCP">Greatest Cohort Pack</label>
+                        </div>
+                        <div className="form-group">
+                            <input
+                                ref={cahPack}
+                                type="checkbox"
+                                id="cah"
+                                aria-describedby="cah"
+                                value="cah" />
+                            <label htmlFor="GCP">CardsAgainstHumanity Pack</label>
+                        </div>
+                        <div className="btn-parent">
+                            <button onClick={(e) => updateGame(e)} type="click" className="btn">Update Game</button>
+                        </div>
+                    </form>
+                    : null}
+                <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
+                <ul className="players">
+                    {players.map(player => {
+                        return (<li key={player}>{player}</li>)
+                    })}
+                </ul>
+            </div>
+            <div className="chat">
+                <h4 className="chat-h">Answer Cards</h4>
+                <div>
                     <div className="input-group">
                         <input
                             ref={newCard}
@@ -199,6 +200,7 @@ function Lobby() {
                     </ul>
                 </div>
             </div>
+        </div>
 
     )
 }
