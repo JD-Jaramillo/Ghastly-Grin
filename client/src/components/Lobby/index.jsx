@@ -179,10 +179,14 @@ function Lobby(props) {
                     </form>
                     : null}
                 <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
+                
+                <h4 className="playersHeader">Players:</h4>
                 <ul className="players">
-                    {players.map(player => {
+                    <li>{players.map(player => {
                         return (<li key={player}>{player}</li>)
                     })}
+                    </li>
+
                 </ul>
             </div>
             <div className="chat">
@@ -200,7 +204,7 @@ function Lobby(props) {
                 <div className="input-group">
                     <ul className="chat-cont">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div key={whitecard} onMouseOut={(e) => e.target.style.color = "#212529"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "white"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#551A8B" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                     </ul>
                 </div>
