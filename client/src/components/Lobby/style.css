@@ -1,5 +1,5 @@
 .addedCardsText {
-    color: var(--playerCards);
+    color: var(--purpleDragon);
   }
   
 .lobby-start {
@@ -70,7 +70,7 @@
 }
 
 #create-cards {
-    margin-top: 6px;
+    margin: 8px;
     border-radius: 5px;
 }
 
@@ -100,6 +100,28 @@
     ". lob-h . chat-h"
     "start-btn start-btn . . "
     "players players chat-cont chat-cont";
+}
+
+.scroll {
+    padding:4px;
+    background-color: var(--playerCards);
+    width: 500px;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
+
+.pack-check {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+}
+
+.checks-label {
+    margin-left: 8px;
 }
 
 @media only screen and (max-width: 820px) {

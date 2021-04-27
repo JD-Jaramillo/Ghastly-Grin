@@ -157,23 +157,27 @@ function Lobby(props) {
                             <label htmlFor="timerCount">Timer Per Round</label>
                             <input ref={timerCount} type="number" className="form-control" id="timerCount" aria-describedby="timerCount" defaultValue={timer} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group pack-check">
+                            <div className="checks">
                             <input
                                 ref={cohortPack}
                                 type="checkbox"
                                 id="GCP"
                                 aria-describedby="GCP"
-                                value="cohort" />
-                            <label htmlFor="GCP">Greatest Cohort Pack</label>
-                        </div>
-                        <div className="form-group">
+                                value="cohort" 
+                            />
+                            <label className="checks-label" htmlFor="GCP">Greatest Cohort Pack</label>
+                            </div>
+            
+                            <div className="checks">
                             <input
                                 ref={cahPack}
                                 type="checkbox"
                                 id="cah"
                                 aria-describedby="cah"
                                 value="cah" />
-                            <label htmlFor="GCP">CardsAgainstHumanity Pack</label>
+                            <label className="checks-label" htmlFor="GCP">Cards Against Humanity Pack</label>
+                            </div>
                         </div>
                         <div className="btn-parent">
                             <button onClick={(e) => updateGame(e)} type="click" className="btn">Update Game</button>
@@ -205,9 +209,9 @@ function Lobby(props) {
                     <button style={{ zIndex: "1" }} id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                 </div>
                 <div className="input-group">
-                    <ul className="chat-cont">
+                    <ul className="chat-cont scroll">
                         {user === owner ? whiteCards.map(whitecard => {
-                            return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "white"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#551A8B" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "#551A8B"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                     </ul>
                 </div>
