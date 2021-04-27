@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
     const userData = await User.findOne({
       where: { id: req.session.user_id }
     })
-    const formatUser = JSON.parse(JSON.stringify(userData))
+    const formatUser = await JSON.parse(JSON.stringify(userData))
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })

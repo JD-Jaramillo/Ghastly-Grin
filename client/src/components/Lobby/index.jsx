@@ -54,8 +54,8 @@ function Lobby(props) {
         e.preventDefault();
         await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
             .then(res => {
-                // console.log(res.data.answers);
-                setWhiteCards(res.data.answers)
+                console.log(res.data.answers);
+                // setWhiteCards(res.data.answers)
             })
             .catch(err => console.log(err))
     }
@@ -65,7 +65,7 @@ function Lobby(props) {
         await axios.put('/api/deck/del', { card: e.target.innerHTML }, { withCredentials: true })
             .then(res => {
                 console.log("set new whitecards")
-                setWhiteCards(res.data)
+                // setWhiteCards(res.data)
             })
             .catch(err => console.log(err))
     }
@@ -134,6 +134,7 @@ function Lobby(props) {
                     setWhiteCards(res.data.answers)
                 })
                 .catch(err => console.log(err));
+                // if (window.location.href !==)
         }
         // const getCards = async () => {
         // }
