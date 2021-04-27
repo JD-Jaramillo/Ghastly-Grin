@@ -14,7 +14,6 @@ const answers = [
     "HTML",
     "CSS",
     "Node.js",
-    "Because he didn't get arrays.",
     "Why i?",
     "ABS, Always Be Saving.",
     "Mac",
@@ -28,7 +27,6 @@ const answers = [
     "Sobbing uncontrollably.",
     "Pulling an all nighter.",
     "All the coffee in the world.",
-    "Me singing in the shower.",
     "Infinite tacos.",
     "Your keyboard dying in the middle of a presentation.",
     "Mom's Spaghetti.",
@@ -40,7 +38,16 @@ const answers = [
     "Percy",
     "Gemini's Pig",
     "Share your screen",
-    "Mary Poppins"
+    "Mary Poppins",
+    "Bagged Milk",
+    "Show Me",
+    "Doge Coin",
+    "The Discord Server",
+    "Optional Homework",
+    "Spongebob",
+    "Help in room 2",
+    "Drag them!",
+    "JJ the Jetplane",
     ]
 
 module.exports = answers;

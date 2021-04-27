@@ -4,15 +4,20 @@ import { Route, useHistory } from 'react-router-dom';
 import axios from "axios";
 import "./style.css";
 
-function JoinGame() {
+function JoinGame(props) {
+  const setGameID = props.setGameID
+  const setOwner = props.setOwner
   const history = useHistory();
   const gameID = useRef();
   const newPlayer = async (event) => {
     const ID = gameID.current.value
     event.preventDefault();
     await axios.post('/api/player', { id: ID }, { withCredentials: true })
-      .then(res =>
+      .then(res => {
+        setGameID(res.data.game_id);
+        setOwner(false);
         history.push("/Lobby")
+      }
       )
       .catch(err => console.log(err))
   }

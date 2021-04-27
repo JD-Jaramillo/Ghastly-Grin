@@ -10,89 +10,79 @@ import Timer from '../Timer';
 function VoteCard(props) {
   const history = useHistory();
   const [whiteCard, setWhiteCard] = useState([]);
-  const [blackCard, setBlackCard] = useState();
   const [vote, setVote] = useState(true);
   const clock = props.timer;
+  const blackCard = props.blackCard;
+  const owner = props.owner;
+  const rounds = props.rounds;
+  // const setRounds = props.setRounds;
+  const maxRounds = props.maxRounds;
+  const players = props.players;
+  const [componentMounted, setComponentMounted] = useState(true)
 
   const timer = useCallback((endTime) => {
+    console.log("Vote Card Timer Run")
     var timerInterval = setInterval(action, 1000)
     function stopTimer() {
       clearInterval(timerInterval)
     }
+
     function action() {
       let currentTime = new Date();
-      let userID;
-      let usersID;
       if (currentTime > endTime) {
-        axios.get('/api/game', { withCredentials: true })
-          .then(async res => {
-            await axios.get('/api/round', { withCredentials: true })
+        if (rounds <= maxRounds) {
+
+          if (owner) {
+            axios.put('/api/game/', { withCredentials: true })
               .then(res => {
-                userID = res.data.user_id;
-                usersID = res.data.data.users;
-              })
-            const owner = res.data.game_owner;
-            const round = res.data.round;
-            const maxRound = res.data.maxrounds;
-            if (round < maxRound) {
-              if (userID === owner) {
-                await axios.put('/api/game/', { withCredentials: true })
-                  .then(res => console.log(res))
-                  .catch(err => console.log(err))
-                await axios.post('/api/round/', { user: usersID }, { withCredentials: true })
+                axios.post('/api/round/', { user: players }, { withCredentials: true })
                   .then(res => {
                     console.log("id and owner yes match")
                     stopTimer();
                     history.push('/GamePlay')
-                    return;
                   })
-                  .catch(err => console.log(err))
-              } else {
-                stopTimer();
-                history.push('/GamePlay')
-                console.log("id and owner no match")
-              }
-            } else {
-              stopTimer();
-              history.push('/EndGame')
-            }
-          })
-          .catch(err => console.log(err));
-
+                  .catch(err => stopTimer())
+              })
+              .catch(err => stopTimer())
+          } else {
+            stopTimer();
+            history.push('/GamePlay')
+            console.log("id and owner no match")
+          }
+        } else {
+          stopTimer();
+          history.push('/EndGame')
+        }
       }
     };
-  }, [history])
+  }, [history, owner, rounds, maxRounds, players])
 
   const updateScore = (e) => {
-    console.log()
     axios.put(`/api/player/score/${e.target.dataset.id}`, { withCredentials: true })
       .then(res => {
-        console.log("test pass")
         setVote(false)
       })
       .catch(err => console.log(err))
   }
 
   useEffect(() => {
-    console.log("Use Effect Ran Once");
-    // axios.get('/api/game', { withCredentials: true })
-    //   .then(result => {
-    //     const timerSet = result.data.timer * 2
-    axios.get('/api/round', { withCredentials: true })
-      .then(res => {
-        setBlackCard(res.data.data.prompt)
-        const arr = JSON.parse(res.data.data.answers)
-        setWhiteCard(arr)
-        const startTime = res.data.data.createdAt
-        let endTime = new Date(startTime)
-        endTime.setSeconds(endTime.getSeconds() + (clock * 2))
-        timer(endTime)
-      })
-      .catch(err => console.log(err));
-    // })
-    // .catch(err => console.log(err));
-
-  }, [timer, clock])
+    console.log("Vote Card Use Effect Ran Once");
+    if (componentMounted) {
+      axios.get('/api/round', { withCredentials: true })
+        .then(res => {
+          const arr = JSON.parse(res.data.data.answers)
+          const startTime = res.data.data.createdAt
+          let endTime = new Date(startTime)
+          endTime.setSeconds(endTime.getSeconds() + (clock * 2))
+          setWhiteCard(arr)
+          timer(endTime)
+        })
+        .catch(err => console.log(err));
+    }
+    return () => {
+      setComponentMounted(false)
+    }
+  }, [timer, clock, componentMounted])
 
   return (
     <>
