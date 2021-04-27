@@ -177,7 +177,7 @@ function Lobby() {
                     </form>
                     : null}
                 <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
-                
+
                 <h4 className="playersHeader">Players:</h4>
                 <ul className="players">
                     <li>{players.map(player => {
@@ -190,7 +190,7 @@ function Lobby() {
             <div className="chat">
                 <h4 className="chat-h">Answer Cards</h4>
                 <div className="input-btn d-flex align-items-center justify-content-center">
-                    <label htmlFor="add-card"></label>
+                    <label for="add-card"></label>
                     <input className="create-input"
                         placeholder="card name here"
                         id="add-card"
