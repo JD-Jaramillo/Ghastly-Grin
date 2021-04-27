@@ -21,12 +21,13 @@ function Lobby(props) {
     const cohortPack = useRef();
     const cahPack = useRef();
     const newCard = useRef()
+    const [componentMounted, setComponentMounted] = useState(true)
 
     const updateGame = async (e) => {
         e.preventDefault();
         await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
             .then(res => {
-                console.log(res.data.answers);
+                console.log();
             })
             .catch(err => console.log(err))
     }
@@ -62,45 +63,53 @@ function Lobby(props) {
 
     useEffect(() => {
         console.log("Lobby useEffect ran")
-        function stopTimer() {
-            clearInterval(timerInterval)
-        }
-        const timerInterval = setInterval(checkPlayers, 1000);
-        function checkPlayers() {
-            axios.get('/api/player', { withCredentials: true })
-                .then(async res => {
-                    const playerData = res.data.data;
-                    const arr = []
-                    await playerData.forEach(element => {
-                        arr.push(element.username)
+        if (componentMounted) {
+
+            function stopTimer() {
+                clearInterval(timerInterval)
+            }
+            const timerInterval = setInterval(checkPlayers, 1000);
+            //CHECK HERE FOR PLAYERS NOT SHOWING
+            function checkPlayers() {
+                axios.get('/api/player', { withCredentials: true })
+                    .then(res => {
+                        const playerData = res.data.data;
+                        const arr = []
+                        playerData.forEach(element => {
+                            arr.push(element.username)
+                        })
+                        setPlayers(arr)
                     })
-                    setPlayers(arr)
-                })
-                .catch(err => console.log(err));
-            axios.get('/api/game', { withCredentials: true })
-                .then(async result => {
-                    if (user === result.data.game_owner) {
-                        setOwner(true)
-                    }
-                    setRounds(result.data.round);
-                    setMaxRounds(result.data.maxrounds);
-                    setTimer(result.data.timer);
-                    if (result.data.round > 0) {
-                        stopTimer();
-                        axios.put('/api/player/hand', { withCredentials: true })
-                            .then(res => {
-                                history.push('/GamePlay')
-                            })
-                    }
-                })
-                .catch(err => console.log(err));
-            axios.get('/api/deck', { withCredentials: true })
-                .then(res => {
-                    setWhiteCards(res.data.answers)
-                })
-                .catch(err => console.log(err));
+                    .catch(err => console.log(err));
+                axios.get('/api/deck', { withCredentials: true })
+                    .then(res => {
+                        setWhiteCards(res.data.answers)
+                    })
+                    .catch(err => console.log(err));
+                axios.get('/api/game', { withCredentials: true })
+                    .then(result => {
+                        if (user === result.data.game_owner) {
+                            setOwner(true)
+                        }
+                        setRounds(result.data.round);
+                        setMaxRounds(result.data.maxrounds);
+                        setTimer(result.data.timer);
+                        if (result.data.round > 0) {
+                            stopTimer();
+                            axios.put('/api/player/hand', { withCredentials: true })
+                                .then(res => {
+                                    history.push('/GamePlay')
+                                })
+                        }
+                    })
+                    .catch(err => console.log(err));
+            }
         }
-    }, [history, setTimer, setMaxRounds, setRounds, setOwner, user])
+        return () => {
+            setComponentMounted(false)
+        }
+
+    }, [history, setTimer, setMaxRounds, setRounds, setOwner, user, componentMounted])
 
     return (
 
@@ -117,23 +126,27 @@ function Lobby(props) {
                             <label htmlFor="timerCount">Timer Per Round</label>
                             <input ref={timerCount} type="number" className="form-control" id="timerCount" aria-describedby="timerCount" defaultValue={timer} />
                         </div>
-                        <div className="form-group">
-                            <input
-                                ref={cohortPack}
-                                type="checkbox"
-                                id="GCP"
-                                aria-describedby="GCP"
-                                value="cohort" />
-                            <label htmlFor="GCP">Greatest Cohort Pack</label>
-                        </div>
-                        <div className="form-group">
-                            <input
-                                ref={cahPack}
-                                type="checkbox"
-                                id="cah"
-                                aria-describedby="cah"
-                                value="cah" />
-                            <label htmlFor="GCP">CardsAgainstHumanity Pack</label>
+                        <div className="form-group pack-check">
+                            <div className="checks">
+                                <input
+                                    ref={cohortPack}
+                                    type="checkbox"
+                                    id="GCP"
+                                    aria-describedby="GCP"
+                                    value="cohort"
+                                />
+                                <label className="checks-label" htmlFor="GCP">Greatest Cohort Pack</label>
+                            </div>
+
+                            <div className="checks">
+                                <input
+                                    ref={cahPack}
+                                    type="checkbox"
+                                    id="cah"
+                                    aria-describedby="cah"
+                                    value="cah" />
+                                <label className="checks-label" htmlFor="GCP">Cards Against Humanity Pack</label>
+                            </div>
                         </div>
                         <div className="btn-parent">
                             <button onClick={(e) => updateGame(e)} type="click" className="btn">Update Game</button>
@@ -165,9 +178,9 @@ function Lobby(props) {
                     <button style={{ zIndex: "1" }} id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                 </div>
                 <div className="input-group">
-                    <ul className="chat-cont">
+                    <ul className="chat-cont scroll">
                         {owner ? whiteCards.map(whitecard => {
-                            return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "white"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#551A8B" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
+                            return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "#551A8B"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#86C232" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                     </ul>
                 </div>

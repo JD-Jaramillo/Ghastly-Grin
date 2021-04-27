@@ -18,7 +18,8 @@ function VoteCard(props) {
   // const setRounds = props.setRounds;
   const maxRounds = props.maxRounds;
   const players = props.players;
- 
+  const [componentMounted, setComponentMounted] = useState(true)
+
   const timer = useCallback((endTime) => {
     console.log("Vote Card Timer Run")
     var timerInterval = setInterval(action, 1000)
@@ -65,17 +66,22 @@ function VoteCard(props) {
 
   useEffect(() => {
     console.log("Vote Card Use Effect Ran Once");
-    axios.get('/api/round', { withCredentials: true })
-      .then(res => {
-        const arr = JSON.parse(res.data.data.answers)
-        const startTime = res.data.data.createdAt
-        let endTime = new Date(startTime)
-        endTime.setSeconds(endTime.getSeconds() + (clock * 2))
-        setWhiteCard(arr)
-        timer(endTime)
-      })
-      .catch(err => console.log(err));
-  }, [timer, clock])
+    if (componentMounted) {
+      axios.get('/api/round', { withCredentials: true })
+        .then(res => {
+          const arr = JSON.parse(res.data.data.answers)
+          const startTime = res.data.data.createdAt
+          let endTime = new Date(startTime)
+          endTime.setSeconds(endTime.getSeconds() + (clock * 2))
+          setWhiteCard(arr)
+          timer(endTime)
+        })
+        .catch(err => console.log(err));
+    }
+    return () => {
+      setComponentMounted(false)
+    }
+  }, [timer, clock, componentMounted])
 
   return (
     <>

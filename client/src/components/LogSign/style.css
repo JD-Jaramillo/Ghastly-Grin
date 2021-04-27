@@ -32,6 +32,7 @@ form {
 .btn {
   background-color: #333 !important;
   color: #fff !important;
+  border: 2px solid var(--randomCard) !important;
 }
 
 .btn:hover {
