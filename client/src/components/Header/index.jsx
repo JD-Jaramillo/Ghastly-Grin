@@ -8,7 +8,7 @@ function Header(props) {
 
   return (
     <nav className="desktop-navigation .container-fluid">
-      <img className="headLogo" src="/GhastlyGrinLogoTrans_green.png" alt="logo" />
+      <img className="headLogo" src="/ghastlyGrinLogoTrans_green.png" alt="logo" />
       <Link to="/">
         <h1 id="title" className="row">Ghastly Grin</h1>
       </Link>
