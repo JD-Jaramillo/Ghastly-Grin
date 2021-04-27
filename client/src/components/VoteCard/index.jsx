@@ -34,15 +34,16 @@ function VoteCard(props) {
 
           if (owner) {
             axios.put('/api/game/', { withCredentials: true })
-              .then(res => console.log(res))
-              .catch(err => console.log(err))
-            axios.post('/api/round/', { user: players }, { withCredentials: true })
               .then(res => {
-                console.log("id and owner yes match")
-                stopTimer();
-                history.push('/GamePlay')
+                axios.post('/api/round/', { user: players }, { withCredentials: true })
+                  .then(res => {
+                    console.log("id and owner yes match")
+                    stopTimer();
+                    history.push('/GamePlay')
+                  })
+                  .catch(err => stopTimer())
               })
-              .catch(err => console.log(err))
+              .catch(err => stopTimer())
           } else {
             stopTimer();
             history.push('/GamePlay')

@@ -29,6 +29,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [blackCard, setBlackCard] = useState([]);
   const [hand, setHand] = useState([]);
+  const [stopTime, setStopTime] = useState(false);
 
   useEffect(() => {
     axios.get('/api/user')
@@ -46,8 +47,8 @@ function App() {
 
   return (
     <Router>
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
-      <HeaderMobile loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
+      <Header setStopTime={setStopTime} loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
+      <HeaderMobile setStopTime={setStopTime} loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
       <div className="main-content">
         <Particles
           className="particles"
@@ -142,7 +143,7 @@ function App() {
                 maxRounds={maxRounds}
                 setMaxRounds={setMaxRounds}
                 setRounds={setRounds}
-
+                stopTime={stopTime}
               />
               : <LogSign setUserID={setUserID} setLoggedIn={setLoggedIn} setGameID={setGameID} />}
           </Route>
