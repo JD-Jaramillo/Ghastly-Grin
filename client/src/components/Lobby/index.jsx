@@ -6,15 +6,24 @@ import { useHistory } from "react-router";
 
 function Lobby(props) {
     const history = useHistory();
-    var [user, setUser] = useState();
+    // var [user, setUser] = useState();
     const [players, setPlayers] = useState([]);
-    const [game, setGame] = useState();
-    var [owner, setOwner] = useState();
+    // const [game, setGame] = useState();
+    // var [owner, setOwner] = useState();
     const [whiteCards, setWhiteCards] = useState([]);
-    const [rounds, setRounds] = useState();
+    // const [rounds, setRounds] = useState();
     // const [timer, setTimer] = useState();
     const timer = props.timer;
     const setTimer = props.setTimer;
+    const user = props.userID;
+    const game = props.gameID;
+    const owner = props.owner;
+    const setOwner = props.setOwner;
+    const setRounds = props.setRounds
+
+    // const setOwner = props.setOwner;
+    const maxRounds = props.maxRounds;
+    const setMaxRounds = props.setMaxRounds;
     // let ownerID;
     // let userID;
     const numRounds = useRef();
@@ -92,6 +101,7 @@ function Lobby(props) {
 
 
     useEffect(() => {
+        console.log("Lobby useEffect ran")
         function stopTimer() {
             clearInterval(timerInterval)
         }
@@ -99,26 +109,29 @@ function Lobby(props) {
         function checkPlayers() {
             axios.get('/api/player', { withCredentials: true })
                 .then(async res => {
-                    // console.log(res.data.data)
                     const playerData = res.data.data;
-                    await setGame(playerData[0].game_id)
-                    await setUser(res.data.session.user_id)
                     const arr = []
-
                     await playerData.forEach(element => {
-                        // console.log(element.username)
-                        // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         arr.push(element.username)
                     })
+                    // console.log(res.data.data)
+                    // await setGame(playerData[0].game_id)
+                    // await setUser(res.data.session.user_id)
+
+                        // console.log(element.username)
+                        // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                     // console.log(arr);
                     setPlayers(arr)
                 })
                 .catch(err => console.log(err));
             axios.get('/api/game', { withCredentials: true })
                 .then(async result => {
-                    setOwner(result.data.game_owner)
-                    setRounds(result.data.maxrounds)
-                    setTimer(result.data.timer)
+                    if (user === result.data.game_owner) {
+                        setOwner(true)
+                    }
+                    setRounds(result.data.round);
+                    setMaxRounds(result.data.maxrounds);
+                    setTimer(result.data.timer);
                     if (result.data.round > 0) {
                         stopTimer();
                         axios.put('/api/player/hand', { withCredentials: true })
@@ -140,18 +153,18 @@ function Lobby(props) {
         // }
 
         // getCards();
-    }, [history, setTimer])
+    }, [history, setTimer, setMaxRounds, setRounds, setOwner, user])
 
     return (
 
         <div className="lobby-page main-content">
             <div className="lobby-start">
                 <h4 className="lob-h">Lobby: {game}</h4>
-                {user === owner ?
+                {owner ?
                     <form>
                         <div className="form-group">
                             <label htmlFor="numRounds">Number of Rounds</label>
-                            <input ref={numRounds} type="number" className="form-control" id="numRounds" aria-describedby="numRounds" defaultValue={rounds} />
+                            <input ref={numRounds} type="number" className="form-control" id="numRounds" aria-describedby="numRounds" defaultValue={maxRounds} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="timerCount">Timer Per Round</label>
@@ -180,7 +193,7 @@ function Lobby(props) {
                         </div>
                     </form>
                     : null}
-                <button onClick={owner === user ? startGame : null} type="submit" className="btn startBtn">{owner === user ? 'Start Game' : 'Waiting'}</button>
+                <button onClick={owner ? startGame : null} type="submit" className="btn startBtn">{owner ? 'Start Game' : 'Waiting'}</button>
 
                 <h4 className="playersHeader">Players:</h4>
                 <ul className="players">
@@ -206,7 +219,7 @@ function Lobby(props) {
                 </div>
                 <div className="input-group">
                     <ul className="chat-cont">
-                        {user === owner ? whiteCards.map(whitecard => {
+                        {owner ? whiteCards.map(whitecard => {
                             return (<div className="addedCardsText" key={whitecard} onMouseOut={(e) => e.target.style.color = "white"} onMouseOver={(e) => { e.target.style.cursor = "pointer"; e.target.style.color = "#551A8B" }} onClick={(e) => removeCard(e)}>{whitecard}</div>)
                         }) : <div>Only the owner can view cards</div>}
                     </ul>

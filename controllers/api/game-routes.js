@@ -10,7 +10,7 @@ const Sequelize = require("sequelize");
 
 const router = require('express').Router();
 
-router.get("/", withAuth, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const gameData = await Game.findOne({
       where: { id: req.session.game_id }
@@ -104,13 +104,14 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-    const roundIncrement = Game.update(
+    const roundIncrement = await Game.update(
       { round: Sequelize.literal(`round + 1`) },
       {
         where: {
           game_owner: req.session.user_id
         }
       })
+      
     if (!roundIncrement) {
       res.status(404).json({ message: "No player found with this id!" });
       return;
@@ -157,7 +158,7 @@ router.put("/update", withAuth, async (req, res) => {
         }
       }
     )
-    const findDeck = await Deck.findOne({where: {game_id: req.session.game_id}});
+    const findDeck = await Deck.findOne({ where: { game_id: req.session.game_id } });
     const formatDeck = await JSON.parse(JSON.stringify(findDeck))
     if (!roundTimer) {
       res.status(404).json({ message: "No player found with this id!" });

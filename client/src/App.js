@@ -22,24 +22,50 @@ function App() {
   const [loggedIn, setLoggedIn] = useState();
   const [gameID, setGameID] = useState(false);
   const [timer, setTimer] = useState();
+  const [maxRounds, setMaxRounds] = useState();
+  const [rounds, setRounds] = useState();
+  const [userID, setUserID] = useState();
+  const [owner, setOwner] = useState(false);
+  const [players, setPlayers] = useState([]);
+  const [blackCard, setBlackCard] = useState([]);
+  const [hand, setHand] = useState([]);
+  // maxRounds = { maxRounds }
+  // setMaxRounds = { setMaxRounds }
+  // rounds = { rounds }
+  // setRounds = { setRounds }
+  // userID = { userID }
+  // setUserID = { setUserID }
+  // owner = { owner }
+  // setOwner = { setOwner }
+  // players = { players }
+  // setPlayers = { setPlayers }
+  // blackCard = { blackCard }
+  // setBlackCard = { setBlackCard }
+  // hand = { hand }
+  // setHand = { setHand }
+  // gameID = { gameID }
+  // setGameID = { setGameID }
+  //   = {}
 
   useEffect(() => {
     axios.get('/api/user')
       .then(res => {
         // console.log(res.data)
+        setUserID(res.data.user_id)
         setLoggedIn(res.data.loggedIn)
-        if(res.data.game_id !== null) {
+        if (res.data.game_id !== null) {
           setGameID(res.data.game_id)
         }
       })
+      .catch(err => console.log(err))
   }, [])
 
   // socket.emit("welcome", "connected");
 
   return (
     <Router>
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
-      <HeaderMobile loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID}/>
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
+      <HeaderMobile loggedIn={loggedIn} setLoggedIn={setLoggedIn} gameID={gameID} />
       <div className="main-content">
         <Particles
           className="particles"
@@ -104,22 +130,71 @@ function App() {
             <Homepage />
           </Route>
           <Route exact path="/LogSign">
-            <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>
+            <LogSign setUserID={setUserID} setLoggedIn={setLoggedIn} setGameID={setGameID} />
           </Route>
           <Route exact path="/CreateGame">
-            {loggedIn ? (<><CreateGame />
-            <JoinGame /></>) : <LogSign setLoggedIn={setLoggedIn}/>}
+            {loggedIn ? (<><CreateGame
+              setOwner={setOwner}
+              setGameID={setGameID}
+
+            />
+              <JoinGame
+                setGameID={setGameID}
+                setOwner={setOwner}
+
+              />
+            </>)
+              :
+              <LogSign setUserID={setUserID} setLoggedIn={setLoggedIn} />}
           </Route>
           <Route exact path="/Lobby">
-          {loggedIn ? 
-             <Lobby timer={timer} setTimer={setTimer}/> 
-           : <LogSign setLoggedIn={setLoggedIn} setGameID={setGameID}/>}
+            {loggedIn ?
+              <Lobby
+                timer={timer}
+                setTimer={setTimer}
+                owner={owner}
+                setOwner={setOwner}
+                userID={userID}
+                setGameID={setGameID}
+                gameID={gameID}
+                maxRounds={maxRounds}
+                setMaxRounds={setMaxRounds}
+                setRounds = { setRounds }
+
+              />
+              : <LogSign setUserID={setUserID} setLoggedIn={setLoggedIn} setGameID={setGameID} />}
           </Route>
           <Route exact path="/GamePlay">
-            {loggedIn ? <GamePlay timer={timer} setTimer={setTimer}/> : <Homepage />}
+            {loggedIn ?
+              <GamePlay
+                timer={timer}
+                setTimer={setTimer}
+                maxRounds={maxRounds}
+                rounds={rounds}
+                userID={userID}
+                owner={owner}
+                blackCard={blackCard}
+                setBlackCard={setBlackCard}
+                hand={hand}
+                setHand={setHand}
+                setPlayers = { setPlayers }
+                setRounds = { setRounds }
+
+              /> : <Homepage />}
           </Route>
           <Route exact path="/VoteCard">
-            <VoteCard timer={timer} setTimer={setTimer}/>
+            <VoteCard
+              timer={timer}
+              setTimer={setTimer}
+              blackCard={blackCard}
+              setBlackCard = { setBlackCard }
+              owner = { owner }
+              rounds = { rounds }
+              setRounds = { setRounds }
+              maxRounds = { maxRounds }
+              players = { players }
+
+            />
           </Route>
           <Route exact path="/EndGame">
             <EndGame />
