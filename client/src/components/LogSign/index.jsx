@@ -5,6 +5,7 @@ import "./style.css";
 import { useHistory } from "react-router-dom";
 
 function LogSign(props) {
+  const setUserID = props.setUserID
   const setLoggedIn = props.setLoggedIn
   const setGameID = props.setGameID
   const history = useHistory()
@@ -20,11 +21,12 @@ function LogSign(props) {
       await axios.post('/api/user/login', { email, password }, { withCredentials: true })
         .then(res => {
           console.log(res.data)
+          setUserID(res.data.user_id)
           setGameID(res.data.game_id)
           setLoggedIn(true);
           history.push('/')
           // document.location.replace('/')
-          console.log("testpass")
+          // console.log("testpass")
         })
         .catch(err => console.log(err))
 
@@ -44,10 +46,11 @@ function LogSign(props) {
     if (email && username && password) {
       await axios.post('/api/user', { email, username, password }, { withCredentials: true })
         .then(res => {
+          setUserID(res.data.user_id)
           setLoggedIn(true);
           history.push('/CreateGame');
           // document.location.replace('/')
-          console.log("testpass")
+          // console.log("testpass")
         })
         .catch(err => console.log(err))
     }

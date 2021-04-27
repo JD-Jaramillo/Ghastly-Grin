@@ -5,16 +5,19 @@ import Lobby from '../Lobby';
 import "./style.css";
 // import uuid from "react-uuid"
 
-function CreateGame() {
+function CreateGame(props) {
   const history = useHistory();
+  const setOwner = props.setOwner;
+  const setGameID = props.setGameID
   const newGame = async (event) => {
     event.preventDefault();
     axios.post('/api/game', { test: "test" }, { withCredentials: true })
       .then(res => {
+        setOwner(true);
+        setGameID(res.data.game_id)
         history.push("/Lobby")
       })
       .catch(err => console.log(err))
-
   }
 
   return (

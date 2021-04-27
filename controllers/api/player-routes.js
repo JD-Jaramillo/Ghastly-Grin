@@ -6,14 +6,12 @@ const Answers = require('../../models/answers')
 const router = require('express').Router();
 
 router.get("/", withAuth, async (req, res, next) => {
-  // console.log(req.session);
   try {
     const playerLobby = await Player.findAll({
       where: { game_id: req.session.game_id }
     })
     const lobby = await JSON.parse(JSON.stringify(playerLobby));
     res.send({ session: req.session, data: lobby })
-    // res.status(200).json(lobby)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -33,18 +31,6 @@ router.get("/cards", withAuth, async (req, res) => {
 
 router.post("/", withAuth, async (req, res) => {
   try {
-    // const findDeck = await Deck.findOne({
-    //   where: {game_id: req.session.game_id}
-    // })
-    // const formatDeck = await JSON.parse(JSON.stringify(findDeck))
-    // const hand = [];
-
-    // let arr = formatDeck.answers
-    // for (let i = 0; i < 7; i++) {
-    //   const rng = await Math.floor(Math.random() * arr.length)
-    //   await hand.push(arr[rng]);
-    //   await arr.splice(rng, 1)
-    // }
     const userData = await User.findOne({
       where: { id: req.session.user_id }
     })
@@ -59,20 +45,14 @@ router.post("/", withAuth, async (req, res) => {
       game_id: req.body.id,
       user_id: req.session.user_id
     });
-    // await Deck.update(
-    //   {answers: arr},
-    //   { where: {game_id: req.session.game_id}}
-    // )
     const playerFind = await Player.findOne({
       where: {
         user_id: req.session.user_id
       }
     });
     const playerFormat = await JSON.parse(JSON.stringify(playerFind))
-    // console.log(playerFormat);
     req.session.player_id = playerFormat.id;
     req.session.game_id = req.body.id;
-    // res.send(req.session)
     res.status(200).json(req.session)
   } catch (err) {
     res.status(500).json(err);
@@ -86,7 +66,6 @@ router.put("/card", withAuth, async (req, res) => {
     })
     const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
     const cards = formatPlayer.cards;
-    // console.log(cards);
     const pos = cards.indexOf(req.body.card);
     await cards.splice(pos, 1);
     const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });
@@ -114,10 +93,6 @@ router.put("/card", withAuth, async (req, res) => {
 
 router.put("/hand", withAuth, async (req, res) => {
   try {
-    // const findPlayer = await Player.findOne({
-    //   where: {user_id: req.session.user_id}
-    // })
-    // const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
     const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });
     const formatDeck = JSON.parse(JSON.stringify(deckFind))
     const hand = [];

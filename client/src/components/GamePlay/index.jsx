@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import BlackCard from "../BlackCard";
-// import WhiteCard from "../WhiteCard";
-// import questions from "../../utils/questions";
 import axios from "axios";
 import "./style.css";
 import ScoreBar from "../ScoreBar";
@@ -10,12 +8,15 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Timer from '../Timer';
 
 function GamePlay(props) {
-  const [whiteCard, setWhiteCard] = useState([]);
-  const [blackCard, setBlackCard] = useState();
-  const [user, setUser] = useState();
+  const whiteCard = props.hand;
+  const setWhiteCard = props.setHand;
+  const user = props.userID
+  const setPlayers = props.setPlayers
+  const blackCard = props.blackCard
+  const setBlackCard = props.setBlackCard
+  const setRounds = props.setRounds
   const [answered, setAnswered] = useState(false);
   const history = useHistory();
-  // const [clock, setClock] = useState();
   const clock = props.timer;
 
   const timer = useCallback((endTime) => {
@@ -35,10 +36,6 @@ function GamePlay(props) {
   }, [history]);
 
   const getGame = useCallback(() => {
-    // axios.get('/api/game', { withCredentials: true })
-    //   .then(res => {
-    //     const gameTimer = res.data.timer;
-    // setClock(gameTimer);
     axios.get('/api/round', { withCredentials: true })
       .then(newRes => {
         const startTime = newRes.data.data.createdAt;
@@ -46,13 +43,13 @@ function GamePlay(props) {
         endTime.setSeconds(endTime.getSeconds() + clock);
         timer(endTime);
         setBlackCard(newRes.data.data.prompt)
+        setPlayers(newRes.data.data.users)
       })
       .catch(err => console.log(err))
-    // })
-  }, [timer, clock])
+  }, [timer, clock, setBlackCard, setPlayers])
+
   const submitCard = (e) => {
     e.target.style = "display: none"
-    console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
         setAnswered(true);
@@ -70,13 +67,12 @@ function GamePlay(props) {
       axios.get('/api/player/cards', { withCredentials: true })
         .then(res => {
           setWhiteCard(res.data.cards)
-          setUser(res.data.user_id)
-          console.log(res.data.user_id)
         })
         .catch(err => console.log(err))
+        setRounds(prevRounds => prevRounds + 1)
     }
     runThrough = "done";
-  }, [getGame])
+  }, [getGame, setWhiteCard, setRounds])
 
   const matches = useMediaQuery('(min-width:1220px)');
 

@@ -5,20 +5,15 @@ const Questions = require('../../models/questions');
 const CahQ = require('../../models/cahQ');
 const CahA = require('../../models/cahA');
 const Sequelize = require("sequelize");
-
-
-
 const router = require('express').Router();
 
-router.get("/", withAuth, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const gameData = await Game.findOne({
       where: { id: req.session.game_id }
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
-    // console.log(formatData);
     res.status(200).json(formatData)
-    // res.send(req.session)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -43,27 +38,7 @@ router.post("/", async (req, res) => {
       answers: Answers,
       game_id: gameFormat.id
     });
-    // const deckFind = await Deck.findOne({
-    //   where: {
-    //     game_id: gameFormat.id
-    //   }
-    // });
-    // const deckFormat = await JSON.parse(JSON.stringify(deckFind))
-    // const hand = [];
-    // let arr = deckFormat.answers
-    // for (let i = 0; i < 7; i++) {
-    //   const whiteCards = Math.floor(Math.random() * arr.length)
-    //   await hand.push(arr[whiteCards]);
-    //   await arr.splice(whiteCards, 1)
-    // }
-    // await Deck.update(
-    //   { answers: arr },
-    //   {
-    //     where: {
-    //       game_id: gameFormat.id
-    //     }
-    //   }
-    // );
+
     const userData = await User.findOne({
       where: { id: req.session.user_id }
     })
@@ -83,34 +58,26 @@ router.post("/", async (req, res) => {
         user_id: req.session.user_id
       }
     })
-    const playerFormat = JSON.parse(JSON.stringify(playerFind))
-    // req.session.save(() => {
+    const playerFormat = await JSON.parse(JSON.stringify(playerFind))
     req.session.game_id = gameFormat.id;
     req.session.player_id = playerFormat.id;
-    // console.log(playerInit)
-    // console.log(gameFormat)
-    // console.log(playerFormat)
-    // res.json(req.session)
     res.status(200).json(req.session)
-    // })
-
-    //Probably wont work, maybe make an array?
 
   } catch (err) {
-    // console.log(err);
     res.status(400).json(err);
   }
 })
 
 router.put("/", async (req, res) => {
   try {
-    const roundIncrement = Game.update(
+    const roundIncrement = await Game.update(
       { round: Sequelize.literal(`round + 1`) },
       {
         where: {
           game_owner: req.session.user_id
         }
       })
+
     if (!roundIncrement) {
       res.status(404).json({ message: "No player found with this id!" });
       return;
@@ -123,7 +90,6 @@ router.put("/", async (req, res) => {
 
 router.put("/update", withAuth, async (req, res) => {
   try {
-    // console.log(req.body)
     const roundTimer = await Game.update(
       {
         maxrounds: req.body.rounds,
@@ -157,7 +123,7 @@ router.put("/update", withAuth, async (req, res) => {
         }
       }
     )
-    const findDeck = await Deck.findOne({where: {game_id: req.session.game_id}});
+    const findDeck = await Deck.findOne({ where: { game_id: req.session.game_id } });
     const formatDeck = await JSON.parse(JSON.stringify(findDeck))
     if (!roundTimer) {
       res.status(404).json({ message: "No player found with this id!" });
