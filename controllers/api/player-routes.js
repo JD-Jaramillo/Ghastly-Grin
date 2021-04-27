@@ -6,7 +6,7 @@ const Answers = require('../../models/answers')
 const router = require('express').Router();
 
 router.get("/", withAuth, async (req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
   try {
     const playerLobby = await Player.findAll({
       where: { game_id: req.session.game_id }
@@ -69,7 +69,7 @@ router.post("/", withAuth, async (req, res) => {
       }
     });
     const playerFormat = await JSON.parse(JSON.stringify(playerFind))
-    console.log(playerFormat);
+    // console.log(playerFormat);
     req.session.player_id = playerFormat.id;
     req.session.game_id = req.body.id;
     // res.send(req.session)
@@ -86,7 +86,7 @@ router.put("/card", withAuth, async (req, res) => {
     })
     const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
     const cards = formatPlayer.cards;
-    console.log(cards);
+    // console.log(cards);
     const pos = cards.indexOf(req.body.card);
     await cards.splice(pos, 1);
     const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 
-function Lobby() {
+function Lobby(props) {
     const history = useHistory();
     var [user, setUser] = useState();
     const [players, setPlayers] = useState([]);
@@ -12,7 +12,9 @@ function Lobby() {
     var [owner, setOwner] = useState();
     const [whiteCards, setWhiteCards] = useState([]);
     const [rounds, setRounds] = useState();
-    const [timer, setTimer] = useState();
+    // const [timer, setTimer] = useState();
+    const timer = props.timer;
+    const setTimer = props.setTimer;
     // let ownerID;
     // let userID;
     const numRounds = useRef();
@@ -52,7 +54,8 @@ function Lobby() {
         e.preventDefault();
         await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
             .then(res => {
-                setWhiteCards(res.data.answers)
+                console.log(res.data.answers);
+                // setWhiteCards(res.data.answers)
             })
             .catch(err => console.log(err))
     }
@@ -62,7 +65,7 @@ function Lobby() {
         await axios.put('/api/deck/del', { card: e.target.innerHTML }, { withCredentials: true })
             .then(res => {
                 console.log("set new whitecards")
-                setWhiteCards(res.data)
+                // setWhiteCards(res.data)
             })
             .catch(err => console.log(err))
     }
@@ -103,11 +106,11 @@ function Lobby() {
                     const arr = []
 
                     await playerData.forEach(element => {
-                        console.log(element.username)
+                        // console.log(element.username)
                         // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
                         arr.push(element.username)
                     })
-                    console.log(arr);
+                    // console.log(arr);
                     setPlayers(arr)
                 })
                 .catch(err => console.log(err));
@@ -125,18 +128,19 @@ function Lobby() {
                     }
                 })
                 .catch(err => console.log(err));
-        }
-        const getCards = async () => {
-            await axios.get('/api/deck', { withCredentials: true })
+            axios.get('/api/deck', { withCredentials: true })
                 .then(res => {
-                    console.log("getWhite")
+                    // console.log("getWhite")
                     setWhiteCards(res.data.answers)
                 })
                 .catch(err => console.log(err));
+                // if (window.location.href !==)
         }
+        // const getCards = async () => {
+        // }
 
-        getCards();
-    }, [history])
+        // getCards();
+    }, [history, setTimer])
 
     return (
 
@@ -180,24 +184,25 @@ function Lobby() {
 
                 <h4 className="playersHeader">Players:</h4>
                 <ul className="players">
-                    <li>{players.map(player => {
+                    {players.map(player => {
                         return (<li key={player}>{player}</li>)
                     })}
-                    </li>
+
 
                 </ul>
             </div>
             <div className="chat">
                 <h4 className="chat-h">Answer Cards</h4>
                 <div className="input-btn d-flex align-items-center justify-content-center">
-                    <label for="add-card"></label>
+                    <label htmlFor="add-card">Make a Card</label>
                     <input className="create-input"
-                        placeholder="card name here"
+                        style={{ zIndex: "1" }}
+                        placeholder="card text here"
                         id="add-card"
                         ref={newCard}
                         type="text"
                         aria-describedby="addCard" />
-                    <button id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
+                    <button style={{ zIndex: "1" }} id="create-cards" onClick={addCard} type="button" className="btn startBtn">Create Answer Card</button>
                 </div>
                 <div className="input-group">
                     <ul className="chat-cont">

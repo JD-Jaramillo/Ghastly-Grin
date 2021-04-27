@@ -58,7 +58,7 @@ router.post("/", withAuth, async (req, res) => {
 
 // Must send Answer: 
 router.put("/", withAuth, async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   try {
     const findRound = await Round.findOne({
       where: {

@@ -16,7 +16,7 @@ router.get("/", withAuth, async (req, res, next) => {
       where: { id: req.session.game_id }
     })
     const formatData = await JSON.parse(JSON.stringify(gameData))
-    console.log(formatData);
+    // console.log(formatData);
     res.status(200).json(formatData)
     // res.send(req.session)
   } catch (err) {
@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
     const userData = await User.findOne({
       where: { id: req.session.user_id }
     })
-    const formatUser = JSON.parse(JSON.stringify(userData))
+    const formatUser = await JSON.parse(JSON.stringify(userData))
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
@@ -97,8 +97,8 @@ router.post("/", async (req, res) => {
     //Probably wont work, maybe make an array?
 
   } catch (err) {
-    console.log(err);
-    // res.status(400).json(err);
+    // console.log(err);
+    res.status(400).json(err);
   }
 })
 
@@ -123,7 +123,7 @@ router.put("/", async (req, res) => {
 
 router.put("/update", withAuth, async (req, res) => {
   try {
-    console.log(req.body)
+    // console.log(req.body)
     const roundTimer = await Game.update(
       {
         maxrounds: req.body.rounds,
