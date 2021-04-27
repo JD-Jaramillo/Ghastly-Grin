@@ -1,5 +1,5 @@
 # Ghastly-Grin
-A MERN stack application that lets the user create a user or login and then select a card from a stack of cards called in from the Cards Against Humanity API. 
+A SERN stack application that lets the user create a user or login and then select a card from a stack of cards called in from Cards Against Humanity. 
 
 ## Table of Contents
 
@@ -7,7 +7,6 @@ A MERN stack application that lets the user create a user or login and then sele
 * [Express](#Express)
 * [React](#React)
 * [Node](#Node)
-* [Sockets](#Sockets)
 * [Installation](#Installation)
 * [Contributors](#Contributors)
 
@@ -23,19 +22,16 @@ Link to deployed application: [Deployed site]()
 ## React
 React is used as the front-end framework to route and render the pages accordingly. 
 
-![image of home page](/public/images/.png)
+![image of home page](/assets/homeGG.jpg)
 
 ## Node
 Node.js was used as the back end language. 
-
-## Sockets
-We used Sockets.io to create a direct connection between the Front-end and the Back-end, this allows the application to continually communicate with the server.  
 
 ## Installation
 
 There is no need to install anything, to use the app simply follow the link below. 
 
-See deployed site here: [Deployed Site]()
+See deployed site here: [Deployed Site](https://ghastlygrin.herokuapp.com/)
 
 To view our code see our GitHub below. 
 
