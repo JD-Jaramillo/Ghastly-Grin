@@ -42,7 +42,7 @@ function Nav(props) {
         :
         <li className="nav-item">
           <Link to="/LogSign">
-            <div className="nav-link">Log In</div>
+            <div className="nav-link">Login / Signup</div>
           </Link>
         </li>
       }

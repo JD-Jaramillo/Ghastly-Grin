@@ -94,7 +94,7 @@ function GamePlay(props) {
                 }
                   onClick={answered ? null : submitCard}
                   className="card-element"
-                  key={card}
+                  key={index}
                   data-ans={card}>
                   <div data-ans={card} className="white-card-body">
                     <h5 data-ans={card} onClick={(event) => event.stopPropagation()} className="card-title">{card}</h5>
