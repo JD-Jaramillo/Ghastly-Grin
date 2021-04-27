@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import io from "socket.io-client"
 import Footer from './components/Footer';
 import LogSign from "../src/components/LogSign";
 import CreateGame from "../src/components/CreateGame";
@@ -16,6 +15,7 @@ import axios from 'axios';
 import HeaderMobile from "./components/HeaderMobile";
 import EndGame from "./components/EndGame";
 import Particles from "react-particles-js";
+// import io from "socket.io-client"
 // const socket = io.connect("127.0.0.1:3001/");
 
 function App() {
@@ -29,28 +29,10 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [blackCard, setBlackCard] = useState([]);
   const [hand, setHand] = useState([]);
-  // maxRounds = { maxRounds }
-  // setMaxRounds = { setMaxRounds }
-  // rounds = { rounds }
-  // setRounds = { setRounds }
-  // userID = { userID }
-  // setUserID = { setUserID }
-  // owner = { owner }
-  // setOwner = { setOwner }
-  // players = { players }
-  // setPlayers = { setPlayers }
-  // blackCard = { blackCard }
-  // setBlackCard = { setBlackCard }
-  // hand = { hand }
-  // setHand = { setHand }
-  // gameID = { gameID }
-  // setGameID = { setGameID }
-  //   = {}
 
   useEffect(() => {
     axios.get('/api/user')
       .then(res => {
-        // console.log(res.data)
         setUserID(res.data.user_id)
         setLoggedIn(res.data.loggedIn)
         if (res.data.game_id !== null) {
@@ -159,7 +141,7 @@ function App() {
                 gameID={gameID}
                 maxRounds={maxRounds}
                 setMaxRounds={setMaxRounds}
-                setRounds = { setRounds }
+                setRounds={setRounds}
 
               />
               : <LogSign setUserID={setUserID} setLoggedIn={setLoggedIn} setGameID={setGameID} />}
@@ -177,8 +159,8 @@ function App() {
                 setBlackCard={setBlackCard}
                 hand={hand}
                 setHand={setHand}
-                setPlayers = { setPlayers }
-                setRounds = { setRounds }
+                setPlayers={setPlayers}
+                setRounds={setRounds}
 
               /> : <Homepage />}
           </Route>
@@ -187,12 +169,12 @@ function App() {
               timer={timer}
               setTimer={setTimer}
               blackCard={blackCard}
-              setBlackCard = { setBlackCard }
-              owner = { owner }
-              rounds = { rounds }
-              setRounds = { setRounds }
-              maxRounds = { maxRounds }
-              players = { players }
+              setBlackCard={setBlackCard}
+              owner={owner}
+              rounds={rounds}
+              setRounds={setRounds}
+              maxRounds={maxRounds}
+              players={players}
 
             />
           </Route>

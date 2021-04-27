@@ -50,7 +50,6 @@ function GamePlay(props) {
 
   const submitCard = (e) => {
     e.target.style = "display: none"
-    // console.log(e.target.dataset.ans)
     axios.put('/api/round', { user: user, answer: e.target.dataset.ans }, { withCredentials: true })
       .then(res => {
         setAnswered(true);
@@ -64,7 +63,6 @@ function GamePlay(props) {
   useEffect(() => {
     let runThrough;
     if (runThrough !== "done") {
-      // console.log("GamePlay useEffect Ran");
       getGame();
       axios.get('/api/player/cards', { withCredentials: true })
         .then(res => {

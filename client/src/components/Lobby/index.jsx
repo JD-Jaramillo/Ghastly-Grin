@@ -3,16 +3,10 @@ import "./style.css";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-
 function Lobby(props) {
     const history = useHistory();
-    // var [user, setUser] = useState();
     const [players, setPlayers] = useState([]);
-    // const [game, setGame] = useState();
-    // var [owner, setOwner] = useState();
     const [whiteCards, setWhiteCards] = useState([]);
-    // const [rounds, setRounds] = useState();
-    // const [timer, setTimer] = useState();
     const timer = props.timer;
     const setTimer = props.setTimer;
     const user = props.userID;
@@ -20,51 +14,19 @@ function Lobby(props) {
     const owner = props.owner;
     const setOwner = props.setOwner;
     const setRounds = props.setRounds
-
-    // const setOwner = props.setOwner;
     const maxRounds = props.maxRounds;
     const setMaxRounds = props.setMaxRounds;
-    // let ownerID;
-    // let userID;
     const numRounds = useRef();
     const timerCount = useRef();
     const cohortPack = useRef();
     const cahPack = useRef();
     const newCard = useRef()
 
-    // const getPlayers = useCallback( async () => {
-    //     function stopTimer() {
-    //         clearInterval(timerInterval)
-    //     }
-    //     const timerInterval = setInterval(checkPlayers, 1000);
-    //     async function checkPlayers() {
-    //         // await axios.get('/api/game', { withCredentials: true })
-    //         //     .then(res => {
-
-    //         //     })
-    //         //     .catch(err => console.log(err));
-    //         // await axios.get('/api/player', { withCredentials: true })
-    //         //     .then(async res => {
-    //         //         const playerData = res.data.data;
-    //         //         console.log(playerData.length, players.length)
-    //         //         if (playerData.length > players.length) {
-    //         //             for (let element of playerData) {
-    //         //                 const { data } = await axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-    //         //                 if (players.includes(data.username)) {
-    //         //                     await setPlayers(players => [...players, data.username])
-    //         //                 }
-    //         //             }
-    //         //         }
-    //         //     })
-    //         //     .catch(err => console.log(err))
-    //     }
-    // }, [])
     const updateGame = async (e) => {
         e.preventDefault();
         await axios.put('/api/game/update', { rounds: numRounds.current.value, timer: timerCount.current.value, cp: cohortPack.current.checked, cah: cahPack.current.checked }, { withCredentials: true })
             .then(res => {
                 console.log(res.data.answers);
-                // setWhiteCards(res.data.answers)
             })
             .catch(err => console.log(err))
     }
@@ -74,7 +36,6 @@ function Lobby(props) {
         await axios.put('/api/deck/del', { card: e.target.innerHTML }, { withCredentials: true })
             .then(res => {
                 console.log("set new whitecards")
-                // setWhiteCards(res.data)
             })
             .catch(err => console.log(err))
     }
@@ -93,8 +54,7 @@ function Lobby(props) {
             .catch(err => console.log(err))
         await axios.post('/api/round', { users: players }, { withCredentials: true })
             .then(res => {
-                console.log(res)
-                // history.push('/GamePlay')
+                console.log()
             })
             .catch(err => console.log("round: " + err))
     }
@@ -114,13 +74,6 @@ function Lobby(props) {
                     await playerData.forEach(element => {
                         arr.push(element.username)
                     })
-                    // console.log(res.data.data)
-                    // await setGame(playerData[0].game_id)
-                    // await setUser(res.data.session.user_id)
-
-                        // console.log(element.username)
-                        // const { data } = axios.get(`/api/user/${element.user_id}`, { withCredentials: true });
-                    // console.log(arr);
                     setPlayers(arr)
                 })
                 .catch(err => console.log(err));
@@ -143,16 +96,10 @@ function Lobby(props) {
                 .catch(err => console.log(err));
             axios.get('/api/deck', { withCredentials: true })
                 .then(res => {
-                    // console.log("getWhite")
                     setWhiteCards(res.data.answers)
                 })
                 .catch(err => console.log(err));
-                // if (window.location.href !==)
         }
-        // const getCards = async () => {
-        // }
-
-        // getCards();
     }, [history, setTimer, setMaxRounds, setRounds, setOwner, user])
 
     return (
