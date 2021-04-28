@@ -22,7 +22,7 @@ function Header(props) {
               <span><div className="nav-links">Lobby</div></span>
             </Link >
             <Link to="/">
-              <span><div className="nav-links">Exit Game</div></span>
+              <div className="nav-links">Exit Game</div>
             </Link >
           </>
           : null
