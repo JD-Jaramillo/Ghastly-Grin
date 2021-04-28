@@ -60,32 +60,38 @@ router.post("/", withAuth, async (req, res) => {
 })
 
 router.put("/card", withAuth, async (req, res) => {
+  console.log(req.session);
   try {
     const findPlayer = await Player.findOne({
       where: { user_id: req.session.user_id }
-    })
-    const formatPlayer = JSON.parse(JSON.stringify(findPlayer));
+    });
+    const formatPlayer = await JSON.parse(JSON.stringify(findPlayer));
+    const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });
+    const formatDeck = await JSON.parse(JSON.stringify(deckFind));
     const cards = formatPlayer.cards;
     const pos = cards.indexOf(req.body.card);
-    await cards.splice(pos, 1);
-    const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });
-    const formatDeck = JSON.parse(JSON.stringify(deckFind))
     let arr = formatDeck.answers
-    const whiteCards = await Math.floor(Math.random() * arr.length)
-    await cards.push(arr[whiteCards])
-    const updatePlayer = await Player.update(
+    const whiteCards = await Math.floor(Math.random() * arr.length);
+    await cards.splice(pos, 1);
+    await cards.push(arr[whiteCards]);
+    await arr.splice(whiteCards, 1);
+    await Player.update(
       { cards: cards },
       {
         where: {
           user_id: req.session.user_id
         }
       }
-    )
-    if (!updatePlayer) {
+    );
+    await Deck.update(
+      {answers: arr},
+      {where: {game_id: req.session.game_id}}
+    );
+    if (!findPlayer) {
       res.status(404).json({ message: "No player found with this id!" });
       return;
     }
-    res.status(200).json(updatePlayer);
+    res.status(200).json(cards);
   } catch (err) {
     res.status(500).json(err);
   }
