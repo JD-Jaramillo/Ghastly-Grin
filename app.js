@@ -42,9 +42,10 @@ app.use(cookieParser('secret'));
 // app.use(express.static(path.join(__dirname, '/client')));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get('*', (req, res) => {
-    res.sendFile('index.html');
+  app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
   });
 }
 
