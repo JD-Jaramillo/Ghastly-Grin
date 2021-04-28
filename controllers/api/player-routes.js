@@ -22,7 +22,7 @@ router.get("/cards", withAuth, async (req, res) => {
     const playerData = await Player.findOne({
       where: { user_id: req.session.user_id }
     })
-    const formatPlayer = JSON.parse(JSON.stringify(playerData));
+    const formatPlayer = await JSON.parse(JSON.stringify(playerData));
     res.status(200).json({ cards: formatPlayer.cards, user_id: req.session.user_id })
   } catch (err) {
     res.status(500).json(err);
@@ -34,7 +34,7 @@ router.post("/", withAuth, async (req, res) => {
     const userData = await User.findOne({
       where: { id: req.session.user_id }
     })
-    const formatUser = JSON.parse(JSON.stringify(userData))
+    const formatUser = await JSON.parse(JSON.stringify(userData))
     await Player.destroy({
       where: { user_id: req.session.user_id }
     })
@@ -84,8 +84,8 @@ router.put("/card", withAuth, async (req, res) => {
       }
     );
     await Deck.update(
-      {answers: arr},
-      {where: {game_id: req.session.game_id}}
+      { answers: arr },
+      { where: { game_id: req.session.game_id } }
     );
     if (!findPlayer) {
       res.status(404).json({ message: "No player found with this id!" });
@@ -100,13 +100,13 @@ router.put("/card", withAuth, async (req, res) => {
 router.put("/hand", withAuth, async (req, res) => {
   try {
     const deckFind = await Deck.findOne({ where: { game_id: req.session.game_id } });
-    const formatDeck = JSON.parse(JSON.stringify(deckFind))
+    const formatDeck = await JSON.parse(JSON.stringify(deckFind));
     const hand = [];
-    let arr = formatDeck.answers
+    let arr = formatDeck.answers;
     for (let i = 0; i < 7; i++) {
-      const rng = await Math.floor(Math.random() * arr.length)
+      const rng = await Math.floor(Math.random() * arr.length);
       await hand.push(arr[rng]);
-      await arr.splice(rng, 1)
+      await arr.splice(rng, 1);
     }
     const updatePlayer = await Player.update(
       { cards: hand },
@@ -115,6 +115,10 @@ router.put("/hand", withAuth, async (req, res) => {
           user_id: req.session.user_id
         }
       }
+    );
+    await Deck.update(
+      { answers: arr },
+      { where: { game_id: req.session.game_id } }
     )
     if (!updatePlayer) {
       res.status(404).json({ message: "No player found with this id!" });
